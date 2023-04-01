@@ -25,19 +25,25 @@ public class LightThrowingSkill : BasePlayerSkill
             cooldownLeft -= Time.deltaTime;
         }
     }
-
-    protected override void OnSkillUsed(Vector2 aimDir)
+    protected override void OnSkillUsed()
     {
-        if (cooldownLeft > 0)
-        {
-            return;
-        }
-        cooldownLeft = cooldown;
-        var velocity = aimDir.normalized * throwSpeed;
-        velocity += rb.velocity * playerVelocityMultiplier;
-
-        var lightInstance = Instantiate(lightPrefab, transform.position, Quaternion.identity);
-
-        lightInstance.GetComponent<Rigidbody2D>().AddForce(velocity);
+        Debug.LogError("Comenté el LightThrowingSkill para overridear OnSkillUsed en DogBark sin que tenga de parametro un Vector2, pero sin borrar este script por si lo tenemos que usar despues. -Atte Pierma");
     }
+
+
+
+    //protected override void OnSkillUsed(Vector2 aimDir)
+    //{
+    //    if (cooldownLeft > 0)
+    //    {
+    //        return;
+    //    }
+    //    cooldownLeft = cooldown;
+    //    var velocity = aimDir.normalized * throwSpeed;
+    //    velocity += rb.velocity * playerVelocityMultiplier;
+
+    //    var lightInstance = Instantiate(lightPrefab, transform.position, Quaternion.identity);
+
+    //    lightInstance.GetComponent<Rigidbody2D>().AddForce(velocity);
+    //}
 }
