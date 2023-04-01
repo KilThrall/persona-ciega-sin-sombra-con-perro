@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(IInput))]
 public class ClimbPlayerMovement : MonoBehaviour
 {
     private PlayerInput input;
@@ -12,6 +13,8 @@ public class ClimbPlayerMovement : MonoBehaviour
     private Transform wallCheck;
     [SerializeField]
     private Transform ledgeCheck;
+    [SerializeField]
+    private Transform rayCastParent;
     [SerializeField]
     LayerMask whatIsFloor = 0;
     [SerializeField]
@@ -37,7 +40,6 @@ public class ClimbPlayerMovement : MonoBehaviour
     private bool ledgeDetected=false;
     private bool facingRight;
 
-
     
 
     #region MonoBehaviour callbacks
@@ -45,32 +47,19 @@ public class ClimbPlayerMovement : MonoBehaviour
     {
         input = GetComponent<PlayerInput>();
         anim = GetComponent<Animator>();
-        input.OnMovementInput += OnMovementInput;
         input.OnJump += OnClimb;
     }
     private void OnDestroy()
     {
-        input.OnMovementInput -= OnMovementInput;
         input.OnJump -= OnClimb;
     }
     #endregion
     private void FixedUpdate()
     {
-     
         CheckSorroundings();  
     }
 
-    private void OnMovementInput(float dir)
-    {
-        if (dir > 0)
-        {
-            facingRight = true;
-        }
-        if(dir<0)
-        {
-            facingRight = false;
-        }
-    }
+  
     private void CheckSorroundings()
     {
        isTouchingWall = Physics2D.Raycast(wallCheck.position , transform.right, wallCheckDistance, whatIsFloor);
@@ -85,18 +74,6 @@ public class ClimbPlayerMovement : MonoBehaviour
         }
     }
 
-
-    private void OnDrawGizmos()
-    {
-
-        Gizmos.color = Color.red;
-
-
-        Gizmos.DrawLine(wallCheck.position, transform.right);
-        Gizmos.DrawLine(ledgeCheck.position, transform.right);
-
-    }
-
     private void OnClimb(bool pressed)
     {
         if (pressed)
@@ -106,7 +83,7 @@ public class ClimbPlayerMovement : MonoBehaviour
             {
                 canClimbLedge = true;
 
-                if (facingRight)
+                if (transform.localScale.x>0)
                 {
                     ledgePos1 = new Vector2(Mathf.Floor(ledgePosBot.x + wallCheckDistance) - ledgeClimbXOffset1, Mathf.Floor(ledgePosBot.y) + ledgeClimbYOffset1);
                     ledgePos2 = new Vector2(Mathf.Floor(ledgePosBot.x + wallCheckDistance) + ledgeClimbXOffset2, Mathf.Floor(ledgePosBot.y) + ledgeClimbYOffset2);
@@ -132,6 +109,10 @@ public class ClimbPlayerMovement : MonoBehaviour
         
 
     }
+
+    /// <summary>
+    /// Called once the climbing animation is finished
+    /// </summary>
     public void FinishLedgeClimb()
     {
         canClimbLedge = false;
@@ -143,8 +124,10 @@ public class ClimbPlayerMovement : MonoBehaviour
 
     IEnumerator WaitingForClimb()
     {
+        input.enabled = false;
         yield return new WaitForSeconds(1);
         FinishLedgeClimb();
+        input.enabled = true;
     }
 
 }

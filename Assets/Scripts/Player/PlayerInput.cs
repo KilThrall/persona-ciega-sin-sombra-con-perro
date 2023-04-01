@@ -29,6 +29,8 @@ public class PlayerInput : MonoBehaviour, IInput
 
         input.Player.Skill.performed += ctx => OnSkill();
 
+        input.Player.Interact.performed += ctx => OnInteraction();
+
         /*  input.Player.ItemGrab.performed += ctx => OnItemGrabbed();
 
           input.Player.Skill1.started += ctx => OnSkillUsed(0, true);*/
@@ -64,5 +66,10 @@ public class PlayerInput : MonoBehaviour, IInput
     private void OnSkill()
     {
         OnSkillUsed?.Invoke();
+    }
+
+    private void OnInteraction()
+    {
+        OnInteract?.Invoke();
     }
 }

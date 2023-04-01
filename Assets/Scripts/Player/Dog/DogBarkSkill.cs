@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class DogBarkSkill : BasePlayerSkill
 {
-
+    #region Serialized Variables
     [SerializeField]
     private GameObject lightPrefab;
 
+    [SerializeField]
+    private Transform mouthParent;
+ 
     [SerializeField][Tooltip("Position where the bark sound is emitted")]
     private Transform mouth;
 
@@ -15,8 +18,7 @@ public class DogBarkSkill : BasePlayerSkill
     private float cooldown = 0.5f;
 
     private float cooldownLeft = 0;
-
-
+    #endregion
 
     private void FixedUpdate()
     {
@@ -34,7 +36,7 @@ public class DogBarkSkill : BasePlayerSkill
         }
         cooldownLeft = cooldown;
 
-        var lightInstance = Instantiate(lightPrefab, mouth.position, Quaternion.identity,mouth);
+        var lightInstance = Instantiate(lightPrefab, mouth.position, Quaternion.identity, mouth);
     }
 }
 

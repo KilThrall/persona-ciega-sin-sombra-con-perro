@@ -84,6 +84,17 @@ public class BasePlayerMovement : MonoBehaviour
             facingDir = dir;
             anim.SetTrigger("Rotate");
         }
+
+        if (dir!=0)
+        {
+            if (transform.localScale.x != dir)
+            {
+                Vector2 scale = transform.localScale;
+                scale.x = dir;
+                transform.localScale = scale;
+            }
+        }
+
     }
 
     public float GetDesiredDir()

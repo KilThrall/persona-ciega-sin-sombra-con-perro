@@ -31,7 +31,7 @@ public abstract class BasePlayerSkill : MonoBehaviour
     {
         input.OnVerticalAimInput -= OnVerticalAim;
         input.OnMovementInput -= OnHorizontalAim;
-        input.OnSkillUsed += OnSkillUsed;
+        input.OnSkillUsed -= OnSkillUsed;
     }
     #endregion
 
@@ -74,7 +74,4 @@ public abstract class BasePlayerSkill : MonoBehaviour
     #endregion
 
     protected abstract void OnSkillUsed();
-
-
- 
 }
