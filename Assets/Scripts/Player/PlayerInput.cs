@@ -11,6 +11,7 @@ public class PlayerInput : MonoBehaviour, IInput
     public event Action OnInteract;
     public event Action<bool> OnJump;
     public event Action OnSkillUsed;
+    public event Action OnDisabled;
 
     private InputMaster input;
 
@@ -44,6 +45,7 @@ public class PlayerInput : MonoBehaviour, IInput
     private void OnDisable()
     {
         input.Disable();
+        OnDisabled?.Invoke();
     }
 
     #endregion
