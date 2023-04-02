@@ -76,15 +76,22 @@ public class ClimbPlayerMovement : MonoBehaviour
 
     private void CheckSurroundings()
     {
-       isTouchingWall = Physics2D.Raycast(wallCheck.position , transform.right, wallCheckDistance, whatIsFloor);
-       isTouchingLedge= Physics2D.Raycast(ledgeCheck.position, transform.right, wallCheckDistance, whatIsFloor);
+       isTouchingWall = Physics2D.Raycast(wallCheck.position , new Vector2(transform.localScale.x,0), wallCheckDistance, whatIsFloor);
+       isTouchingLedge= Physics2D.Raycast(ledgeCheck.position, new Vector2(transform.localScale.x, 0), wallCheckDistance, whatIsFloor);
 
         print(transform.right);
 
-        if (isTouchingWall && !isTouchingLedge && !ledgeDetected)
+        if (isTouchingWall)
         {
-            ledgeDetected = true;
-            ledgePosBot = wallCheck.position;
+            if (!isTouchingLedge && !ledgeDetected)
+            {
+                ledgeDetected = true;
+                ledgePosBot = wallCheck.position;
+            }
+            else
+            {
+                ledgeDetected = false;
+            }
         }
     }
 

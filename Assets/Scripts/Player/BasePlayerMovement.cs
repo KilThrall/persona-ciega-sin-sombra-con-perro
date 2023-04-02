@@ -15,11 +15,9 @@ public class BasePlayerMovement : MonoBehaviour
     private ContactBasedLight[] footstepLights;
 
     #endregion
-
     private IInput input;
     private Rigidbody2D rb;
     private Animator anim;
-
     private float desiredDir;
     private float facingDir = 1;
 
@@ -59,6 +57,8 @@ public class BasePlayerMovement : MonoBehaviour
 
     private void OnInputDisabled()
     {
+        print("disabled");
+        OnMovementInput(0);
         rb.velocity = Vector2.up * rb.velocity.y;
     }
 
