@@ -9,7 +9,7 @@ public class GenericInteractionTrigger : BaseInteractableObject
     [SerializeField]
     private UnityEvent triggerEvent;
     #endregion
-    protected override void OnPlayerInteraction()
+    protected override void OnPlayerInteraction(GameObject go)
     {
         triggerEvent.Invoke();
     }

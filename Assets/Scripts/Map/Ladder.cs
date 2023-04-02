@@ -2,25 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ladder : MonoBehaviour
+public class Ladder : BaseInteractableObject
 {
-    LadderClimbingPlayerMovement ladderPlayer;
+    private LadderClimbingPlayerMovement ladderPlayer;
     private void Awake()
     {
-        ladderPlayer = FindObjectOfType<LadderClimbingPlayerMovement>();
+    
     }
+
 
     public void OnInteraction()
     {
-        ladderPlayer.BeginLadderClimbing();
+        ladderPlayer.InteractWithLadder();
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (ladderPlayer == null)
+            return;
         if (collision.CompareTag("Blind"))
         {
             ladderPlayer.FinishLadderClimbing();
         }
+    }
+
+    protected override void OnPlayerInteraction(GameObject go)
+    {
+        if (ladderPlayer==null)
+        {
+            ladderPlayer = go.GetComponent<LadderClimbingPlayerMovement>();
+        }
+
+        ladderPlayer.InteractWithLadder();
     }
 }
 

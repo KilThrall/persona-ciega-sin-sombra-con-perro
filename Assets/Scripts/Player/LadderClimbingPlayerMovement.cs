@@ -36,7 +36,7 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
         input.OnVerticalMovementInput -= OnVerticalMovementInput;
     }
     #endregion
-    public void BeginLadderClimbing()
+    public void InteractWithLadder()
     {
         if (isClimbingLadder)
         {
