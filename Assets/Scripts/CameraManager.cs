@@ -39,7 +39,10 @@ public class CameraManager : MonoBehaviour
 
           input.Player.Skill1.started += ctx => OnSkillUsed(0, true);*/
     }
-
+    private void Start()
+    {
+        OnSwitch();
+    }
     private void OnEnable()
     {
         input.Enable();

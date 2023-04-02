@@ -43,8 +43,6 @@ public class ClimbPlayerMovement : MonoBehaviour
     private bool ledgeDetected=false;
     private bool facingRight;
 
-    
-
     #region MonoBehaviour callbacks
     private void Awake()
     {
@@ -78,8 +76,6 @@ public class ClimbPlayerMovement : MonoBehaviour
     {
        isTouchingWall = Physics2D.Raycast(wallCheck.position , new Vector2(transform.localScale.x,0), wallCheckDistance, whatIsFloor);
        isTouchingLedge= Physics2D.Raycast(ledgeCheck.position, new Vector2(transform.localScale.x, 0), wallCheckDistance, whatIsFloor);
-
-        print(transform.right);
 
         if (isTouchingWall)
         {

@@ -6,6 +6,7 @@ using System;
 public interface IInput
 {
     public event Action<float> OnMovementInput;
+    public event Action<float> OnVerticalMovementInput;
     public event Action<float> OnVerticalAimInput;
     public event Action OnSkillInput;
     public event Action OnInteract;
