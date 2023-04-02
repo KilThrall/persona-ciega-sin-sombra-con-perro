@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class LeverInteractable : BaseInteractableObject
+public class GenericInteractionTrigger : BaseInteractableObject
 {
     #region Serialized Variables
     [SerializeField]
-    GameObject door;
+    private UnityEvent triggerEvent;
     #endregion
     protected override void OnPlayerInteraction()
     {
-        door.SetActive(false);
+        triggerEvent.Invoke();
     }
 }

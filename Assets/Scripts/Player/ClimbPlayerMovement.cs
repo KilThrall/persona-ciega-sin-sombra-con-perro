@@ -7,6 +7,7 @@ public class ClimbPlayerMovement : MonoBehaviour
 {
     private PlayerInput input;
     private Animator anim;
+    private Rigidbody2D rb;
 
     #region SerializedVariables
     [SerializeField]
@@ -16,16 +17,18 @@ public class ClimbPlayerMovement : MonoBehaviour
     [SerializeField]
     private Transform rayCastParent;
     [SerializeField]
-    LayerMask whatIsFloor = 0;
+    private LayerMask whatIsFloor = 0;
     [SerializeField]
     private float wallCheckDistance;
-    [SerializeField]
+  
+    [Header("Offets")]
+    [SerializeField][Tooltip("Desplazamiento en X del jugador antes de teletransportarse a la posicion final de trepado")]
     private float ledgeClimbXOffset1=0;
-    [SerializeField]
-    private float ledgeClimbXOffset2=0;
-    [SerializeField]
+    [SerializeField][Tooltip("Desplazamiento en Y del jugador antes de teletransportarse a la posicion final de trepado")]
     private float ledgeClimbYOffset1=0;
-    [SerializeField]
+    [SerializeField][Tooltip("Desplazamiento en X de la posicion final de trepado")]
+    private float ledgeClimbXOffset2=0;
+    [SerializeField][Tooltip("Desplazamiento en Y de la posicion final de trepado")]
     private float ledgeClimbYOffset2=0;
 
     #endregion
@@ -36,7 +39,7 @@ public class ClimbPlayerMovement : MonoBehaviour
 
     private bool isTouchingWall;
     private bool isTouchingLedge;
-    private bool canClimbLedge;
+    private bool isClimbing;
     private bool ledgeDetected=false;
     private bool facingRight;
 
@@ -45,6 +48,7 @@ public class ClimbPlayerMovement : MonoBehaviour
     #region MonoBehaviour callbacks
     private void Awake()
     {
+        rb=GetComponent<Rigidbody2D>();
         input = GetComponent<PlayerInput>();
         anim = GetComponent<Animator>();
         input.OnJump += OnClimb;
@@ -53,22 +57,32 @@ public class ClimbPlayerMovement : MonoBehaviour
     {
         input.OnJump -= OnClimb;
     }
-    #endregion
     private void FixedUpdate()
     {
-        CheckSorroundings();  
+        CheckSurroundings();
     }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
 
-  
-    private void CheckSorroundings()
+        Gizmos.DrawRay(wallCheck.position, transform.right*wallCheckDistance);
+        Gizmos.DrawRay(ledgeCheck.position,ledgeCheck.right*wallCheckDistance);
+
+        Gizmos.DrawWireSphere(transform.position+new Vector3(ledgeClimbXOffset1, ledgeClimbYOffset1),0.1f);
+        Gizmos.DrawWireSphere(transform.position+new Vector3(ledgeClimbXOffset2, ledgeClimbYOffset2),0.1f);
+    }
+    #endregion
+
+
+    private void CheckSurroundings()
     {
        isTouchingWall = Physics2D.Raycast(wallCheck.position , transform.right, wallCheckDistance, whatIsFloor);
        isTouchingLedge= Physics2D.Raycast(ledgeCheck.position, transform.right, wallCheckDistance, whatIsFloor);
 
+        print(transform.right);
 
         if (isTouchingWall && !isTouchingLedge && !ledgeDetected)
         {
-           
             ledgeDetected = true;
             ledgePosBot = wallCheck.position;
         }
@@ -79,9 +93,9 @@ public class ClimbPlayerMovement : MonoBehaviour
         if (pressed)
         {
             print("Space");
-            if (ledgeDetected && !canClimbLedge)
+            if (ledgeDetected && !isClimbing)
             {
-                canClimbLedge = true;
+                isClimbing = true;
 
                 if (transform.localScale.x>0)
                 {
@@ -93,21 +107,13 @@ public class ClimbPlayerMovement : MonoBehaviour
                     ledgePos1 = new Vector2(Mathf.Ceil(ledgePosBot.x - wallCheckDistance) + ledgeClimbXOffset1, Mathf.Floor(ledgePosBot.y) + ledgeClimbYOffset1);
                     ledgePos2 = new Vector2(Mathf.Ceil(ledgePosBot.x - wallCheckDistance) - ledgeClimbXOffset2, Mathf.Floor(ledgePosBot.y) + ledgeClimbYOffset2);
                 }
-                anim.SetBool("isClimbingLedge", canClimbLedge);
+                anim.SetBool("isClimbingLedge", isClimbing);
 
-                //--------------%%%%===        CAMBIAR POR UNA ANIMACIÓN CUANDO TENGAMOS LOS FRAMES DEL CIEGO TREPANDO!!!!1!     ===%%%%%-----------------------------
+                //TODO: CAMBIAR POR UNA ANIMACIÓN CUANDO TENGAMOS LOS FRAMES DEL CIEGO TREPANDO!!!!1!
                 StartCoroutine(WaitingForClimb());
-
-
-            }
-
-            if (canClimbLedge)
-            {
-                transform.position = ledgePos1;
+                 rb.velocity = Vector2.zero;
             }
         }
-        
-
     }
 
     /// <summary>
@@ -115,19 +121,17 @@ public class ClimbPlayerMovement : MonoBehaviour
     /// </summary>
     public void FinishLedgeClimb()
     {
-        canClimbLedge = false;
+        isClimbing = false;
         transform.position = ledgePos2;
         ledgeDetected = false;
-
-        anim.SetBool("isClimbingLedge", canClimbLedge);
+        anim.SetBool("isClimbingLedge", isClimbing);
     }
 
     IEnumerator WaitingForClimb()
     {
-        input.enabled = false;
+        input.enabled= false;
         yield return new WaitForSeconds(1);
         FinishLedgeClimb();
         input.enabled = true;
     }
-
 }

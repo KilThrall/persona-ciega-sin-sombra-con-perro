@@ -7,9 +7,6 @@ public class DogBarkSkill : BasePlayerSkill
     #region Serialized Variables
     [SerializeField]
     private GameObject lightPrefab;
-
-    [SerializeField]
-    private Transform mouthParent;
  
     [SerializeField][Tooltip("Position where the bark sound is emitted")]
     private Transform mouth;
@@ -36,7 +33,7 @@ public class DogBarkSkill : BasePlayerSkill
         }
         cooldownLeft = cooldown;
 
-        var lightInstance = Instantiate(lightPrefab, mouth.position, Quaternion.identity, mouth);
+        Instantiate(lightPrefab, mouth.position, Quaternion.identity, mouth);
     }
 }
 
