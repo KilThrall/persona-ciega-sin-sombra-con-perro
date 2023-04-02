@@ -12,6 +12,7 @@ public class PlayerInput : MonoBehaviour, IInput
     public event Action<bool> OnJump;
     public event Action OnSkillUsed;
     public event Action OnDisabled;
+    public event Action OnEnabled;
 
     private InputMaster input;
 
@@ -30,6 +31,8 @@ public class PlayerInput : MonoBehaviour, IInput
 
         input.Player.Skill.performed += ctx => OnSkill();
 
+        input.Player.Interact.performed += ctx => OnInteraction();
+
         /*  input.Player.ItemGrab.performed += ctx => OnItemGrabbed();
 
           input.Player.Skill1.started += ctx => OnSkillUsed(0, true);*/
@@ -38,6 +41,7 @@ public class PlayerInput : MonoBehaviour, IInput
     private void OnEnable()
     {
         input.Enable();
+        OnEnabled?.Invoke();
     }
 
     private void OnDisable()
@@ -66,5 +70,10 @@ public class PlayerInput : MonoBehaviour, IInput
     private void OnSkill()
     {
         OnSkillUsed?.Invoke();
+    }
+
+    private void OnInteraction()
+    {
+        OnInteract?.Invoke();
     }
 }

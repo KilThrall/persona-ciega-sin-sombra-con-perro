@@ -31,7 +31,7 @@ public abstract class BasePlayerSkill : MonoBehaviour
     {
         input.OnVerticalAimInput -= OnVerticalAim;
         input.OnMovementInput -= OnHorizontalAim;
-        input.OnSkillUsed += OnSkillUsed;
+        input.OnSkillUsed -= OnSkillUsed;
     }
     #endregion
 
@@ -58,14 +58,20 @@ public abstract class BasePlayerSkill : MonoBehaviour
         aimDir.x = dir;
     }
 
-    protected void OnSkillUsed()
-    {
-        if (aimDir.y == 0)
-        {
-            aimDir.x = facingDir;
-        }
-        OnSkillUsed(aimDir);
-    }
+    //Lo comenté y le saque el parametro porque no era necesario en el DogBark, pero tampoco estaba seguro de borrarlo
+    #region OnSkillUsed(Vector2)
+    //protected void OnSkillUsed()
+    //{
+    //    if (aimDir.y == 0)
+    //    {
+    //        aimDir.x = facingDir;
+    //    }
+    //    OnSkillUsed(aimDir);
+    //}
 
-    protected abstract void OnSkillUsed(Vector2 aimDir);
+
+    //protected abstract void OnSkillUsed(Vector2 aimDir);
+    #endregion
+
+    protected abstract void OnSkillUsed();
 }
