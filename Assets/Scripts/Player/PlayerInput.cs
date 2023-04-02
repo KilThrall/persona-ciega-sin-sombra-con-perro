@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour, IInput
 {
     public event Action<float> OnMovementInput;
+    public event Action<float> OnVerticalMovementInput;
     public event Action<float> OnVerticalAimInput;
     public event Action OnSkillInput;
     public event Action OnInteract;
@@ -13,7 +14,6 @@ public class PlayerInput : MonoBehaviour, IInput
     public event Action OnSkillUsed;
     public event Action OnDisabled;
     public event Action OnEnabled;
-
     private InputMaster input;
 
     #region Monobehaviour Callbacks
@@ -24,6 +24,7 @@ public class PlayerInput : MonoBehaviour, IInput
         input.Enable();
 
         input.Player.Movement.performed += ctx => OnMovement(ctx.ReadValue<float>());
+        input.Player.VerticalMovement.performed += ctx => OnVerticalMovement(ctx.ReadValue<float>());
         input.Player.VerticalAim.performed += ctx => OnVerticalAim(ctx.ReadValue<float>());
 
         input.Player.Jump.started += ctx => OnJumped(true);
@@ -55,6 +56,10 @@ public class PlayerInput : MonoBehaviour, IInput
     private void OnMovement(float dir)
     {
         OnMovementInput?.Invoke(dir);
+    }
+    private void OnVerticalMovement(float dir)
+    {
+        OnVerticalMovementInput?.Invoke(dir);
     }
 
     private void OnVerticalAim(float dir)
