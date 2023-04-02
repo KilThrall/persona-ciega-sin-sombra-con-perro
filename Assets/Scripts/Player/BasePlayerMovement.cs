@@ -30,10 +30,12 @@ public class BasePlayerMovement : MonoBehaviour
         input = GetComponent<IInput>();
         anim = GetComponent<Animator>();
         input.OnMovementInput += OnMovementInput;
+        input.OnDisabled += OnInputDisabled;
     }
     private void OnDestroy()
     {
         input.OnMovementInput -= OnMovementInput;
+        input.OnDisabled -= OnInputDisabled;
     }
 
 
@@ -54,6 +56,11 @@ public class BasePlayerMovement : MonoBehaviour
     }
 
     #endregion
+
+    private void OnInputDisabled()
+    {
+        rb.velocity = Vector2.up * rb.velocity.y;
+    }
 
     private void ChangeFootstepsStatus(bool state)
     {

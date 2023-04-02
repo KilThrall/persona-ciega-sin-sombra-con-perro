@@ -11,4 +11,5 @@ public interface IInput
     public event Action OnInteract;
     public event Action<bool> OnJump;
     public event Action OnSkillUsed;
+    public event Action OnDisabled;
 }
