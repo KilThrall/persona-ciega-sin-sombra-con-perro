@@ -26,6 +26,8 @@ public class CameraManager : MonoBehaviour
 
     private float fadeTarget, timeForFade;
 
+    private AudioListener listener;
+
     #region Monobehaviour callbacks
     private void Awake()
     {
@@ -34,6 +36,8 @@ public class CameraManager : MonoBehaviour
         input.Enable();
 
         input.Camera.SwitchCharacter.performed += ctx => OnSwitch();
+
+        listener = GetComponent<AudioListener>();
 
         /*  input.Player.ItemGrab.performed += ctx => OnItemGrabbed();
 
@@ -81,6 +85,7 @@ public class CameraManager : MonoBehaviour
     }
 
     #endregion
+
     private void OnSwitch()
     {
         isFollowingBlind = !isFollowingBlind;
@@ -94,6 +99,7 @@ public class CameraManager : MonoBehaviour
         }
         blindCharacter.enabled = isFollowingBlind;
         dogCharacter.enabled = !isFollowingBlind;
+        listener.enabled = isFollowingBlind;
     }
 
     private void FadeLight(float intensity, float time)
