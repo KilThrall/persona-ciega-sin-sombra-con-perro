@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+using UnityEngine.Events;
 public interface IInput
 {
     public event Action<float> OnMovementInput;

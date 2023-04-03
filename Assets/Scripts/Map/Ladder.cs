@@ -7,23 +7,17 @@ public class Ladder : BaseInteractableObject
     private LadderClimbingPlayerMovement ladderPlayer;
     private void Awake()
     {
-    
+        //TODO:No encontre una buena forma de volver a suscribir esto si lo desuscribo
+        OnPlayerLeaveTrigger += OnPlayerTriggerExit;
+
     }
 
-
-    public void OnInteraction()
-    {
-        ladderPlayer.InteractWithLadder();
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnPlayerTriggerExit()
     {
         if (ladderPlayer == null)
             return;
-        if (collision.CompareTag("Blind"))
-        {
-            ladderPlayer.FinishLadderClimbing();
-        }
+
+        ladderPlayer.FinishLadderClimbing();
     }
 
     protected override void OnPlayerInteraction(GameObject go)
@@ -32,7 +26,7 @@ public class Ladder : BaseInteractableObject
         {
             ladderPlayer = go.GetComponent<LadderClimbingPlayerMovement>();
         }
-
+       
         ladderPlayer.InteractWithLadder();
     }
 }
