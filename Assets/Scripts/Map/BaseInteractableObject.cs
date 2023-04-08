@@ -37,7 +37,10 @@ public abstract class BaseInteractableObject : MonoBehaviour
     {
         OnPlayerInteraction(player);
     }
-    protected abstract void OnPlayerExitTrigger();
+    protected virtual void OnPlayerExitTrigger()
+    {
+        
+    }
     protected abstract void OnPlayerInteraction(GameObject go);
     
 }

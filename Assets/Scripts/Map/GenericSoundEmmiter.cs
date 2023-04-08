@@ -9,8 +9,6 @@ public class GenericSoundEmmiter : MonoBehaviour
 {
     #region SerializedVariables
     [SerializeField]
-    private AudioClip[] clips;
-    [SerializeField]
     private Transform spawnPosition;
     [SerializeField]
     private GameObject soundPrefab;
@@ -42,7 +40,6 @@ public class GenericSoundEmmiter : MonoBehaviour
     #endregion
     public void EmitSound()
     {
-        var sound = Instantiate(soundPrefab, spawnPosition.position, Quaternion.identity);
-        sound.GetComponent<RandomSoundPlayer>().clips = clips;
+        Instantiate(soundPrefab, spawnPosition.position, Quaternion.identity);
     }
 }

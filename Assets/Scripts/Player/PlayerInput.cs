@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 public class PlayerInput : MonoBehaviour, IInput
 {
     public event Action<float> OnMovementInput;
@@ -14,7 +13,6 @@ public class PlayerInput : MonoBehaviour, IInput
     public event Action OnSkillUsed;
     public event Action OnDisabled;
     public event Action OnEnabled;
-    public UnityEvent OnInteractUE;
     private InputMaster input;
 
     #region Monobehaviour Callbacks
@@ -81,6 +79,5 @@ public class PlayerInput : MonoBehaviour, IInput
     private void OnInteraction()
     {
         OnInteract?.Invoke();
-        OnInteractUE?.Invoke();
     }
 }

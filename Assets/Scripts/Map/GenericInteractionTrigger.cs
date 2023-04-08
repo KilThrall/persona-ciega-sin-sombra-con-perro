@@ -14,9 +14,4 @@ public class GenericInteractionTrigger : BaseInteractableObject
         triggerEvent.Invoke();
     }
 
-
-    protected override void OnPlayerExitTrigger()
-    {
- 
-    }
 }
