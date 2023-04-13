@@ -13,4 +13,5 @@ public class GenericInteractionTrigger : BaseInteractableObject
     {
         triggerEvent.Invoke();
     }
+
 }

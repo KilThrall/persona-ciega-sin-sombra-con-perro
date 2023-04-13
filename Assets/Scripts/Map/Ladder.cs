@@ -5,34 +5,23 @@ using UnityEngine;
 public class Ladder : BaseInteractableObject
 {
     private LadderClimbingPlayerMovement ladderPlayer;
-    private void Awake()
+    protected override void OnPlayerExitTrigger()
     {
-    
+        if (ladderPlayer == null) { return; }
+
+        ladderPlayer.FinishLadderClimbing();
     }
 
-
-    public void OnInteraction()
-    {
-        ladderPlayer.InteractWithLadder();
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (ladderPlayer == null)
-            return;
-        if (collision.CompareTag("Blind"))
-        {
-            ladderPlayer.FinishLadderClimbing();
-        }
-    }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="go">Game object del que se saca el componente</param>
     protected override void OnPlayerInteraction(GameObject go)
     {
         if (ladderPlayer==null)
         {
             ladderPlayer = go.GetComponent<LadderClimbingPlayerMovement>();
         }
-
         ladderPlayer.InteractWithLadder();
     }
 }
