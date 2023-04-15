@@ -3,30 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class GenericInteractionTrigger : BaseInteractableObject
+public class GenericInteractionToggle : BaseInteractableObject
 {
+
     #region Serialized Variables
     [SerializeField]
-    private UnityEvent triggerEvent;
+    private UnityEvent OnEvent;
     [SerializeField]
-    private bool useOnce;
+    private UnityEvent OffEvent;
     #endregion
-    private bool used;
+    private bool isToggled;
+
+
+  
     protected override void OnPlayerInteraction(GameObject go)
     {
-        if (useOnce)
+        if (isToggled)
         {
-            if (!used)
-            {
-                triggerEvent.Invoke();
-                used = true;
-            }
+            OffEvent.Invoke();
         }
         else
         {
-            triggerEvent.Invoke();
+            OnEvent.Invoke();
         }
-
-
+        isToggled = !isToggled;
     }
+
 }

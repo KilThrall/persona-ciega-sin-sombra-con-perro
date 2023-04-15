@@ -263,6 +263,7 @@ GameObject:
   - component: {fileID: 1762368476}
   - component: {fileID: 1762368477}
   - component: {fileID: 1762368478}
+  - component: {fileID: 5707092716463264875}
   m_Layer: 3
   m_Name: 'Blind '
   m_TagString: Blind
@@ -522,6 +523,18 @@ MonoBehaviour:
   LightPosition: {fileID: 2062461389}
   DelayForNextLight: 1
   OffsetForFirstLight: 0.1
+--- !u!114 &5707092716463264875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6273823577838093011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cbe293e3aac2ba4d9a312d9a775a384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6273823578000710046
 GameObject:
   m_ObjectHideFlags: 0
