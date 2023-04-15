@@ -8,6 +8,9 @@ public abstract class BaseInteractableObject : MonoBehaviour
     //PARA EVITAR USAR DELEGADOS SIN CONOCMIENTO GUARDO UNA REF AL PLAYER 
     protected GameObject player;
 
+    public GameObject Player => player;
+  
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Blind"))
