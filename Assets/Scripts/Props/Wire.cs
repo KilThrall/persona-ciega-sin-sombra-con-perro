@@ -8,7 +8,6 @@ public class Wire : MonoBehaviour
 
     private Rope rope;
     private GenericInteractionTrigger trigger;
-
     private Plug plug;
     private void Awake()
     {
@@ -31,12 +30,10 @@ public class Wire : MonoBehaviour
                 rope.SetEndPoint(plug.transform);
                 plug.Connect();
             }
-
         }
         else
         {
             GrabWire();
-
         }
     }
 
