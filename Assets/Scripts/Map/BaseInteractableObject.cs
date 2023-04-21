@@ -4,13 +4,19 @@ using UnityEngine;
 using System;
 public abstract class BaseInteractableObject : MonoBehaviour
 {
+    [SerializeField]
+    protected string colliderTag = "Blind";
     //(1/3)
     //PARA EVITAR USAR DELEGADOS SIN CONOCMIENTO GUARDO UNA REF AL PLAYER 
     protected GameObject player;
 
+    public GameObject Player => player;
+
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Blind"))
+        if (collision.CompareTag(colliderTag))
         {
             if (player==null)
             {
@@ -22,7 +28,7 @@ public abstract class BaseInteractableObject : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Blind"))
+        if (collision.CompareTag(colliderTag))
         {
             //(2/3)
             //COMO NO SE USA UN DELEGATE AHORA SE BORRA BIEN TODO

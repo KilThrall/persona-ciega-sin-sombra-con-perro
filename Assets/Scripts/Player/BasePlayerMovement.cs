@@ -57,7 +57,6 @@ public class BasePlayerMovement : MonoBehaviour
 
     private void OnInputDisabled()
     {
-        print("disabled");
         OnMovementInput(0);
         rb.velocity = Vector2.up * rb.velocity.y;
     }
@@ -70,7 +69,7 @@ public class BasePlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnMovementInput(float dir)
+    public void OnMovementInput(float dir)
     {
         if(dir < 0)
         {
