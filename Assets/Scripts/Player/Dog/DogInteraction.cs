@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class DogInteraction : MonoBehaviour
 {
+    #region Serialized Variables
+    [SerializeField]
+    private BasePlayerMovement dogMovement;
+    #endregion
     private BaseInteractableObject toggle;
     private IInput dogInput;
     private IInput blindInput;
-    private BasePlayerMovement dogMovement;
-    bool mustWalkWithBlind;
+
+    #region MonoBehaviour Callbacks
 
     private void Awake()
     {
         toggle = GetComponent<BaseInteractableObject>();
-        dogMovement = GetComponentInParent<BasePlayerMovement>();
     }
+    #endregion
 
     public void BeginWalkWithBlind()
     {
@@ -23,6 +27,7 @@ public class DogInteraction : MonoBehaviour
             blindInput = toggle.Player.GetComponent<IInput>();
             dogInput = dogMovement.gameObject.GetComponent<IInput>();
         }
+        //TODO: ver como dejar esto mas lindo
         dogInput.OnDisabled += StopWalkingWitBlind;
         blindInput.OnMovementInput += dogMovement.OnMovementInput;
         blindInput.OnInteract += StopWalkingWitBlind;

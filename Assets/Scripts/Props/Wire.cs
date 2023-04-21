@@ -4,16 +4,37 @@ using UnityEngine;
 
 public class Wire : MonoBehaviour
 {
+    #region Serialized Variables
+    [SerializeField]
+    private Rope rope;
+    #endregion
     private bool isGrabbedByPlayer;
 
-    private Rope rope;
     private GenericInteractionTrigger trigger;
     private Plug plug;
+    #region MonoBehaviour Callbacks
     private void Awake()
     {
-        rope = GetComponentInParent<Rope>();
         trigger = GetComponent<GenericInteractionTrigger>();
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if (collision.CompareTag("Plug"))
+        {
+            plug = collision.GetComponent<Plug>();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Plug"))
+        {
+            plug = null;
+        }
+    }
+    #endregion
 
     public void PlayerInteraction()
     {
@@ -53,20 +74,5 @@ public class Wire : MonoBehaviour
         isGrabbedByPlayer = false;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-
-        if (collision.CompareTag("Plug"))
-        {
-            plug = collision.GetComponent<Plug>();
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Plug"))
-        {
-            plug = null;
-        }
-    }
+    
 }

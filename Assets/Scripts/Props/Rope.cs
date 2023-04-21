@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,9 +5,9 @@ public class Rope : MonoBehaviour
 {
     #region Serialized Variables
     [SerializeField]
-    private float ropeSegLen = 0.25f;
+    private float ropeSegLength = 0.25f;
     [SerializeField]
-    private int segmentLength = 35;
+    private int lineRendererPositions = 35;
     [SerializeField]
     private float lineWidth = 0.1f;
     [SerializeField]
@@ -19,11 +18,11 @@ public class Rope : MonoBehaviour
     #endregion
     private Transform endPoint;
 
-    bool isGrabbed;
+    private bool isGrabbed;
 
     private Transform InteractionTrigger;
     private LineRenderer lineRenderer;
-    private readonly List<RopeSegment> ropeSegments = new List<RopeSegment>();
+    private readonly List<RopeSegment> ropeSegments = new(); //C# 9.0 !!!1! 
 
     private void Awake()
     {
@@ -33,10 +32,10 @@ public class Rope : MonoBehaviour
 
         Vector3 ropeStartPoint = startPoint.position;
 
-        for (int i = 0; i < segmentLength; i++)
+        for (int i = 0; i < lineRendererPositions; i++)
         {
             this.ropeSegments.Add(new RopeSegment(ropeStartPoint));
-            ropeStartPoint.y -= ropeSegLen;
+            ropeStartPoint.y -= ropeSegLength;
         }
 
         InteractionTrigger = transform.GetChild(1);
@@ -64,7 +63,7 @@ public class Rope : MonoBehaviour
         // SIMULATION
         Vector2 forceGravity = new Vector2(0f, -1f);
 
-        for (int i = 1; i < this.segmentLength; i++)
+        for (int i = 1; i < this.lineRendererPositions; i++)
         {
             RopeSegment firstSegment = this.ropeSegments[i];
             Vector2 velocity = firstSegment.posNow - firstSegment.posOld;
@@ -100,20 +99,20 @@ public class Rope : MonoBehaviour
         }
 
 
-        for (int i = 0; i < this.segmentLength - 1; i++)
+        for (int i = 0; i < this.lineRendererPositions - 1; i++)
         {
             RopeSegment firstSeg = this.ropeSegments[i];
             RopeSegment secondSeg = this.ropeSegments[i + 1];
 
             float dist = (firstSeg.posNow - secondSeg.posNow).magnitude;
-            float error = Mathf.Abs(dist - this.ropeSegLen);
+            float error = Mathf.Abs(dist - this.ropeSegLength);
             Vector2 changeDir = Vector2.zero;
 
-            if (dist > ropeSegLen)
+            if (dist > ropeSegLength)
             {
                 changeDir = (firstSeg.posNow - secondSeg.posNow).normalized;
             }
-            else if (dist < ropeSegLen)
+            else if (dist < ropeSegLength)
             {
                 changeDir = (secondSeg.posNow - firstSeg.posNow).normalized;
             }
@@ -140,8 +139,8 @@ public class Rope : MonoBehaviour
         lineRenderer.startWidth = lineWidth;
         lineRenderer.endWidth = lineWidth;
 
-        Vector3[] ropePositions = new Vector3[this.segmentLength];
-        for (int i = 0; i < this.segmentLength; i++)
+        Vector3[] ropePositions = new Vector3[this.lineRendererPositions];
+        for (int i = 0; i < this.lineRendererPositions; i++)
         {
             ropePositions[i] = this.ropeSegments[i].posNow;
         }
@@ -176,7 +175,5 @@ public class Rope : MonoBehaviour
             this.posOld = pos;
         }
     }
-
-
 
 }

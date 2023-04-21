@@ -186,8 +186,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01af1b94da48da3478dc09fc6ba3b191, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ropeSegLen: 0.25
-  segmentLength: 35
+  ropeSegLength: 0.25
+  lineRendererPositions: 35
   lineWidth: 0.1
   startPoint: {fileID: 1976397503455526953}
   defaultEndpoint: {fileID: 1976397502450979917}
@@ -253,6 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a083ddbdb66bf7e45b2c14d10bcc5d46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rope: {fileID: 1976397503455526959}
 --- !u!114 &1976397504071781615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,6 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 017c56bf111d7fc45b95c9869e40ce94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colliderTag: Blind
   triggerEvent:
     m_PersistentCalls:
       m_Calls:

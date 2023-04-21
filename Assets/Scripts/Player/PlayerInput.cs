@@ -13,7 +13,6 @@ public class PlayerInput : MonoBehaviour, IInput
     public event Action OnSkillUsed;
     public event Action OnDisabled;
     public event Action OnEnabled;
-    public event Action OnSwitch;
     private InputMaster input;
 
     #region Monobehaviour Callbacks
