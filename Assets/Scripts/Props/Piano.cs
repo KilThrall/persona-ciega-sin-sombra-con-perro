@@ -7,7 +7,7 @@ public class Piano : GenericInteractionToggle
     [SerializeField]
     private GameObject uiPrefab;
 
-    private void Awake()
+    private void Start()
     {
         GameUIManager.Instance.InstanceGameUI(uiPrefab);
     }
