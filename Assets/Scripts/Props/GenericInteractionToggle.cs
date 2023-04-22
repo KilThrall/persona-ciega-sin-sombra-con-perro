@@ -8,9 +8,9 @@ public class GenericInteractionToggle : BaseInteractableObject
 
     #region Serialized Variables
     [SerializeField]
-    private UnityEvent OnEvent;
+    protected UnityEvent OnEvent;
     [SerializeField]
-    private UnityEvent OffEvent;
+    protected UnityEvent OffEvent;
     #endregion
     private bool isToggled;
 
