@@ -361,6 +361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40594d33e46c3c429e997c26fc1054e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  position: 6
   clip: {fileID: 8300000, guid: 55f0b3a29d84a4e449ae0b8ba52cfb00, type: 3}
   ui: {fileID: 2459894170602760994}
 --- !u!114 &4622285249590104306
@@ -854,6 +855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40594d33e46c3c429e997c26fc1054e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  position: 0
   clip: {fileID: 8300000, guid: 55f0b3a29d84a4e449ae0b8ba52cfb00, type: 3}
   ui: {fileID: 2459894170602760994}
 --- !u!114 &1075828517735063863
@@ -1126,6 +1128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40594d33e46c3c429e997c26fc1054e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  position: 2
   clip: {fileID: 8300000, guid: 55f0b3a29d84a4e449ae0b8ba52cfb00, type: 3}
   ui: {fileID: 2459894170602760994}
 --- !u!114 &4475295714488552593
@@ -1263,6 +1266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40594d33e46c3c429e997c26fc1054e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  position: 1
   clip: {fileID: 8300000, guid: 55f0b3a29d84a4e449ae0b8ba52cfb00, type: 3}
   ui: {fileID: 2459894170602760994}
 --- !u!114 &4707256421999789276
@@ -1400,6 +1404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40594d33e46c3c429e997c26fc1054e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  position: 5
   clip: {fileID: 8300000, guid: 55f0b3a29d84a4e449ae0b8ba52cfb00, type: 3}
   ui: {fileID: 2459894170602760994}
 --- !u!114 &7977370538987419218
@@ -1807,6 +1812,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40594d33e46c3c429e997c26fc1054e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  position: 4
   clip: {fileID: 8300000, guid: 55f0b3a29d84a4e449ae0b8ba52cfb00, type: 3}
   ui: {fileID: 2459894170602760994}
 --- !u!114 &4993856732090534355
@@ -1944,6 +1950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40594d33e46c3c429e997c26fc1054e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  position: 3
   clip: {fileID: 8300000, guid: 55f0b3a29d84a4e449ae0b8ba52cfb00, type: 3}
   ui: {fileID: 2459894170602760994}
 --- !u!114 &5378506125653568577

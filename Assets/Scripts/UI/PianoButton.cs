@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class PianoButton : MonoBehaviour
 {
     [SerializeField]
+    private int position;
+
+    [SerializeField]
     private AudioClip clip;
     [SerializeField]
     private PianoUI ui;
@@ -21,5 +24,6 @@ public class PianoButton : MonoBehaviour
     private void PlaySound()
     {
         ui.PlaySound(clip);
+        ActionsManager.InvokeAction(PianoUI.PIANO_PASSWORD_INPUT_KEY, position);
     }
 }
