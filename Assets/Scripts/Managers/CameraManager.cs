@@ -6,7 +6,11 @@ using UnityEngine.Rendering.Universal;
 public class CameraManager : MonoBehaviour
 {
     [SerializeField]
-    private Light2D globalLight;
+    private Light2D currentLight;
+    [SerializeField]
+    private Light2D dogLight;
+    [SerializeField]
+    private Light2D blindLight;
     [SerializeField]
     private Vector2 minPosition, maxPosition;
 
@@ -68,18 +72,18 @@ public class CameraManager : MonoBehaviour
 
         transform.position = pos;
 
-        if (globalLight.intensity != fadeTarget)
+        if (currentLight.intensity != fadeTarget)
         {
             int multiplier = 1;
-            if (fadeTarget < globalLight.intensity)
+            if (fadeTarget < currentLight.intensity)
             {
                 multiplier = -1;
             }
-            globalLight.intensity += Time.fixedDeltaTime * timeForFade * multiplier;
-            if((fadeTarget <= globalLight.intensity && multiplier == 1)
-                || fadeTarget >= globalLight.intensity && multiplier == -1)
+            currentLight.intensity += Time.fixedDeltaTime * timeForFade * multiplier;
+            if((fadeTarget <= currentLight.intensity && multiplier == 1)
+                || fadeTarget >= currentLight.intensity && multiplier == -1)
             {
-                globalLight.intensity = fadeTarget;
+                currentLight.intensity = fadeTarget;
             }
         }
     }
@@ -91,24 +95,31 @@ public class CameraManager : MonoBehaviour
         isFollowingBlind = !isFollowingBlind;
         if (isFollowingBlind)
         {
-            FadeLight(blindLightIntensity, blindLightFadeTime);
+            FadeLight(blindLightIntensity, blindLightFadeTime, blindLight);
         }
         else
         {
-            FadeLight(dogLightIntensity, dogLightFadeTime);
+            FadeLight(dogLightIntensity, dogLightFadeTime, dogLight);
         }
         blindCharacter.enabled = isFollowingBlind;
         dogCharacter.enabled = !isFollowingBlind;
         listener.enabled = isFollowingBlind;
     }
 
-    private void FadeLight(float intensity, float time)
+    private void FadeLight(float intensity, float time, Light2D newLight)
     {
+        currentLight.intensity = 0;
+        currentLight = newLight;
         if (time <= 0)
         {
-            globalLight.intensity = intensity;
+            currentLight.intensity = intensity;
         }
         timeForFade = time;
         fadeTarget = intensity;
+    }
+
+    public void TurnDogLight()
+    {
+        FadeLight(dogLightIntensity, dogLightFadeTime, dogLight);
     }
 }
