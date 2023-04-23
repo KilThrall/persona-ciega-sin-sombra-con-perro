@@ -11,8 +11,6 @@ public class EchoSpriteLight : MonoBehaviour
     private float lightFallOffDuration = 5;
     [SerializeField]
     private Vector2 targetScale;
-
-
     private void FixedUpdate()
     {
         transform.localScale += (Vector3)((Time.deltaTime / lightFallOffDuration) * targetScale) + Vector3.forward;
