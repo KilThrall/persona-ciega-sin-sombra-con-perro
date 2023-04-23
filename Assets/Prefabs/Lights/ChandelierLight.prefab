@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 5616442358417606406}
   - component: {fileID: -347689475175841004}
   m_Layer: 7
-  m_Name: ChandelierLigth
+  m_Name: ChandelierLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -741,10 +741,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f879d82bab14ac44a90fcbc2ff68b979, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LightDuration: 5
-  lightFallOffDuration: 5
+  LightDuration: 10
+  lightFallOffDuration: 1
   targetScale: {x: 5, y: 5}
-  scalingSpeed: 5
 --- !u!1 &6728603515153670075
 GameObject:
   m_ObjectHideFlags: 0
