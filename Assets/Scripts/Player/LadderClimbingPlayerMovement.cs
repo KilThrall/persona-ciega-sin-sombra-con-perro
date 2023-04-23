@@ -6,7 +6,11 @@ using UnityEngine;
 public class LadderClimbingPlayerMovement : MonoBehaviour
 {
     #region Serialized variables
-
+    [SerializeField]
+    private string characterLayerName ="Character";
+  
+    [SerializeField]
+    private string characterClimbingLayerName = "CharacterClimbing";
     [SerializeField]
     private float climbSpeed = 5;
     [SerializeField]
@@ -15,7 +19,8 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
     private ContactBasedLight[] handLights;
     //TODO: Cuando trepe que hagan sonido sus manos tambien, permitiendo ver un poco para arriba
     #endregion
-
+    private int characterLayer = 3;
+    private int characterClimbingLayer = 9;
     private IInput input;
     private Rigidbody2D rb;
     private Animator anim;
@@ -30,6 +35,9 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         input = GetComponent<IInput>();
         anim = GetComponent<Animator>();
+
+        characterLayer= LayerMask.NameToLayer(characterLayerName);
+        characterClimbingLayer= LayerMask.NameToLayer(characterClimbingLayerName);
     }
     private void OnDestroy()
     {
@@ -45,7 +53,7 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
         else
         {
             ChangeHandStatus(true);
-            gameObject.layer = 9;
+            gameObject.layer = characterClimbingLayer;
             rb.constraints = RigidbodyConstraints2D.FreezePositionX;
             rb.gravityScale = 0;
             isClimbingLadder = true;
@@ -55,7 +63,7 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
 
     public void FinishLadderClimbing()
     {
-        gameObject.layer = 3;
+        gameObject.layer = characterLayer;
         rb.velocity = new Vector2(rb.velocity.x, 0);
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         ChangeHandStatus(false);
