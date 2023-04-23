@@ -5,6 +5,7 @@ using UnityEngine;
 public class PianoUI : MonoBehaviour
 {
     public const string PIANO_INTERACT_KEY = "PianoInteracted";
+    public const string PIANO_PASSWORD_INPUT_KEY = "PianoPasswordInput";
 
     [SerializeField]
     private AudioSource audioSource;
