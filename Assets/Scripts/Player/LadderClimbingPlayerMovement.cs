@@ -45,6 +45,8 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
         else
         {
             ChangeHandStatus(true);
+            gameObject.layer = 9;
+            rb.constraints = RigidbodyConstraints2D.FreezePositionX;
             rb.gravityScale = 0;
             isClimbingLadder = true;
             input.OnVerticalMovementInput += OnVerticalMovementInput;
@@ -53,10 +55,13 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
 
     public void FinishLadderClimbing()
     {
+        gameObject.layer = 3;
         rb.velocity = new Vector2(rb.velocity.x, 0);
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         ChangeHandStatus(false);
         rb.gravityScale = 1;
         isClimbingLadder = false;
+        OnVerticalMovementInput(0);
         input.OnVerticalMovementInput -= OnVerticalMovementInput;
     }
 
@@ -79,7 +84,6 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
                 ChangeHandStatus(true);
             }
         }
-     
     }
 
 
