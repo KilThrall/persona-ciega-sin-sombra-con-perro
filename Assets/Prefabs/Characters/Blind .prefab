@@ -395,6 +395,7 @@ MonoBehaviour:
   footstepLights:
   - {fileID: 6273823577838093036}
   - {fileID: 6273823577838093035}
+  footStepAudioSource: {fileID: 0}
 --- !u!95 &6273823577838093034
 Animator:
   serializedVersion: 5

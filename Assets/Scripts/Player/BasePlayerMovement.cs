@@ -17,8 +17,8 @@ public class BasePlayerMovement : MonoBehaviour
     private AudioSource footStepAudioSource;
 
     #endregion
-
-    private float soundTimer, soundCooldown=0.1f;
+    //CAMBIADO SIN PR!!!!!
+    private float soundTimer, soundCooldown=1f;
 
     private IInput input;
     private Rigidbody2D rb;
@@ -41,29 +41,25 @@ public class BasePlayerMovement : MonoBehaviour
         input.OnDisabled -= StopPlayer;
     }
 
-
     private void FixedUpdate()
     {
-        FootStepSound();
         var dirDif = desiredDir*moveSpeed - rb.velocity.x;
         var resultingSpeed = dirDif * acceleration * Time.deltaTime;
         resultingSpeed = Mathf.Clamp(resultingSpeed, -moveSpeed, moveSpeed);
         rb.velocity = new Vector2(rb.velocity.x + resultingSpeed, rb.velocity.y);
-        if (Mathf.Abs(rb.velocity.x)-0.1f<0 || Mathf.Abs(rb.velocity.y)>0.2f)
+        if (!(Mathf.Abs(rb.velocity.x) - 0.1f < 0 || Mathf.Abs(rb.velocity.y) > 0.2f) && footStepAudioSource != null)
         {
-            ChangeFootstepsStatus(false);
-        }
-        else
-        {
-            ChangeFootstepsStatus(true);
+            //CAMBIADO SIN PR!!!!
+            FootStepSound();
         }
     }
 
     #endregion
+    //AGREGADO SIN PR!!!
     private void FootStepSound()
     {
         soundTimer = soundTimer > 0 ? soundTimer - Time.deltaTime : 0;
-        if(soundTimer==0 && !footStepAudioSource.isPlaying)
+        if(soundTimer==0)
         {
             footStepAudioSource.PlayOneShot(footStepAudioSource.clip);
             soundTimer = soundCooldown;
