@@ -13,8 +13,13 @@ public class BasePlayerMovement : MonoBehaviour
     private float acceleration = 3;
     [SerializeField]
     private ContactBasedLight[] footstepLights;
+    [SerializeField]
+    private AudioSource footStepAudioSource;
 
     #endregion
+
+    private float soundTimer, soundCooldown=0.1f;
+
     private IInput input;
     private Rigidbody2D rb;
     private Animator anim;
@@ -39,6 +44,7 @@ public class BasePlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        FootStepSound();
         var dirDif = desiredDir*moveSpeed - rb.velocity.x;
         var resultingSpeed = dirDif * acceleration * Time.deltaTime;
         resultingSpeed = Mathf.Clamp(resultingSpeed, -moveSpeed, moveSpeed);
@@ -54,7 +60,15 @@ public class BasePlayerMovement : MonoBehaviour
     }
 
     #endregion
-
+    private void FootStepSound()
+    {
+        soundTimer = soundTimer > 0 ? soundTimer - Time.deltaTime : 0;
+        if(soundTimer==0 && !footStepAudioSource.isPlaying)
+        {
+            footStepAudioSource.PlayOneShot(footStepAudioSource.clip);
+            soundTimer = soundCooldown;
+        }
+    }
     public void StopPlayer()
     {
         OnMovementInput(0);
@@ -71,7 +85,8 @@ public class BasePlayerMovement : MonoBehaviour
 
     public void OnMovementInput(float dir)
     {
-        if(dir < 0)
+       
+        if (dir < 0)
         {
             anim.SetBool("Running", true);
             dir = -1;

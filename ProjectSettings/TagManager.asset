@@ -42,9 +42,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: BG
+  - name: Background
     uniqueID: 2777634865
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Characters and obstacles
+    uniqueID: 2559233457
+    locked: 0
+  - name: Front
+    uniqueID: 2893743181
     locked: 0
