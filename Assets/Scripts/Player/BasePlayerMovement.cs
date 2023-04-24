@@ -28,12 +28,12 @@ public class BasePlayerMovement : MonoBehaviour
         input = GetComponent<IInput>();
         anim = GetComponent<Animator>();
         input.OnMovementInput += OnMovementInput;
-        input.OnDisabled += OnInputDisabled;
+        input.OnDisabled += StopPlayer;
     }
     private void OnDestroy()
     {
         input.OnMovementInput -= OnMovementInput;
-        input.OnDisabled -= OnInputDisabled;
+        input.OnDisabled -= StopPlayer;
     }
 
 
@@ -55,7 +55,7 @@ public class BasePlayerMovement : MonoBehaviour
 
     #endregion
 
-    private void OnInputDisabled()
+    public void StopPlayer()
     {
         OnMovementInput(0);
         rb.velocity = Vector2.up * rb.velocity.y;
