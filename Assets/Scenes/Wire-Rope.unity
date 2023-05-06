@@ -1062,6 +1062,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ec57db2764ad1142a34b98bb3a5bbc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onDropEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  canBeDroppedAnywhere: 0
   plug: {fileID: 0}
 --- !u!114 &916897396
 MonoBehaviour:

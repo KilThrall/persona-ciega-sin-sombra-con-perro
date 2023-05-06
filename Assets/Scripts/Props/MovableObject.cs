@@ -8,10 +8,11 @@ public class MovableObject : MonoBehaviour
     /// <summary>
     /// De momento solo se puede soltar el item si se está donde se tiene que dejar
     /// </summary>
-
+    #region Serialized Variables
     [SerializeField]
     private UnityEvent onDropEvent;
     [SerializeField]
+    #endregion
     private bool canBeDroppedAnywhere;
     private bool isGrabbedByPlayer;
     public Plug plug; // Use el plug que se usa para la conección del cable, el nombre por ahi se podría que cambiar
