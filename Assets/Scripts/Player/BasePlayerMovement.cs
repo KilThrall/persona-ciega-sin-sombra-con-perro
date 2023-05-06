@@ -26,9 +26,12 @@ public class BasePlayerMovement : MonoBehaviour
     private float desiredDir;
     private float facingDir = 1;
 
+    private EdgeCollider2D eCollider;
+
     #region MonoBehaviour callbacks
     private void Awake()
     {
+        eCollider =GetComponent<EdgeCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         input = GetComponent<IInput>();
         anim = GetComponent<Animator>();

@@ -2,8 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wire : MonoBehaviour
+public class MovableObject : MonoBehaviour
 {
+    public void OnObjectInteraction()
+    {
+
+    }
+
     #region Serialized Variables
     [SerializeField]
     private Rope rope;
@@ -12,14 +17,18 @@ public class Wire : MonoBehaviour
 
     private GenericInteractionTrigger trigger;
     private Plug plug;
+    private Transform holdedPosition;
     #region MonoBehaviour Callbacks
     private void Awake()
     {
         trigger = GetComponent<GenericInteractionTrigger>();
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.CompareTag("Dog")&& holdedPosition==null)
+        {
+            holdedPosition = collision.GetComponent<DogMouth>().MouthPosition;
+        }
         if (collision.CompareTag("Plug"))
         {
             plug = collision.GetComponent<Plug>();
@@ -72,6 +81,4 @@ public class Wire : MonoBehaviour
     {
         isGrabbedByPlayer = false;
     }
-
-    
 }
