@@ -16,6 +16,11 @@ public class PianoUI : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    private void OnDestroy()
+    {
+        ActionsManager.UnsubscribeToAction(PIANO_INTERACT_KEY, OnInteract);
+    }
+
     public void PlaySound(AudioClip clip)
     {
         if (audioSource == null)

@@ -6,6 +6,6 @@ public class NextLevelLoad : MonoBehaviour
 {
     public void NextLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
+        ActionsManager.InvokeAction(SceneTransitionManager.ON_SCENE_CHANGE_REQUESTED_KEY, (SceneManager.GetActiveScene().buildIndex + 1).ToString());
     }
 }

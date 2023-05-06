@@ -21,6 +21,11 @@ public class Piano : GenericInteractionToggle
         ActionsManager.SubscribeToAction(PianoUI.PIANO_PASSWORD_INPUT_KEY, OnPianoPasswordInput);
     }
 
+    private void OnDestroy()
+    {
+        ActionsManager.UnsubscribeToAction(PianoUI.PIANO_PASSWORD_INPUT_KEY, OnPianoPasswordInput);
+    }
+
     public void OnPlayerInteract(bool state)
     {
         if (currentAttempt >= password.Count)
