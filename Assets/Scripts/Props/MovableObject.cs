@@ -1,27 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MovableObject : MonoBehaviour
 {
-    public void OnObjectInteraction()
-    {
+    /// <summary>
+    /// De momento solo se puede soltar el item si se está donde se tiene que dejar
+    /// </summary>
 
-    }
-
-    #region Serialized Variables
     [SerializeField]
-    private Rope rope;
-    #endregion
+    private UnityEvent onDropEvent;
+    [SerializeField]
+    private bool canBeDroppedAnywhere;
     private bool isGrabbedByPlayer;
-
-    private GenericInteractionTrigger trigger;
-    private Plug plug;
-    private Transform holdedPosition;
+    public Plug plug; // Use el plug que se usa para la conección del cable, el nombre por ahi se podría que cambiar
+    private Transform holdedPosition; //transform de donde se va a quedar cuando este agarraro, pEj: La MouthPosition del perro
     #region MonoBehaviour Callbacks
-    private void Awake()
+
+    private void FixedUpdate()
     {
-        trigger = GetComponent<GenericInteractionTrigger>();
+        if (isGrabbedByPlayer)
+        {
+            transform.position = holdedPosition.position;
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -43,42 +45,25 @@ public class MovableObject : MonoBehaviour
         }
     }
     #endregion
-
-    public void PlayerInteraction()
+    public void OnObjectInteraction()
     {
-        if (isGrabbedByPlayer)
+        if(isGrabbedByPlayer)
         {
-            if (plug == null)
+            if (plug != null)
             {
-                DropWire();
-                rope.DropRope();
-            }
-            else
-            {
-                DropWire();
-                rope.SetEndPoint(plug.transform);
+                isGrabbedByPlayer = false;
+                transform.position = plug.ConnectionPosition;
                 plug.Connect();
+            }
+            else if (canBeDroppedAnywhere)
+            {
+                isGrabbedByPlayer = false;
+                onDropEvent?.Invoke();
             }
         }
         else
         {
-            GrabWire();
+            isGrabbedByPlayer = true;
         }
-    }
-
-
-    public bool CheckGrabState()
-    {
-        return isGrabbedByPlayer;
-    }
-
-    public void GrabWire()
-    {
-        isGrabbedByPlayer = true;
-        rope.SetEndPoint(trigger.Player.transform);
-    }
-    public void DropWire()
-    {
-        isGrabbedByPlayer = false;
     }
 }
