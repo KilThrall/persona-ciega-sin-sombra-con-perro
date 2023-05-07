@@ -5,36 +5,41 @@ using UnityEngine.Events;
 
 public class MovableObject : MonoBehaviour
 {
-    /// <summary>
-    /// De momento solo se puede soltar el item si se está donde se tiene que dejar
-    /// </summary>
     #region Serialized Variables
     [SerializeField]
     private UnityEvent onDropEvent;
     [SerializeField]
-    #endregion
     private bool canBeDroppedAnywhere;
+    [SerializeField]
+    private Transform parentToMove;
+    #endregion
+    private Collider2D parentCollider; //lo desactivo mientras esta en la boca del perro para que no hayan choques raros,
+    private Rigidbody2D parentRigidBody; //va a ser estatico siempre y cuando este agarrado por un pj
     private bool isGrabbedByPlayer;
-    public Plug plug; // Use el plug que se usa para la conección del cable, el nombre por ahi se podría que cambiar
-    private Transform holdedPosition; //transform de donde se va a quedar cuando este agarraro, pEj: La MouthPosition del perro
+    private ItemSocket itemSocket; 
+    private Transform heldPosition; //transform de donde se va a quedar cuando este agarraro, pEj: La MouthPosition del perro
     #region MonoBehaviour Callbacks
-
+    private void Awake()
+    {
+        parentRigidBody = parentToMove.GetComponent<Rigidbody2D>();
+        parentCollider = parentToMove.GetComponent<Collider2D>();
+    }
     private void FixedUpdate()
     {
         if (isGrabbedByPlayer)
         {
-            transform.position = holdedPosition.position;
+            parentToMove.position = heldPosition.position;
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Dog")&& holdedPosition==null)
+        if (collision.CompareTag("Dog")&& heldPosition == null)
         {
-            holdedPosition = collision.GetComponent<DogMouth>().MouthPosition;
+            heldPosition = collision.GetComponent<DogMouth>().MouthPosition;
         }
         if (collision.CompareTag("Plug"))
         {
-            plug = collision.GetComponent<Plug>();
+            itemSocket = collision.GetComponent<ItemSocket>();
         }
     }
 
@@ -42,7 +47,7 @@ public class MovableObject : MonoBehaviour
     {
         if (collision.CompareTag("Plug"))
         {
-            plug = null;
+            itemSocket = null;
         }
     }
     #endregion
@@ -50,21 +55,30 @@ public class MovableObject : MonoBehaviour
     {
         if(isGrabbedByPlayer)
         {
-            if (plug != null)
+            if (itemSocket != null)
             {
                 isGrabbedByPlayer = false;
-                transform.position = plug.ConnectionPosition;
-                plug.Connect();
+
+                transform.position = itemSocket.ConnectionPosition;
+                itemSocket.Connect();
             }
             else if (canBeDroppedAnywhere)
             {
+                parentCollider.enabled = true;
                 isGrabbedByPlayer = false;
+
+                parentRigidBody.bodyType = RigidbodyType2D.Dynamic;
+
+
                 onDropEvent?.Invoke();
             }
         }
         else
-        {
-            isGrabbedByPlayer = true;
+        { 
+            parentCollider.enabled = false;
+            isGrabbedByPlayer= true;
+
+            parentRigidBody.bodyType = RigidbodyType2D.Static;//para que se le quede en la boca y no se caiga
         }
     }
 }

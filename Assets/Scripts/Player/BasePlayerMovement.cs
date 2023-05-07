@@ -53,7 +53,6 @@ public class BasePlayerMovement : MonoBehaviour
             FootStepSound();
         }
     }
-
     #endregion
     //AGREGADO SIN PR!!!
     private void FootStepSound()
@@ -78,7 +77,7 @@ public class BasePlayerMovement : MonoBehaviour
             item.enabled = state; 
         }
     }
-
+    //PARA EL CAMBIO DE ANIMACION PARA EL PERRO 
     public void OnMovementInput(float dir)
     {
        

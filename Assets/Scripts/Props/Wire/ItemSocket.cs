@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-public class Plug : MonoBehaviour
+public class ItemSocket : MonoBehaviour
 {
     [SerializeField]
     private UnityEvent onConnectionEvent;
@@ -23,6 +23,5 @@ public class Plug : MonoBehaviour
     public void Connect()
     {
         onConnectionEvent.Invoke();
-        print("connected");
     }
 }
