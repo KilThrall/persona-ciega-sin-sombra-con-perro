@@ -67,8 +67,7 @@ public class MovableObject : MonoBehaviour
                 parentCollider.enabled = true;
                 isGrabbedByPlayer = false;
 
-                parentRigidBody.bodyType = RigidbodyType2D.Dynamic;
-
+                parentRigidBody.isKinematic = false;
 
                 onDropEvent?.Invoke();
             }
@@ -78,7 +77,7 @@ public class MovableObject : MonoBehaviour
             parentCollider.enabled = false;
             isGrabbedByPlayer= true;
 
-            parentRigidBody.bodyType = RigidbodyType2D.Static;//para que se le quede en la boca y no se caiga
+            parentRigidBody.isKinematic = true;//para que se le quede en la boca y no se caiga
         }
     }
 }
