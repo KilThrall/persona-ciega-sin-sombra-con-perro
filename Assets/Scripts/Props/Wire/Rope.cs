@@ -17,7 +17,7 @@ public class Rope : MonoBehaviour
 
     #endregion
     private Transform endPoint;
-
+    private EdgeCollider2D edgeCollider;
     private bool isGrabbed;
 
     private Transform InteractionTrigger;
@@ -26,7 +26,8 @@ public class Rope : MonoBehaviour
 
     private void Awake()
     {
-        this.lineRenderer = this.GetComponent<LineRenderer>();
+        edgeCollider = GetComponent<EdgeCollider2D>();
+        lineRenderer = GetComponent<LineRenderer>();
         startPoint = transform;
         endPoint = defaultEndpoint;
 
@@ -34,7 +35,7 @@ public class Rope : MonoBehaviour
 
         for (int i = 0; i < lineRendererPositions; i++)
         {
-            this.ropeSegments.Add(new RopeSegment(ropeStartPoint));
+            this.ropeSegments.Add(new RopeSegment(ropeStartPoint,i));
             ropeStartPoint.y -= ropeSegLength;
         }
 
@@ -55,7 +56,29 @@ public class Rope : MonoBehaviour
         {
             InteractionTrigger.position = lineRenderer.GetPosition(lineRenderer.positionCount - 1);
         }
+    }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        var pos = collision.GetContact(0).point;
+        Vector2 colisionDir = (transform.position- collision.transform.position).normalized;
+
+        var nearestSegment = GetNearestSegment(pos);
+        nearestSegment.forceToAdd += colisionDir*2;
+        ropeSegments[nearestSegment.index] = nearestSegment;
+    }
+
+    private RopeSegment GetNearestSegment(Vector3 impactPosition)
+    {
+        RopeSegment nearestSegment=default;
+        foreach (RopeSegment rs in ropeSegments)
+        {
+            if (Vector3.Distance(impactPosition,rs.posNow)< Vector3.Distance(impactPosition, nearestSegment.posNow))
+            {
+                nearestSegment = rs;
+            }
+        }
+        return nearestSegment;
     }
 
     private void Simulate()
@@ -69,7 +92,8 @@ public class Rope : MonoBehaviour
             Vector2 velocity = firstSegment.posNow - firstSegment.posOld;
             firstSegment.posOld = firstSegment.posNow;
             firstSegment.posNow += velocity;
-            firstSegment.posNow += forceGravity * Time.fixedDeltaTime;
+            firstSegment.posNow += firstSegment.forceToAdd+forceGravity * Time.fixedDeltaTime;
+            firstSegment.forceToAdd = Vector2.zero;
             this.ropeSegments[i] = firstSegment;
         }
 
@@ -78,8 +102,6 @@ public class Rope : MonoBehaviour
         {
             this.ApplyConstraint();
         }
-
-
     }
 
     private void ApplyConstraint()
@@ -147,6 +169,12 @@ public class Rope : MonoBehaviour
 
         lineRenderer.positionCount = ropePositions.Length;
         lineRenderer.SetPositions(ropePositions);
+        List<Vector2> ropePosV2 = new();
+        for (int i = 0; i < ropePositions.Length; i++)
+        {
+            ropePosV2.Add(new Vector2(ropePositions[i].x-transform.position.x, ropePositions[i].y-transform.position.y));
+        }
+        edgeCollider.SetPoints(ropePosV2);
     }
 
     public void SetEndPoint(Transform p_EndPoint)
@@ -161,19 +189,23 @@ public class Rope : MonoBehaviour
         {
             isGrabbed = false;
         }
-
     }
 
     public struct RopeSegment
     {
         public Vector2 posNow;
         public Vector2 posOld;
-
-        public RopeSegment(Vector2 pos)
+        public int index;
+        public Vector2 forceToAdd;
+        public RopeSegment(Vector2 pos,int index)
         {
+            forceToAdd = Vector2.zero;
+            this.index = index;
             this.posNow = pos;
             this.posOld = pos;
         }
     }
+
+
 
 }

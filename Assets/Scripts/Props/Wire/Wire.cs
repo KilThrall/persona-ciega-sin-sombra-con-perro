@@ -11,7 +11,7 @@ public class Wire : MonoBehaviour
     private bool isGrabbedByPlayer;
 
     private GenericInteractionTrigger trigger;
-    private Plug plug;
+    private ItemSocket plug;
     #region MonoBehaviour Callbacks
     private void Awake()
     {
@@ -20,10 +20,9 @@ public class Wire : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
         if (collision.CompareTag("Plug"))
         {
-            plug = collision.GetComponent<Plug>();
+            plug = collision.GetComponent<ItemSocket>();
         }
     }
 
