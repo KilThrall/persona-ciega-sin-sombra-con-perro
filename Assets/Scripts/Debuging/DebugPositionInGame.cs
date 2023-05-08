@@ -9,7 +9,7 @@ public class DebugPositionInGame : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -17,7 +17,11 @@ public class DebugPositionInGame : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            objectToMove.transform.position = finalPos.position;
+            Teleport();
         }
+    }
+    public void Teleport()
+    {
+        objectToMove.transform.position = finalPos.position;
     }
 }

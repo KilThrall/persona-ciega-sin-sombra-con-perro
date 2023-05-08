@@ -628,11 +628,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clips:
   - {fileID: 8300000, guid: 1fe0f3aad5369964c89bf121b24cf24c, type: 3}
-  - {fileID: 8300000, guid: 5f2573647422cde4bafe9735756451c6, type: 3}
-  - {fileID: 8300000, guid: dc6c60bc17f6f7b41b72ea2bdc662ef9, type: 3}
-  - {fileID: 8300000, guid: 97a655df26c838e428a365ff35dd7aca, type: 3}
-  - {fileID: 8300000, guid: 561e1a44197220949900a8c5d4f49965, type: 3}
-  - {fileID: 8300000, guid: 592eef2023c065f4ca4416f2e1924d49, type: 3}
   PlayOnAwake: 1
 --- !u!114 &2134947308380710867
 MonoBehaviour:
