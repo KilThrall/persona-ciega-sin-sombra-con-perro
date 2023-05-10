@@ -40,6 +40,16 @@ public class BasePlayerMovement : MonoBehaviour
         input.OnMovementInput -= OnMovementInput;
         input.OnDisabled -= StopPlayer;
     }
+    private void OnEnable()
+    {
+        input.OnMovementInput += OnMovementInput;
+    }
+    private void OnDisable()
+    {
+        print("disabled");
+        input.OnMovementInput -= OnMovementInput;
+        StopPlayer();
+    }
 
     private void FixedUpdate()
     {
@@ -80,7 +90,6 @@ public class BasePlayerMovement : MonoBehaviour
     //PARA EL CAMBIO DE ANIMACION PARA EL PERRO 
     public void OnMovementInput(float dir)
     {
-       
         if (dir < 0)
         {
             anim.SetBool("Running", true);

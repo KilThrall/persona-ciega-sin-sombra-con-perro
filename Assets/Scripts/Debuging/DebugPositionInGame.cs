@@ -6,11 +6,6 @@ public class DebugPositionInGame : MonoBehaviour
 {
     public GameObject objectToMove;
     public Transform finalPos;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()

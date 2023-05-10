@@ -24,6 +24,7 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
     private IInput input;
     private Rigidbody2D rb;
     private Animator anim;
+    private BasePlayerMovement basePlayerMovement;
     private float desiredDir;
 
     private bool isClimbingLadder;
@@ -35,7 +36,7 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         input = GetComponent<IInput>();
         anim = GetComponent<Animator>();
-
+        basePlayerMovement = GetComponent<BasePlayerMovement>();
         characterLayer= LayerMask.NameToLayer(characterLayerName);
         characterClimbingLayer= LayerMask.NameToLayer(characterClimbingLayerName);
     }
@@ -54,7 +55,7 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
         {
             ChangeHandStatus(true);
             gameObject.layer = characterClimbingLayer;
-            rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+            basePlayerMovement.enabled = false;
             rb.gravityScale = 0;
             isClimbingLadder = true;
             input.OnVerticalMovementInput += OnVerticalMovementInput;
@@ -65,7 +66,7 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
     {
         gameObject.layer = characterLayer;
         rb.velocity = new Vector2(rb.velocity.x, 0);
-        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        basePlayerMovement.enabled = true;
         ChangeHandStatus(false);
         rb.gravityScale = 1;
         isClimbingLadder = false;
