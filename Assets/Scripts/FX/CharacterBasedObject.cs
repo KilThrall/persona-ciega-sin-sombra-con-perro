@@ -30,7 +30,7 @@ public class CharacterBasedObject : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            Debug.LogError($"Tried sending an event for {nameof(PianoUI)} with the wrong type. Error: " + e);
+            Debug.LogError($"Tried sending an event for {nameof(CharacterBasedObject)} with the wrong type. Error: " + e);
             throw;
         }
 
