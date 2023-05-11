@@ -5,6 +5,17 @@ using UnityEngine;
 [RequireComponent(typeof(IInput))]
 public class BasePlayerMovement : MonoBehaviour
 {
+    public bool IsWalkEnabled
+    {
+        get => isWalkEnabled;
+        set { 
+            isWalkEnabled = value;
+            if (!value)
+            { 
+                anim.SetBool("Running", false); 
+            } 
+        }
+    }
     #region Serialized variables
 
     [SerializeField]
@@ -26,6 +37,8 @@ public class BasePlayerMovement : MonoBehaviour
     private float desiredDir;
     private float facingDir = 1;
 
+    private bool isWalkEnabled=true;
+
     #region MonoBehaviour callbacks
     private void Awake()
     {
@@ -40,27 +53,26 @@ public class BasePlayerMovement : MonoBehaviour
         input.OnMovementInput -= OnMovementInput;
         input.OnDisabled -= StopPlayer;
     }
-    private void OnEnable()
-    {
-        input.OnMovementInput += OnMovementInput;
-    }
-    private void OnDisable()
-    {
-        print("disabled");
-        input.OnMovementInput -= OnMovementInput;
-        StopPlayer();
-    }
 
     private void FixedUpdate()
     {
-        var dirDif = desiredDir*moveSpeed - rb.velocity.x;
-        var resultingSpeed = dirDif * acceleration * Time.deltaTime;
-        resultingSpeed = Mathf.Clamp(resultingSpeed, -moveSpeed, moveSpeed);
-        rb.velocity = new Vector2(rb.velocity.x + resultingSpeed, rb.velocity.y);
-        if (!(Mathf.Abs(rb.velocity.x) - 0.1f < 0 || Mathf.Abs(rb.velocity.y) > 0.2f) && footStepAudioSource != null)
+        if (isWalkEnabled)
         {
-            //CAMBIADO SIN PR!!!!
-            FootStepSound();
+            var dirDif = desiredDir * moveSpeed - rb.velocity.x;
+            var resultingSpeed = dirDif * acceleration * Time.deltaTime;
+            resultingSpeed = Mathf.Clamp(resultingSpeed, -moveSpeed, moveSpeed);
+            rb.velocity = new Vector2(rb.velocity.x + resultingSpeed, rb.velocity.y);
+            if (!(Mathf.Abs(rb.velocity.x) - 0.1f < 0 || Mathf.Abs(rb.velocity.y) > 0.2f) && footStepAudioSource != null)
+            {
+                //CAMBIADO SIN PR!!!!
+                FootStepSound();
+            }
+        }
+        else
+        {
+            //que no corra
+            desiredDir = 0;//sin esto patina cuando se baja de la escalera
+            rb.velocity = Vector2.up * rb.velocity.y;//sin esto patina al subirse de la escalera
         }
     }
     #endregion
@@ -90,6 +102,11 @@ public class BasePlayerMovement : MonoBehaviour
     //PARA EL CAMBIO DE ANIMACION PARA EL PERRO 
     public void OnMovementInput(float dir)
     {
+        if (!isWalkEnabled)
+        {
+            return;
+        }
+
         if (dir < 0)
         {
             anim.SetBool("Running", true);

@@ -55,7 +55,7 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
         {
             ChangeHandStatus(true);
             gameObject.layer = characterClimbingLayer;
-            basePlayerMovement.enabled = false;
+            basePlayerMovement.IsWalkEnabled = false;
             rb.gravityScale = 0;
             isClimbingLadder = true;
             input.OnVerticalMovementInput += OnVerticalMovementInput;
@@ -66,7 +66,7 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
     {
         gameObject.layer = characterLayer;
         rb.velocity = new Vector2(rb.velocity.x, 0);
-        basePlayerMovement.enabled = true;
+        basePlayerMovement.IsWalkEnabled = true;
         ChangeHandStatus(false);
         rb.gravityScale = 1;
         isClimbingLadder = false;
