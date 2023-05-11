@@ -11,7 +11,8 @@ public class BasePlayerMovement : MonoBehaviour
         set { 
             isWalkEnabled = value;
             if (!value)
-            { 
+            {
+                SetFacingDirection(1);//con esto mira para el mismo lado siempre
                 anim.SetBool("Running", false); 
             } 
         }
@@ -36,7 +37,6 @@ public class BasePlayerMovement : MonoBehaviour
     private Animator anim;
     private float desiredDir;
     private float facingDir = 1;
-
     private bool isWalkEnabled=true;
 
     #region MonoBehaviour callbacks
@@ -129,12 +129,20 @@ public class BasePlayerMovement : MonoBehaviour
 
         if (dir!=0)
         {
-            if (transform.localScale.x != dir)
-            {
-                Vector2 scale = transform.localScale;
-                scale.x = dir;
-                transform.localScale = scale;
-            }
+
+            SetFacingDirection(dir);
+            
+        }
+
+    }
+
+    private void SetFacingDirection(float dir)
+    {
+        if (transform.localScale.x != dir)
+        {
+            Vector2 scale = transform.localScale;
+            scale.x = dir;
+            transform.localScale = scale;
         }
 
     }

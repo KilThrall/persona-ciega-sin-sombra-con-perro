@@ -19,6 +19,7 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
     private ContactBasedLight[] handLights;
     //TODO: Cuando trepe que hagan sonido sus manos tambien, permitiendo ver un poco para arriba
     #endregion
+    private const string LADDER_CLIMB_ANIMATOR_PARAMETER= "LadderClimbing";
     private int characterLayer = 3;
     private int characterClimbingLayer = 9;
     private IInput input;
@@ -108,17 +109,18 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
     {
         if (dir < 0)
         {
-            anim.SetBool("LadderClimbing", true);
+ 
+            anim.SetBool(LADDER_CLIMB_ANIMATOR_PARAMETER, true);
             dir = -1;
         }
         else if (dir > 0)
         {
-            anim.SetBool("LadderClimbing", true);
+            anim.SetBool(LADDER_CLIMB_ANIMATOR_PARAMETER, true);
             dir = 1;
         }
         else
         {
-            anim.SetBool("LadderClimbing", false);
+            anim.SetBool(LADDER_CLIMB_ANIMATOR_PARAMETER, false);
         }
         desiredDir = dir;
     }
