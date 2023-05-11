@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 4115599723001693069}
   - component: {fileID: 5616442358417606406}
   - component: {fileID: -347689475175841004}
+  - component: {fileID: -5029239775135428341}
   m_Layer: 7
   m_Name: ChandelierLight
   m_TagString: Untagged
@@ -744,6 +745,19 @@ MonoBehaviour:
   LightDuration: 10
   lightFallOffDuration: 1
   targetScale: {x: 5, y: 5}
+--- !u!114 &-5029239775135428341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6706706918502213083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82f7e356e1bed6f46881e94eb5d14df4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShouldBeSeenByBlind: 1
 --- !u!1 &6728603515153670075
 GameObject:
   m_ObjectHideFlags: 0

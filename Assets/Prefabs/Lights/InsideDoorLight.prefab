@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 4115599723001693069}
   - component: {fileID: -93244624002477063}
   - component: {fileID: -1779524246743283972}
+  - component: {fileID: -1925094068092629775}
   m_Layer: 7
   m_Name: InsideDoorLight
   m_TagString: Untagged
@@ -743,3 +744,16 @@ MonoBehaviour:
   LightDuration: 2
   lightFallOffDuration: 1.8
   targetScale: {x: 6, y: 6}
+--- !u!114 &-1925094068092629775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6706706918502213083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82f7e356e1bed6f46881e94eb5d14df4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShouldBeSeenByBlind: 1

@@ -5,6 +5,8 @@ using UnityEngine.Rendering.Universal;
 
 public class CameraManager : MonoBehaviour
 {
+    public const string ON_CHARACTER_SWITCH_KEY = "OnCharacterSwitch";
+
     [SerializeField]
     private Light2D currentLight;
     [SerializeField]
@@ -101,6 +103,7 @@ public class CameraManager : MonoBehaviour
         {
             FadeLight(dogLightIntensity, dogLightFadeTime, dogLight);
         }
+        ActionsManager.InvokeAction(ON_CHARACTER_SWITCH_KEY, isFollowingBlind);
         blindCharacter.enabled = isFollowingBlind;
         dogCharacter.enabled = !isFollowingBlind;
         listener.enabled = isFollowingBlind;
