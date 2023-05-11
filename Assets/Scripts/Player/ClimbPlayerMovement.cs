@@ -41,12 +41,12 @@ public class ClimbPlayerMovement : MonoBehaviour
     private bool isTouchingLedge;
     private bool isClimbing;
     private bool ledgeDetected=false;
-    private bool facingRight;
+
 
     #region MonoBehaviour callbacks
     private void Awake()
     {
-        rb=GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         input = GetComponent<PlayerInput>();
         anim = GetComponent<Animator>();
         input.OnJump += OnClimb;
@@ -70,7 +70,6 @@ public class ClimbPlayerMovement : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position+new Vector3(ledgeClimbXOffset2, ledgeClimbYOffset2),0.1f);
     }
     #endregion
-
 
     private void CheckSurroundings()
     {
@@ -114,7 +113,7 @@ public class ClimbPlayerMovement : MonoBehaviour
 
                 //TODO: CAMBIAR POR UNA ANIMACIÓN CUANDO TENGAMOS LOS FRAMES DEL CIEGO TREPANDO!!!!1!
                 StartCoroutine(WaitingForClimb());
-                 rb.velocity = Vector2.zero;
+                rb.velocity = Vector2.zero;
             }
         }
     }

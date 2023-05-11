@@ -18,7 +18,7 @@ public class Ladder : BaseInteractableObject
     #endregion
 
     private bool playerOnLadder=false;
-    private LadderClimbingPlayerMovement ladderPlayer;
+    private LadderClimbingPlayerMovement ladderClimbingPlayerMovement;
 
     private void OnDrawGizmosSelected()
     {
@@ -30,9 +30,9 @@ public class Ladder : BaseInteractableObject
 
     protected override void OnPlayerExitTrigger()
     {
-        if (ladderPlayer == null) { return; }
+        if (ladderClimbingPlayerMovement == null) { return; }
         playerOnLadder = false;
-        ladderPlayer.FinishLadderClimbing();
+        ladderClimbingPlayerMovement.FinishLadderClimbing();
     }
     /// <summary>
     /// 
@@ -41,25 +41,25 @@ public class Ladder : BaseInteractableObject
     protected override void OnPlayerInteraction(GameObject go)
     {
       
-        if (ladderPlayer==null)
+        if (ladderClimbingPlayerMovement==null)
         {
-            ladderPlayer = go.GetComponent<LadderClimbingPlayerMovement>();
+            ladderClimbingPlayerMovement = go.GetComponent<LadderClimbingPlayerMovement>();
         }
 
         if (playerOnLadder)
         {
             var newPos = CheckNearestPosition();
            
-            if (newPos != default(Vector2))
+            if (newPos != Vector2.zero)
             {
                 player.transform.position = newPos;
-                ladderPlayer.InteractWithLadder();
+                ladderClimbingPlayerMovement.InteractWithLadder();
                 playerOnLadder=false;
             }
         }
         else
         {
-            ladderPlayer.InteractWithLadder();
+            ladderClimbingPlayerMovement.InteractWithLadder();
             player.transform.position = new Vector2(transform.position.x,player.transform.position.y); // para que se snapee el player a la escalera
             playerOnLadder = true;
         }

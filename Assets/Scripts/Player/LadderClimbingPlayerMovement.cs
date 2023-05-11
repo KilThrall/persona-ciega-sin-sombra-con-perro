@@ -19,11 +19,13 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
     private ContactBasedLight[] handLights;
     //TODO: Cuando trepe que hagan sonido sus manos tambien, permitiendo ver un poco para arriba
     #endregion
+    private const string LADDER_CLIMB_ANIMATOR_PARAMETER= "LadderClimbing";
     private int characterLayer = 3;
     private int characterClimbingLayer = 9;
     private IInput input;
     private Rigidbody2D rb;
     private Animator anim;
+    private BasePlayerMovement basePlayerMovement;
     private float desiredDir;
 
     private bool isClimbingLadder;
@@ -35,7 +37,7 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         input = GetComponent<IInput>();
         anim = GetComponent<Animator>();
-
+        basePlayerMovement = GetComponent<BasePlayerMovement>();
         characterLayer= LayerMask.NameToLayer(characterLayerName);
         characterClimbingLayer= LayerMask.NameToLayer(characterClimbingLayerName);
     }
@@ -54,7 +56,7 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
         {
             ChangeHandStatus(true);
             gameObject.layer = characterClimbingLayer;
-            rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+            basePlayerMovement.IsWalkEnabled = false;
             rb.gravityScale = 0;
             isClimbingLadder = true;
             input.OnVerticalMovementInput += OnVerticalMovementInput;
@@ -65,7 +67,7 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
     {
         gameObject.layer = characterLayer;
         rb.velocity = new Vector2(rb.velocity.x, 0);
-        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        basePlayerMovement.IsWalkEnabled = true;
         ChangeHandStatus(false);
         rb.gravityScale = 1;
         isClimbingLadder = false;
@@ -107,17 +109,18 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
     {
         if (dir < 0)
         {
-            anim.SetBool("LadderClimbing", true);
+ 
+            anim.SetBool(LADDER_CLIMB_ANIMATOR_PARAMETER, true);
             dir = -1;
         }
         else if (dir > 0)
         {
-            anim.SetBool("LadderClimbing", true);
+            anim.SetBool(LADDER_CLIMB_ANIMATOR_PARAMETER, true);
             dir = 1;
         }
         else
         {
-            anim.SetBool("LadderClimbing", false);
+            anim.SetBool(LADDER_CLIMB_ANIMATOR_PARAMETER, false);
         }
         desiredDir = dir;
     }
