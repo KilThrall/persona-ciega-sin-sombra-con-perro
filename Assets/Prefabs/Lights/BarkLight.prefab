@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 3627384222392997178}
   - component: {fileID: 2089905045324364740}
   - component: {fileID: 4115599723001693069}
+  - component: {fileID: 3086480791231234778}
   - component: {fileID: -93244624002477063}
   - component: {fileID: -1779524246743283972}
   m_Layer: 7
@@ -142,7 +143,7 @@ MonoBehaviour:
   m_Intensity: 0.6
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 31588fa500000000
+  m_ApplyToSortingLayers: 31588fa500000000b1cd8a984d047bac
   m_LightCookieSprite: {fileID: 21300000, guid: 83a3e802314a97b4396e1bf6e91139ed, type: 3}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -716,6 +717,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3086480791231234778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6706706918502213083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82f7e356e1bed6f46881e94eb5d14df4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shouldBeSeenByBlind: 1
+  targetComponent: {fileID: 5308994827055916601}
 --- !u!114 &-93244624002477063
 MonoBehaviour:
   m_ObjectHideFlags: 0
