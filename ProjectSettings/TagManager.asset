@@ -8,6 +8,7 @@ TagManager:
   - Plug
   - Dog
   - Floor
+  - Pusheable
   layers:
   - Default
   - TransparentFX
