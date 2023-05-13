@@ -23,6 +23,8 @@ public class Rope : MonoBehaviour
     #endregion
     private Transform endPoint;
     private bool isGrabbed;
+    private EdgeCollider2D edgeCollider;
+    private List<Vector2> edgeColliderPoints = new();
 
 
     private LineRenderer lineRenderer;
@@ -31,14 +33,16 @@ public class Rope : MonoBehaviour
     #region MonoBehaviour CallBacks
     private void Awake()
     {
+        edgeCollider = GetComponent<EdgeCollider2D>();
         lineRenderer = GetComponent<LineRenderer>();
         endPoint = defaultEndpoint;
 
         Vector3 ropeStartPoint = startPoint.position;
-
+    
         for (int i = 0; i < lineRendererPositions; i++)
         {
             this.ropeSegments.Add(new RopeSegment(ropeStartPoint,i));
+            edgeColliderPoints.Add(Vector3.zero);  
             ropeStartPoint.y -= ropeSegLength;
         }
 
@@ -52,17 +56,6 @@ public class Rope : MonoBehaviour
             InteractionTrigger.position = lineRenderer.GetPosition(lineRenderer.positionCount - 1);
         }
     }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        //POR AHORA NO SIRVE PERO POR AHI DESP SI UWU OWO EWE 7W7
-        //var pos = collision.GetContact(0).point;
-        //Vector2 colisionDir = (transform.position - collision.transform.position).normalized;
-
-        //var nearestSegment = GetNearestSegment(pos);
-        //nearestSegment.forceToAdd += colisionDir * 2;
-        //ropeSegments[nearestSegment.index] = nearestSegment;
-    }
-
     #endregion
 
     private RopeSegment GetNearestSegment(Vector3 impactPosition)
@@ -82,63 +75,52 @@ public class Rope : MonoBehaviour
     {
         // SIMULATION
         Vector2 forceGravity = new Vector2(0f, -1);
-
+        edgeColliderPoints[0] = new Vector2(startPoint.position.x-transform.position.x, startPoint.position.y-transform.position.y);
         for (int i = 1; i < this.lineRendererPositions; i++)
         {
-            RopeSegment firstSegment = this.ropeSegments[i];
-            Vector2 velocity = firstSegment.posNow - firstSegment.posOld;
-            firstSegment.posOld = firstSegment.posNow;
-            Vector2 newPos = firstSegment.posNow;
-
-
-
-            Debug.DrawLine(newPos, newPos + Vector2.down *maxCollisionDistanceTollerance);
-            if (!Physics2D.Raycast(newPos, Vector2.down, maxCollisionDistanceTollerance, whatIsFloor) && !Physics2D.Raycast(newPos, Vector2.up, maxCollisionDistanceTollerance, whatIsFloor))
+            if(ropeSegments[i].posNow!=Vector2.zero)
             {
-                firstSegment.hookPos = Vector2.zero;
-                Vector2 virtualNewPos = newPos;
-                virtualNewPos.y += velocity.y;
-                virtualNewPos.y += forceGravity.y * Time.fixedDeltaTime;
-                if (!Physics2D.OverlapPoint(virtualNewPos, whatIsFloor))
+                RopeSegment firstSegment = this.ropeSegments[i];
+                Vector2 velocity = firstSegment.posNow - firstSegment.posOld;
+                firstSegment.posOld = firstSegment.posNow;
+                Vector2 newPos = firstSegment.posNow;
+
+
+                Debug.DrawLine(newPos, newPos + Vector2.down * maxCollisionDistanceTollerance);
+                if (!Physics2D.Raycast(newPos, Vector2.down, maxCollisionDistanceTollerance, whatIsFloor) && !Physics2D.Raycast(newPos, Vector2.up, maxCollisionDistanceTollerance, whatIsFloor))
                 {
-                    newPos = virtualNewPos;
+                    firstSegment.hookPos = Vector2.zero;
+                    Vector2 virtualNewPos = newPos;
+                    virtualNewPos.y += velocity.y;
+                    virtualNewPos.y += forceGravity.y * Time.fixedDeltaTime;
+                    if (!Physics2D.OverlapPoint(virtualNewPos, whatIsFloor))
+                    {
+                        newPos = virtualNewPos;
+                    }
                 }
 
-            }
-            else
-            {
-                print("Adentro en Y");
-                firstSegment.hookPos = newPos;
-            }
-
-
-            Debug.DrawLine(newPos, newPos + Vector2.left * maxCollisionDistanceTollerance, Color.red);
-            Debug.DrawLine(newPos, newPos + Vector2.right * maxCollisionDistanceTollerance, Color.red);
-            if (!Physics2D.Raycast(newPos, Vector2.right, maxCollisionDistanceTollerance, whatIsFloor) && (!Physics2D.Raycast(newPos, Vector2.left, maxCollisionDistanceTollerance, whatIsFloor)))
-            {
-                firstSegment.hookPos = Vector2.zero;
-                Vector2 virtualNewPos = newPos;
-                virtualNewPos.x += velocity.x;
-                virtualNewPos.x += forceGravity.x * Time.fixedDeltaTime;
-
-                if (!Physics2D.OverlapPoint(virtualNewPos, whatIsFloor))
+                Debug.DrawLine(newPos, newPos + Vector2.left * maxCollisionDistanceTollerance, Color.red);
+                Debug.DrawLine(newPos, newPos + Vector2.right * maxCollisionDistanceTollerance, Color.red);
+                if (!Physics2D.Raycast(newPos, Vector2.right, maxCollisionDistanceTollerance, whatIsFloor) && (!Physics2D.Raycast(newPos, Vector2.left, maxCollisionDistanceTollerance, whatIsFloor)))
                 {
-                    newPos = virtualNewPos;
+                    firstSegment.hookPos = Vector2.zero;
+                    Vector2 virtualNewPos = newPos;
+                    virtualNewPos.x += velocity.x;
+                    virtualNewPos.x += forceGravity.x * Time.fixedDeltaTime;
+
+                    if (!Physics2D.OverlapPoint(virtualNewPos, whatIsFloor))
+                    {
+                        newPos = virtualNewPos;
+                    }
                 }
-            }
-            else
-            {
-                print("Adentro en X");
-                firstSegment.hookPos = newPos;
-            }
-      
-            if (!Physics2D.OverlapPoint(newPos, whatIsFloor))
-            {
                 firstSegment.posNow = newPos;
                 this.ropeSegments[i] = firstSegment;
+                edgeColliderPoints[i] = firstSegment.posNow - new Vector2(transform.position.x, transform.position.y);
             }
+           
         }
-
+       
+        edgeCollider.SetPoints(edgeColliderPoints);
         //CONSTRAINTS
         for (int i = 0; i < 3; i++)
         {
@@ -153,7 +135,6 @@ public class Rope : MonoBehaviour
         firstSegment.posNow = this.startPoint.position;
         this.ropeSegments[0] = firstSegment;
 
-
         //Constrant to Second Point 
         //if (isGrabbed)
         {
@@ -165,7 +146,6 @@ public class Rope : MonoBehaviour
 
         for (int i = 0; i < this.lineRendererPositions - 1; i++)
         {
-
             RopeSegment firstSeg = this.ropeSegments[i];
             RopeSegment secondSeg = this.ropeSegments[i + 1];
 
@@ -173,11 +153,12 @@ public class Rope : MonoBehaviour
             float error = Mathf.Abs(dist - this.ropeSegLength);
             Vector2 changeDir = Vector2.zero;
 
-            if (dist > ropeSegLength)
+            if (dist > ropeSegLength) //si la distancia entre puntos es mayor a la distancia admitida
             {
+                //la dirección en la que se moverá el primer punto es igual a la direccion del primer al segundo punto
                 changeDir = (firstSeg.posNow - secondSeg.posNow).normalized;
             }
-            else if (dist < ropeSegLength)
+            else if (dist < ropeSegLength) // y vice
             {
                 changeDir = (secondSeg.posNow - firstSeg.posNow).normalized;
             }
@@ -185,36 +166,23 @@ public class Rope : MonoBehaviour
             Vector2 changeAmount = changeDir * error;
             if (i != 0)
             {
-             
-                    firstSeg.posNow -= changeAmount * 0.5f;
-                    if (!Physics2D.OverlapPoint(firstSeg.posNow, whatIsFloor))
-                    {
-                        this.ropeSegments[i] = firstSeg;
-                    }
-
-                
-              
-                    secondSeg.posNow += changeAmount * 0.5f;
-                    if (!Physics2D.OverlapPoint(secondSeg.posNow, whatIsFloor))
-                    {
-                        this.ropeSegments[i + 1] = secondSeg;
-                    }
-                
+                //se multiplica por 0.5 porque el la distnacia que se deben acomodar los puntos se divide entre ellos
+                firstSeg.posNow -= changeAmount * 0.5f; // se mueve el punto la mitad de la distancia hacia una direccion
+                this.ropeSegments[i] = firstSeg;
+                secondSeg.posNow += changeAmount * 0.5f; // se mueve el otro punto a la direccion opuesta
+                this.ropeSegments[i + 1] = secondSeg;
             }
             else
             {
-             
-                    secondSeg.posNow += changeAmount;
-                    if (!Physics2D.OverlapPoint(secondSeg.posNow, whatIsFloor))
-                    {
-                        this.ropeSegments[i + 1] = secondSeg;
-                    }
-
-                    this.ropeSegments[i + 1] = secondSeg;
-                
-
+                secondSeg.posNow += changeAmount;
+                this.ropeSegments[i + 1] = secondSeg;
             }
 
+            if (firstSeg.hookPos!=Vector2.zero)
+            {
+                firstSeg.posNow = firstSeg.hookPos;
+                this.ropeSegments[i] = firstSeg;
+            }
 
         }
     }
