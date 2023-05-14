@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 0000000031588fa5
+  m_ApplyToSortingLayers: 31588fa500000000b1cd8a984d047bac
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -381,7 +381,7 @@ GameObject:
   m_Layer: 0
   m_Name: 'Mouth '
   m_TagString: Untagged
-  m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -425,7 +425,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5923521126901288255}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.35, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -470,15 +470,15 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1735733839
+  m_SortingLayer: 2
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 25d823ebb4ec5884fbf0b3e6336b8cce, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1f185d64f4ec8914babfc84e801d7dc8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -499,6 +499,7 @@ GameObject:
   - component: {fileID: 5923521127441531031}
   - component: {fileID: 5923521127441531024}
   - component: {fileID: 5923521127441531025}
+  - component: {fileID: 906332480}
   m_Layer: 3
   m_Name: Dog
   m_TagString: Dog
@@ -603,7 +604,7 @@ MonoBehaviour:
   floorDetectionDistance: 0.74
   whatIsFloor:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 1088
 --- !u!114 &5923521127441531024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -619,6 +620,7 @@ MonoBehaviour:
   moveSpeed: 5
   acceleration: 3
   footstepLights: []
+  footStepAudioSource: {fileID: 0}
 --- !u!95 &5923521127441531025
 Animator:
   serializedVersion: 5
@@ -629,7 +631,7 @@ Animator:
   m_GameObject: {fileID: 5923521127441531026}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b40152b3eba52e343861eea2cc642591, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -639,3 +641,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &906332480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5923521127441531026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58e39deb54d66f44d8ae8aa3776ecd8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

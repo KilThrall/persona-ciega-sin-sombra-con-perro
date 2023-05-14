@@ -17,6 +17,7 @@ public class BasePlayerMovement : MonoBehaviour
             } 
         }
     }
+
     #region Serialized variables
 
     [SerializeField]

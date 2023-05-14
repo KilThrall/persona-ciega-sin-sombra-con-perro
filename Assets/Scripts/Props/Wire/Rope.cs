@@ -14,59 +14,49 @@ public class Rope : MonoBehaviour
     private Transform startPoint;
     [SerializeField]
     private Transform defaultEndpoint;
-
+    [SerializeField]
+    private Transform InteractionTrigger;
+    [SerializeField]
+    private LayerMask whatIsFloor;
+    [SerializeField]
+    private float maxCollisionDistanceTollerance = 0.2f;
     #endregion
     private Transform endPoint;
-    private EdgeCollider2D edgeCollider;
     private bool isGrabbed;
+    private EdgeCollider2D edgeCollider;
+    private List<Vector2> edgeColliderPoints = new();
 
-    private Transform InteractionTrigger;
+
     private LineRenderer lineRenderer;
     private readonly List<RopeSegment> ropeSegments = new(); //C# 9.0 !!!1! 
 
+    #region MonoBehaviour CallBacks
     private void Awake()
     {
         edgeCollider = GetComponent<EdgeCollider2D>();
         lineRenderer = GetComponent<LineRenderer>();
-        startPoint = transform;
         endPoint = defaultEndpoint;
 
         Vector3 ropeStartPoint = startPoint.position;
-
+    
         for (int i = 0; i < lineRendererPositions; i++)
         {
             this.ropeSegments.Add(new RopeSegment(ropeStartPoint,i));
+            edgeColliderPoints.Add(Vector3.zero);  
             ropeStartPoint.y -= ropeSegLength;
         }
 
-        InteractionTrigger = transform.GetChild(1);
     }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        this.DrawRope();
-    }
-
     private void FixedUpdate()
     {
         this.Simulate();
+        this.DrawRope();
         if (lineRenderer.positionCount > 0)
         {
             InteractionTrigger.position = lineRenderer.GetPosition(lineRenderer.positionCount - 1);
         }
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        var pos = collision.GetContact(0).point;
-        Vector2 colisionDir = (transform.position- collision.transform.position).normalized;
-
-        var nearestSegment = GetNearestSegment(pos);
-        nearestSegment.forceToAdd += colisionDir*2;
-        ropeSegments[nearestSegment.index] = nearestSegment;
-    }
+    #endregion
 
     private RopeSegment GetNearestSegment(Vector3 impactPosition)
     {
@@ -84,24 +74,60 @@ public class Rope : MonoBehaviour
     private void Simulate()
     {
         // SIMULATION
-        Vector2 forceGravity = new Vector2(0f, -1f);
-
+        Vector2 forceGravity = new Vector2(0f, -1);
+        edgeColliderPoints[0] = new Vector2(startPoint.position.x-transform.position.x, startPoint.position.y-transform.position.y);
         for (int i = 1; i < this.lineRendererPositions; i++)
         {
-            RopeSegment firstSegment = this.ropeSegments[i];
-            Vector2 velocity = firstSegment.posNow - firstSegment.posOld;
-            firstSegment.posOld = firstSegment.posNow;
-            firstSegment.posNow += velocity;
-            firstSegment.posNow += firstSegment.forceToAdd+forceGravity * Time.fixedDeltaTime;
-            firstSegment.forceToAdd = Vector2.zero;
-            this.ropeSegments[i] = firstSegment;
-        }
+            if (ropeSegments[i].posNow != Vector2.zero)
+            {
+                RopeSegment firstSegment = this.ropeSegments[i];
+                Vector2 velocity = firstSegment.posNow - firstSegment.posOld;
+                firstSegment.posOld = firstSegment.posNow;
+                Vector2 newPos = firstSegment.posNow;
 
-        //CONSTRAINTS
-        for (int i = 0; i < 50; i++)
-        {
-            this.ApplyConstraint();
+                if (Physics2D.Raycast(newPos, velocity, maxCollisionDistanceTollerance, whatIsFloor))
+                {
+                    firstSegment.hookPos = newPos;
+                }
+                else
+                {
+                    firstSegment.hookPos = Vector2.zero;
+                    if (!Physics2D.Raycast(newPos, Vector2.down, maxCollisionDistanceTollerance, whatIsFloor) && !Physics2D.Raycast(newPos, Vector2.up, maxCollisionDistanceTollerance, whatIsFloor))
+                    {
+
+                        Vector2 virtualNewPos = newPos;
+                        virtualNewPos.y += velocity.y;
+                        virtualNewPos.y += forceGravity.y * Time.fixedDeltaTime;
+                        if (!Physics2D.OverlapPoint(virtualNewPos, whatIsFloor))
+                        {
+                            newPos = virtualNewPos;
+                        }
+                    }
+                    if (!Physics2D.Raycast(newPos, Vector2.right, maxCollisionDistanceTollerance, whatIsFloor) && (!Physics2D.Raycast(newPos, Vector2.left, maxCollisionDistanceTollerance, whatIsFloor)))
+                    {
+                        Vector2 virtualNewPos = newPos;
+                        virtualNewPos.x += velocity.x;
+                        virtualNewPos.x += forceGravity.x * Time.fixedDeltaTime;
+
+                        if (!Physics2D.OverlapPoint(virtualNewPos, whatIsFloor))
+                        {
+                            newPos = virtualNewPos;
+                        }
+                    }
+
+                    firstSegment.posNow = newPos;
+                    this.ropeSegments[i] = firstSegment;
+                    edgeColliderPoints[i] = firstSegment.posNow - new Vector2(transform.position.x, transform.position.y);
+                }
+
+            }
         }
+            //CONSTRAINTS
+            for (int i = 0; i < 3; i++)
+            {
+                this.ApplyConstraint();
+            }
+        
     }
 
     private void ApplyConstraint()
@@ -111,9 +137,8 @@ public class Rope : MonoBehaviour
         firstSegment.posNow = this.startPoint.position;
         this.ropeSegments[0] = firstSegment;
 
-
         //Constrant to Second Point 
-        if (isGrabbed)
+        //if (isGrabbed)
         {
             RopeSegment endSegment = this.ropeSegments[this.ropeSegments.Count - 1];
             endSegment.posNow = this.endPoint.position;
@@ -130,11 +155,12 @@ public class Rope : MonoBehaviour
             float error = Mathf.Abs(dist - this.ropeSegLength);
             Vector2 changeDir = Vector2.zero;
 
-            if (dist > ropeSegLength)
+            if (dist > ropeSegLength) //si la distancia entre puntos es mayor a la distancia admitida
             {
+                //la dirección en la que se moverá el primer punto es igual a la direccion del primer al segundo punto
                 changeDir = (firstSeg.posNow - secondSeg.posNow).normalized;
             }
-            else if (dist < ropeSegLength)
+            else if (dist < ropeSegLength) // y vice
             {
                 changeDir = (secondSeg.posNow - firstSeg.posNow).normalized;
             }
@@ -142,9 +168,10 @@ public class Rope : MonoBehaviour
             Vector2 changeAmount = changeDir * error;
             if (i != 0)
             {
-                firstSeg.posNow -= changeAmount * 0.5f;
+                //se multiplica por 0.5 porque el la distnacia que se deben acomodar los puntos se divide entre ellos
+                firstSeg.posNow -= changeAmount * 0.5f; // se mueve el punto la mitad de la distancia hacia una direccion
                 this.ropeSegments[i] = firstSeg;
-                secondSeg.posNow += changeAmount * 0.5f;
+                secondSeg.posNow += changeAmount * 0.5f; // se mueve el otro punto a la direccion opuesta
                 this.ropeSegments[i + 1] = secondSeg;
             }
             else
@@ -152,6 +179,18 @@ public class Rope : MonoBehaviour
                 secondSeg.posNow += changeAmount;
                 this.ropeSegments[i + 1] = secondSeg;
             }
+
+            if (firstSeg.hookPos!=Vector2.zero)
+            {
+                firstSeg.posNow = firstSeg.hookPos;
+                this.ropeSegments[i] = firstSeg;
+            }
+            if (secondSeg.hookPos != Vector2.zero)
+            {
+                secondSeg.posNow = secondSeg.hookPos;
+                this.ropeSegments[i+1] = secondSeg;
+            }
+
         }
     }
 
@@ -169,12 +208,6 @@ public class Rope : MonoBehaviour
 
         lineRenderer.positionCount = ropePositions.Length;
         lineRenderer.SetPositions(ropePositions);
-        List<Vector2> ropePosV2 = new();
-        for (int i = 0; i < ropePositions.Length; i++)
-        {
-            ropePosV2.Add(new Vector2(ropePositions[i].x-transform.position.x, ropePositions[i].y-transform.position.y));
-        }
-        edgeCollider.SetPoints(ropePosV2);
     }
 
     public void SetEndPoint(Transform p_EndPoint)
@@ -196,16 +229,14 @@ public class Rope : MonoBehaviour
         public Vector2 posNow;
         public Vector2 posOld;
         public int index;
-        public Vector2 forceToAdd;
+        public Vector2 hookPos;
         public RopeSegment(Vector2 pos,int index)
         {
-            forceToAdd = Vector2.zero;
+            hookPos = Vector2.zero;
             this.index = index;
             this.posNow = pos;
             this.posOld = pos;
         }
     }
-
-
 
 }

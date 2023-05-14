@@ -8,6 +8,7 @@ TagManager:
   - Plug
   - Dog
   - Floor
+  - Pusheable
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Light
   - InvisibleWall Rocks
   - CharacterClimbing
-  - 
+  - MovableFloor
   - 
   - 
   - 
