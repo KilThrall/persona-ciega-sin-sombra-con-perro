@@ -94,7 +94,6 @@ public class ClimbPlayerMovement : MonoBehaviour
     {
         if (pressed)
         {
-            print("Space");
             if (ledgeDetected && !isClimbing)
             {
                 isClimbing = true;

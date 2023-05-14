@@ -78,54 +78,56 @@ public class Rope : MonoBehaviour
         edgeColliderPoints[0] = new Vector2(startPoint.position.x-transform.position.x, startPoint.position.y-transform.position.y);
         for (int i = 1; i < this.lineRendererPositions; i++)
         {
-            if(ropeSegments[i].posNow!=Vector2.zero)
+            if (ropeSegments[i].posNow != Vector2.zero)
             {
                 RopeSegment firstSegment = this.ropeSegments[i];
                 Vector2 velocity = firstSegment.posNow - firstSegment.posOld;
                 firstSegment.posOld = firstSegment.posNow;
                 Vector2 newPos = firstSegment.posNow;
 
-
-                Debug.DrawLine(newPos, newPos + Vector2.down * maxCollisionDistanceTollerance);
-                if (!Physics2D.Raycast(newPos, Vector2.down, maxCollisionDistanceTollerance, whatIsFloor) && !Physics2D.Raycast(newPos, Vector2.up, maxCollisionDistanceTollerance, whatIsFloor))
+                if (Physics2D.Raycast(newPos, velocity, maxCollisionDistanceTollerance, whatIsFloor))
+                {
+                    firstSegment.hookPos = newPos;
+                }
+                else
                 {
                     firstSegment.hookPos = Vector2.zero;
-                    Vector2 virtualNewPos = newPos;
-                    virtualNewPos.y += velocity.y;
-                    virtualNewPos.y += forceGravity.y * Time.fixedDeltaTime;
-                    if (!Physics2D.OverlapPoint(virtualNewPos, whatIsFloor))
+                    if (!Physics2D.Raycast(newPos, Vector2.down, maxCollisionDistanceTollerance, whatIsFloor) && !Physics2D.Raycast(newPos, Vector2.up, maxCollisionDistanceTollerance, whatIsFloor))
                     {
-                        newPos = virtualNewPos;
+
+                        Vector2 virtualNewPos = newPos;
+                        virtualNewPos.y += velocity.y;
+                        virtualNewPos.y += forceGravity.y * Time.fixedDeltaTime;
+                        if (!Physics2D.OverlapPoint(virtualNewPos, whatIsFloor))
+                        {
+                            newPos = virtualNewPos;
+                        }
                     }
+                    if (!Physics2D.Raycast(newPos, Vector2.right, maxCollisionDistanceTollerance, whatIsFloor) && (!Physics2D.Raycast(newPos, Vector2.left, maxCollisionDistanceTollerance, whatIsFloor)))
+                    {
+                        Vector2 virtualNewPos = newPos;
+                        virtualNewPos.x += velocity.x;
+                        virtualNewPos.x += forceGravity.x * Time.fixedDeltaTime;
+
+                        if (!Physics2D.OverlapPoint(virtualNewPos, whatIsFloor))
+                        {
+                            newPos = virtualNewPos;
+                        }
+                    }
+
+                    firstSegment.posNow = newPos;
+                    this.ropeSegments[i] = firstSegment;
+                    edgeColliderPoints[i] = firstSegment.posNow - new Vector2(transform.position.x, transform.position.y);
                 }
 
-                Debug.DrawLine(newPos, newPos + Vector2.left * maxCollisionDistanceTollerance, Color.red);
-                Debug.DrawLine(newPos, newPos + Vector2.right * maxCollisionDistanceTollerance, Color.red);
-                if (!Physics2D.Raycast(newPos, Vector2.right, maxCollisionDistanceTollerance, whatIsFloor) && (!Physics2D.Raycast(newPos, Vector2.left, maxCollisionDistanceTollerance, whatIsFloor)))
-                {
-                    firstSegment.hookPos = Vector2.zero;
-                    Vector2 virtualNewPos = newPos;
-                    virtualNewPos.x += velocity.x;
-                    virtualNewPos.x += forceGravity.x * Time.fixedDeltaTime;
-
-                    if (!Physics2D.OverlapPoint(virtualNewPos, whatIsFloor))
-                    {
-                        newPos = virtualNewPos;
-                    }
-                }
-                firstSegment.posNow = newPos;
-                this.ropeSegments[i] = firstSegment;
-                edgeColliderPoints[i] = firstSegment.posNow - new Vector2(transform.position.x, transform.position.y);
             }
-           
         }
-       
-        edgeCollider.SetPoints(edgeColliderPoints);
-        //CONSTRAINTS
-        for (int i = 0; i < 3; i++)
-        {
-            this.ApplyConstraint();
-        }
+            //CONSTRAINTS
+            for (int i = 0; i < 3; i++)
+            {
+                this.ApplyConstraint();
+            }
+        
     }
 
     private void ApplyConstraint()
@@ -182,6 +184,11 @@ public class Rope : MonoBehaviour
             {
                 firstSeg.posNow = firstSeg.hookPos;
                 this.ropeSegments[i] = firstSeg;
+            }
+            if (secondSeg.hookPos != Vector2.zero)
+            {
+                secondSeg.posNow = secondSeg.hookPos;
+                this.ropeSegments[i+1] = secondSeg;
             }
 
         }
