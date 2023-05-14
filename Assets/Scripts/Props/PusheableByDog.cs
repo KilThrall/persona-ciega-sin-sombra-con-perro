@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class PusheableByDog : MonoBehaviour
 {
+    private const string DOG_TAG = "Dog";
+
     #region Serialized Variables
     [SerializeField]
     private float forceMultiplier = 10;
     [SerializeField][Tooltip("Punto de referencia de la máxima altura tolerada en la colisión con el perro, osea si el perro colisiona pero esta mas arriba que esto no mueve el obstaculo")]
     private Transform maxPushableHeightTransform;
-    [SerializeField]
-    private const string DOG_TAG = "Dog";
     #endregion
+
     private float maxPushableHeight
     {
         get
