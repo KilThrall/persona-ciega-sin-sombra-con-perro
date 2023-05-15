@@ -1,5 +1,133 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &77760971
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 77760972}
+  - component: {fileID: 77760973}
+  m_Layer: 3
+  m_Name: FootStepSound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &77760972
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77760971}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6273823577838093014}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &77760973
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77760971}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 1fe0f3aad5369964c89bf121b24cf24c, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &674811622
 GameObject:
   m_ObjectHideFlags: 0
@@ -52,7 +180,7 @@ MonoBehaviour:
   m_Intensity: 0
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 0000000031588fa5
+  m_ApplyToSortingLayers: 31588fa500000000b1cd8a984d047bac
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -261,7 +389,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6273823577571050652}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.02, z: 0}
+  m_LocalPosition: {x: 0, y: 1.093, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -282,14 +410,9 @@ GameObject:
   - component: {fileID: 6273823577838093033}
   - component: {fileID: 6273823577838093015}
   - component: {fileID: 6273823577838093034}
-  - component: {fileID: 6273823577838093036}
-  - component: {fileID: 6273823577838093035}
-  - component: {fileID: 6273823577838093037}
   - component: {fileID: 6273823577838093038}
   - component: {fileID: 6273823577838093039}
   - component: {fileID: 1762368476}
-  - component: {fileID: 1762368477}
-  - component: {fileID: 1762368478}
   m_Layer: 3
   m_Name: 'Blind '
   m_TagString: Blind
@@ -316,6 +439,7 @@ Transform:
   - {fileID: 919443151}
   - {fileID: 2062461389}
   - {fileID: 674811623}
+  - {fileID: 77760972}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -392,10 +516,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   acceleration: 3
-  footstepLights:
-  - {fileID: 6273823577838093036}
-  - {fileID: 6273823577838093035}
-  footStepAudioSource: {fileID: 0}
+  footstepLights: []
+  footStepAudioSource: {fileID: 77760973}
 --- !u!95 &6273823577838093034
 Animator:
   serializedVersion: 5
@@ -406,7 +528,7 @@ Animator:
   m_GameObject: {fileID: 6273823577838093011}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1c829553c7199b64a826b8a3587b746c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -416,54 +538,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
---- !u!114 &6273823577838093036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6273823577838093011}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76f4239cdc4dac14dbfedd3d542b43f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LightPrefab: {fileID: 6706706918502213083, guid: 9144f21bdef11594d96b1047d1676078, type: 3}
-  LightPosition: {fileID: 6273823578310235989}
-  DelayForNextLight: 1
-  OffsetForFirstLight: 0.1
---- !u!114 &6273823577838093035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6273823577838093011}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76f4239cdc4dac14dbfedd3d542b43f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LightPrefab: {fileID: 6706706918502213083, guid: 9144f21bdef11594d96b1047d1676078, type: 3}
-  LightPosition: {fileID: 6273823576801207052}
-  DelayForNextLight: 1
-  OffsetForFirstLight: 0.6
---- !u!114 &6273823577838093037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6273823577838093011}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76f4239cdc4dac14dbfedd3d542b43f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LightPrefab: {fileID: 6706706918502213083, guid: 9144f21bdef11594d96b1047d1676078, type: 3}
-  LightPosition: {fileID: 0}
-  DelayForNextLight: -1
-  OffsetForFirstLight: 0
 --- !u!114 &6273823577838093038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -496,8 +570,8 @@ MonoBehaviour:
   rayCastParent: {fileID: 6273823576794521129}
   whatIsFloor:
     serializedVersion: 2
-    m_Bits: 64
-  wallCheckDistance: 0.65
+    m_Bits: 1088
+  wallCheckDistance: 1.16
   ledgeClimbXOffset1: 0.5
   ledgeClimbYOffset1: 0.47
   ledgeClimbXOffset2: 0.6
@@ -519,40 +593,8 @@ MonoBehaviour:
   climbSpeed: 100
   acceleration: 1.5
   handLights:
-  - {fileID: 1762368477}
-  - {fileID: 1762368478}
---- !u!114 &1762368477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6273823577838093011}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76f4239cdc4dac14dbfedd3d542b43f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LightPrefab: {fileID: 6706706918502213083, guid: 9144f21bdef11594d96b1047d1676078, type: 3}
-  LightPosition: {fileID: 919443151}
-  DelayForNextLight: 1
-  OffsetForFirstLight: 0.1
---- !u!114 &1762368478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6273823577838093011}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76f4239cdc4dac14dbfedd3d542b43f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LightPrefab: {fileID: 6706706918502213083, guid: 9144f21bdef11594d96b1047d1676078, type: 3}
-  LightPosition: {fileID: 2062461389}
-  DelayForNextLight: 1
-  OffsetForFirstLight: 0.1
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &6273823578000710046
 GameObject:
   m_ObjectHideFlags: 0
@@ -685,10 +727,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 876aeb92e0baebf4eba09334b03846a4, type: 3}
+  m_SortingLayerID: -1735733839
+  m_SortingLayer: 2
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 9aeb1499f133cff4d915edfed789aee7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

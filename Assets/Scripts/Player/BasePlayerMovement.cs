@@ -11,8 +11,7 @@ public class BasePlayerMovement : MonoBehaviour
         set { 
             isWalkEnabled = value;
             if (!value)
-            {
-                SetFacingDirection(1);//con esto mira para el mismo lado siempre
+            { //SetFacingDirection sacado de acá porque si se tiene que frenar al player para que trepe no tiene por que mirar siempre en la misma direc
                 anim.SetBool("Running", false); 
             } 
         }
@@ -130,14 +129,11 @@ public class BasePlayerMovement : MonoBehaviour
 
         if (dir!=0)
         {
-
             SetFacingDirection(dir);
-            
         }
-
     }
 
-    private void SetFacingDirection(float dir)
+    public void SetFacingDirection(float dir)
     {
         if (transform.localScale.x != dir)
         {
@@ -145,7 +141,6 @@ public class BasePlayerMovement : MonoBehaviour
             scale.x = dir;
             transform.localScale = scale;
         }
-
     }
 
     public float GetDesiredDir()

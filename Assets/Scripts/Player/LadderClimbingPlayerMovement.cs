@@ -27,9 +27,9 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
     private Animator anim;
     private BasePlayerMovement basePlayerMovement;
     private float desiredDir;
-
     private bool isClimbingLadder;
 
+    private int leftDirection=1;
 
     #region MonoBehaviour callbacks
     private void Awake()
@@ -40,7 +40,29 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
         basePlayerMovement = GetComponent<BasePlayerMovement>();
         characterLayer= LayerMask.NameToLayer(characterLayerName);
         characterClimbingLayer= LayerMask.NameToLayer(characterClimbingLayerName);
+        input.OnVerticalMovementInput += OnVerticalMovementInput;
     }
+
+    private void FixedUpdate()
+    {
+        if (isClimbingLadder)
+        {
+            var dirDif = desiredDir * climbSpeed - rb.velocity.x;
+            var resultingSpeed = dirDif * acceleration * Time.deltaTime;
+            resultingSpeed = Mathf.Clamp(resultingSpeed, -climbSpeed, climbSpeed);
+            rb.velocity = new Vector2(rb.velocity.x, resultingSpeed);
+
+            if (Mathf.Abs(rb.velocity.x) - 0.1f < 0 || Mathf.Abs(rb.velocity.y) > 0.2f)
+            {
+                ChangeHandStatus(false);
+            }
+            else
+            {
+                ChangeHandStatus(true);
+            }
+        }
+    }
+
     private void OnDestroy()
     {
         input.OnVerticalMovementInput -= OnVerticalMovementInput;
@@ -59,7 +81,7 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
             basePlayerMovement.IsWalkEnabled = false;
             rb.gravityScale = 0;
             isClimbingLadder = true;
-            input.OnVerticalMovementInput += OnVerticalMovementInput;
+            basePlayerMovement.SetFacingDirection(leftDirection);
         }
     }
 
@@ -72,30 +94,7 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
         rb.gravityScale = 1;
         isClimbingLadder = false;
         OnVerticalMovementInput(0);
-        input.OnVerticalMovementInput -= OnVerticalMovementInput;
     }
-
-
-    private void FixedUpdate()
-    {
-        if (isClimbingLadder)
-        {
-            var dirDif = desiredDir * climbSpeed - rb.velocity.x;
-            var resultingSpeed = dirDif * acceleration * Time.deltaTime;
-            resultingSpeed = Mathf.Clamp(resultingSpeed, -climbSpeed, climbSpeed);
-            rb.velocity = new Vector2(rb.velocity.x, resultingSpeed);
-         
-            if (Mathf.Abs(rb.velocity.x) - 0.1f < 0 || Mathf.Abs(rb.velocity.y) > 0.2f)
-            {
-                ChangeHandStatus(false);
-            }
-            else
-            {
-                ChangeHandStatus(true);
-            }
-        }
-    }
-
 
     private void ChangeHandStatus(bool state)
     {
@@ -124,6 +123,4 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
         }
         desiredDir = dir;
     }
-
-
 }
