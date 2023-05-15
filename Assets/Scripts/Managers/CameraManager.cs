@@ -62,8 +62,10 @@ public class CameraManager : MonoBehaviour
     {
         input.Disable();
     }
-
-    private void FixedUpdate()
+    
+    //Cuando el player se bajaba de la escalera o cuando terminaba de trepar daba un pantallazo porque el player desaparecia del centro de la pantalla
+    //y la camara se tepeaba al frame siguiente
+    private void LateUpdate()
     {
         var target = isFollowingBlind ? blindCharacter : dogCharacter;
         var pos = target.transform.position;
@@ -82,7 +84,7 @@ public class CameraManager : MonoBehaviour
                 multiplier = -1;
             }
             currentLight.intensity += Time.fixedDeltaTime * timeForFade * multiplier;
-            if((fadeTarget <= currentLight.intensity && multiplier == 1)
+            if ((fadeTarget <= currentLight.intensity && multiplier == 1)
                 || fadeTarget >= currentLight.intensity && multiplier == -1)
             {
                 currentLight.intensity = fadeTarget;

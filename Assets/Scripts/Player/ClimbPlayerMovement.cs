@@ -5,10 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(IInput))]
 public class ClimbPlayerMovement : MonoBehaviour
 {
-    private PlayerInput input;
-    private Animator anim;
-    private Rigidbody2D rb;
-
     #region SerializedVariables
     [SerializeField]
     private Transform wallCheck;
@@ -33,6 +29,11 @@ public class ClimbPlayerMovement : MonoBehaviour
 
     #endregion
 
+    private BasePlayerMovement playerMovement;
+    private IInput input;
+    private Animator anim;
+    private Rigidbody2D rb;
+
     private Vector2 ledgePosBot;
     private Vector2 ledgePos1;
     private Vector2 ledgePos2;
@@ -46,8 +47,9 @@ public class ClimbPlayerMovement : MonoBehaviour
     #region MonoBehaviour callbacks
     private void Awake()
     {
+        playerMovement = GetComponent<BasePlayerMovement>();
         rb = GetComponent<Rigidbody2D>();
-        input = GetComponent<PlayerInput>();
+        input = GetComponent<IInput>();
         anim = GetComponent<Animator>();
         input.OnJump += OnClimb;
     }
@@ -55,16 +57,12 @@ public class ClimbPlayerMovement : MonoBehaviour
     {
         input.OnJump -= OnClimb;
     }
-    private void FixedUpdate()
-    {
-        CheckSurroundings();
-    }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
 
-        Gizmos.DrawRay(wallCheck.position, transform.right*wallCheckDistance);
-        Gizmos.DrawRay(ledgeCheck.position,ledgeCheck.right*wallCheckDistance);
+        Gizmos.DrawRay(wallCheck.position, transform.right*transform.localScale.x*wallCheckDistance);
+        Gizmos.DrawRay(ledgeCheck.position,ledgeCheck.right*transform.localScale.x * wallCheckDistance);
 
         Gizmos.DrawWireSphere(transform.position+new Vector3(ledgeClimbXOffset1, ledgeClimbYOffset1),0.1f);
         Gizmos.DrawWireSphere(transform.position+new Vector3(ledgeClimbXOffset2, ledgeClimbYOffset2),0.1f);
@@ -82,6 +80,9 @@ public class ClimbPlayerMovement : MonoBehaviour
             {
                 ledgeDetected = true;
                 ledgePosBot = wallCheck.position;
+
+                print("ledgeDetected");
+
             }
             else
             {
@@ -94,10 +95,13 @@ public class ClimbPlayerMovement : MonoBehaviour
     {
         if (pressed)
         {
+            CheckSurroundings(); //la detección se hacia en el fixed antes, al pedo porque nada mas importa en el momento que se pulsa espacio
+            // Además si no estaba actualizada la escala del pj al momento de procesar este input se bugeaba
+            //Osea, acercarse a algo que se puede trepar, tocar espacio y darse vuelta rápido te podia hacer trepar para atrás, porque el BasePlayerMovement parece que se llamaba antes que this
+
             if (ledgeDetected && !isClimbing)
             {
                 isClimbing = true;
-
                 if (transform.localScale.x>0)
                 {
                     ledgePos1 = new Vector2(Mathf.Floor(ledgePosBot.x + wallCheckDistance) - ledgeClimbXOffset1, Mathf.Floor(ledgePosBot.y) + ledgeClimbYOffset1);
@@ -130,9 +134,9 @@ public class ClimbPlayerMovement : MonoBehaviour
 
     IEnumerator WaitingForClimb()
     {
-        input.enabled= false;
+        playerMovement.IsWalkEnabled = false;
         yield return new WaitForSeconds(1);
         FinishLedgeClimb();
-        input.enabled = true;
+        playerMovement.IsWalkEnabled = true;
     }
 }
