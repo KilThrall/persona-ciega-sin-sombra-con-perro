@@ -80,9 +80,6 @@ public class ClimbPlayerMovement : MonoBehaviour
             {
                 ledgeDetected = true;
                 ledgePosBot = wallCheck.position;
-
-                print("ledgeDetected");
-
             }
             else
             {
