@@ -3,7 +3,18 @@ using UnityEngine;
 
 public class Rope : MonoBehaviour
 {
+    [HideInInspector]
+    public bool isSpliced;
+
+    public bool MustBeSplicedToWork => mustBeSplicedToWork;
+
     #region Serialized Variables
+    [SerializeField]
+    private bool mustBeSplicedToWork;
+    [SerializeField]
+    private Wire wire;
+    [SerializeField]
+    private float maxRopeLength;
     [SerializeField]
     private float ropeSegLength = 0.25f;
     [SerializeField]
@@ -15,7 +26,9 @@ public class Rope : MonoBehaviour
     [SerializeField]
     private Transform defaultEndpoint;
     [SerializeField]
-    private Transform InteractionTrigger;
+    private Transform InteractionTriggerStart;
+    [SerializeField]
+    private Transform InteractionTriggerEnd;
     [SerializeField]
     private LayerMask whatIsFloor;
     [SerializeField]
@@ -23,14 +36,15 @@ public class Rope : MonoBehaviour
     #endregion
     private Transform endPoint;
     private bool isGrabbed;
+
     private EdgeCollider2D edgeCollider;
     private List<Vector2> edgeColliderPoints = new();
-
 
     private LineRenderer lineRenderer;
     private readonly List<RopeSegment> ropeSegments = new(); //C# 9.0 !!!1! 
 
     #region MonoBehaviour CallBacks
+
     private void Awake()
     {
         edgeCollider = GetComponent<EdgeCollider2D>();
@@ -47,17 +61,39 @@ public class Rope : MonoBehaviour
         }
 
     }
+ 
     private void FixedUpdate()
     {
         this.Simulate();
         this.DrawRope();
+        if (IsOverStretched() && !wire.IsSpliced)
+        {
+            SetEndPoint(null);
+            wire.DropWire();
+            DropRope();
+        }
         if (lineRenderer.positionCount > 0)
         {
-            InteractionTrigger.position = lineRenderer.GetPosition(lineRenderer.positionCount - 1);
+            InteractionTriggerEnd.position = lineRenderer.GetPosition(lineRenderer.positionCount - 1);
+            InteractionTriggerStart.position = lineRenderer.GetPosition(0);
         }
     }
-    #endregion
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * maxRopeLength);
+    }
+    #endregion
+    private bool IsOverStretched()
+    {
+        float currentRopeLength=0;
+        for(int i=0;i<lineRendererPositions-1 ;i++)
+        {
+            currentRopeLength += Vector2.Distance(ropeSegments[i].posNow, ropeSegments[i+1].posNow);
+        }
+        return maxRopeLength < currentRopeLength;
+    }
     private RopeSegment GetNearestSegment(Vector3 impactPosition)
     {
         RopeSegment nearestSegment=default;
@@ -75,7 +111,7 @@ public class Rope : MonoBehaviour
     {
         // SIMULATION
         Vector2 forceGravity = new Vector2(0f, -1);
-        edgeColliderPoints[0] = new Vector2(startPoint.position.x-transform.position.x, startPoint.position.y-transform.position.y);
+        //edgeColliderPoints[0] = new Vector2(startPoint.position.x-transform.position.x, startPoint.position.y-transform.position.y);
         for (int i = 1; i < this.lineRendererPositions; i++)
         {
             if (ropeSegments[i].posNow != Vector2.zero)
@@ -138,7 +174,7 @@ public class Rope : MonoBehaviour
         this.ropeSegments[0] = firstSegment;
 
         //Constrant to Second Point 
-        //if (isGrabbed)
+        if (endPoint!=null)
         {
             RopeSegment endSegment = this.ropeSegments[this.ropeSegments.Count - 1];
             endSegment.posNow = this.endPoint.position;
@@ -208,6 +244,11 @@ public class Rope : MonoBehaviour
 
         lineRenderer.positionCount = ropePositions.Length;
         lineRenderer.SetPositions(ropePositions);
+    }
+
+    public void SetStartPoint(Transform p_StartPoint)
+    {
+        startPoint = p_StartPoint;
     }
 
     public void SetEndPoint(Transform p_EndPoint)

@@ -592,9 +592,7 @@ MonoBehaviour:
   characterClimbingLayerName: CharacterClimbing
   climbSpeed: 100
   acceleration: 1.5
-  handLights:
-  - {fileID: 0}
-  - {fileID: 0}
+  handLights: []
 --- !u!1 &6273823578000710046
 GameObject:
   m_ObjectHideFlags: 0

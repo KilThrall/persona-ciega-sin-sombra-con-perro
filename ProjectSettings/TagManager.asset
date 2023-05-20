@@ -9,6 +9,7 @@ TagManager:
   - Dog
   - Floor
   - Pusheable
+  - WireEnd
   layers:
   - Default
   - TransparentFX
