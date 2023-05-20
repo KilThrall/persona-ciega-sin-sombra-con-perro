@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//TODO: hacer mas prolijo este script, y el de Rope.cs
+
 public class Wire : MonoBehaviour
 {
     private const string PLUG_TAG = "Plug";
@@ -18,7 +20,7 @@ public class Wire : MonoBehaviour
     #endregion
 
     private bool isSpliced=false;
-    private bool isGrabbedByPlayer;
+    public bool isGrabbedByPlayer;
 
     private GenericInteractionTrigger trigger;
     private ItemSocket itemSocket;
@@ -39,7 +41,6 @@ public class Wire : MonoBehaviour
         }
         if (collision.CompareTag(WIRE_TAG))
         {
-            print("me voy a enganchar al cable");
             wireToSplice = collision.GetComponent<Wire>();
         }
     }
@@ -60,40 +61,50 @@ public class Wire : MonoBehaviour
     public void PlayerInteraction()
     {
         //comento porque no me voy a acordar lo q esta pasando aca:
-        if (isGrabbedByPlayer) 
-        {
-            print($"WireToSplice is null?: {wireToSplice==null}");
+        if (isGrabbedByPlayer)
+        { 
             if (itemSocket == null && wireToSplice == null) //SI EL WIRE NO ESTÁ CON COLISION CON OTRO WIRE NI CON UN ITEM SOCKET
             { // SE SUELTA
                 DropWire();
                 rope.DropRope();
+
+                if (isStartTrigger)
+                {
+                    rope.SetStartPoint(null);
+                }
+                else
+                {
+                    rope.SetEndPoint(null);
+                }
+
             }
             else if (itemSocket != null) // SI HAY ITEM SOCKET:
             { // SE CONECTA Y SE LLAMA LA CONECCION
                 DropWire();
                 ConnectRope(itemSocket.transform);
-                itemSocket.Connect();
+                if (rope.MustBeSplicedToWork)
+                {
+                    if (rope.isSpliced)
+                    {
+                        itemSocket.Connect();
+                    }
+                }
             }//GUARDA PORQUE SE PUEDE DESCONECTAR Y ESO NO HACE NADA PERO TAMPOCO ERA UN REQUISITO Q NO PASE NADA
             
             else if (wireToSplice != null) //Si hay un Wire al que se pueda conectar se conecta, al estar conectado ya no se podrá agarrar y se suelta automaticamente
             {
-                ConnectRope(wireToSplice.transform);
-                isSpliced = true;
-                DropWire();
+                Splice();
             }
         }
         else 
         {
-            print($"WireToSplice is null when not grabbed?: {wireToSplice == null}");
             if (!isSpliced) // osea si no esta agarrado ni empalmado
             {
                 GrabWire();
             }
-            if (wireToSplice != null) // si se toca la E en este Wire se va a conectar al otro que entró en colision
+            if (!isSpliced && wireToSplice != null) // si se toca la E en este Wire se va a conectar al otro que entró en colision
             {
-                ConnectRope(wireToSplice.transform);
-                isSpliced = true;
-                DropWire();
+                Splice();
             }
         }
     }
@@ -116,5 +127,13 @@ public class Wire : MonoBehaviour
     public void DropWire()
     {
         isGrabbedByPlayer = false;
+    }
+
+    private void Splice()
+    {
+        ConnectRope(wireToSplice.transform);
+        isSpliced = true;
+        rope.isSpliced = true;
+        DropWire();
     }
 }

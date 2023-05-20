@@ -3,7 +3,14 @@ using UnityEngine;
 
 public class Rope : MonoBehaviour
 {
+    [HideInInspector]
+    public bool isSpliced;
+
+    public bool MustBeSplicedToWork => mustBeSplicedToWork;
+
     #region Serialized Variables
+    [SerializeField]
+    private bool mustBeSplicedToWork;
     [SerializeField]
     private Wire wire;
     [SerializeField]
@@ -29,9 +36,9 @@ public class Rope : MonoBehaviour
     #endregion
     private Transform endPoint;
     private bool isGrabbed;
+
     private EdgeCollider2D edgeCollider;
     private List<Vector2> edgeColliderPoints = new();
-
 
     private LineRenderer lineRenderer;
     private readonly List<RopeSegment> ropeSegments = new(); //C# 9.0 !!!1! 
@@ -60,7 +67,8 @@ public class Rope : MonoBehaviour
         this.Simulate();
         this.DrawRope();
         if (IsOverStretched() && !wire.IsSpliced)
-        { 
+        {
+            SetEndPoint(null);
             wire.DropWire();
             DropRope();
         }
@@ -103,7 +111,7 @@ public class Rope : MonoBehaviour
     {
         // SIMULATION
         Vector2 forceGravity = new Vector2(0f, -1);
-        edgeColliderPoints[0] = new Vector2(startPoint.position.x-transform.position.x, startPoint.position.y-transform.position.y);
+        //edgeColliderPoints[0] = new Vector2(startPoint.position.x-transform.position.x, startPoint.position.y-transform.position.y);
         for (int i = 1; i < this.lineRendererPositions; i++)
         {
             if (ropeSegments[i].posNow != Vector2.zero)
