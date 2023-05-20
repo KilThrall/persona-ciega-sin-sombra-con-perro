@@ -25,12 +25,9 @@ public class BasePlayerMovement : MonoBehaviour
     private float acceleration = 3;
     [SerializeField]
     private ContactBasedLight[] footstepLights;
-    [SerializeField]
-    private AudioSource footStepAudioSource;
+  
 
     #endregion
-    //CAMBIADO SIN PR!!!!!
-    private float soundTimer, soundCooldown=1f;
 
     private IInput input;
     private Rigidbody2D rb;
@@ -62,11 +59,6 @@ public class BasePlayerMovement : MonoBehaviour
             var resultingSpeed = dirDif * acceleration * Time.deltaTime;
             resultingSpeed = Mathf.Clamp(resultingSpeed, -moveSpeed, moveSpeed);
             rb.velocity = new Vector2(rb.velocity.x + resultingSpeed, rb.velocity.y);
-            if (!(Mathf.Abs(rb.velocity.x) - 0.1f < 0 || Mathf.Abs(rb.velocity.y) > 0.2f) && footStepAudioSource != null)
-            {
-                //CAMBIADO SIN PR!!!!
-                FootStepSound();
-            }
         }
         else
         {
@@ -76,29 +68,14 @@ public class BasePlayerMovement : MonoBehaviour
         }
     }
     #endregion
-    //AGREGADO SIN PR!!!
-    private void FootStepSound()
-    {
-        soundTimer = soundTimer > 0 ? soundTimer - Time.deltaTime : 0;
-        if(soundTimer==0)
-        {
-            footStepAudioSource.PlayOneShot(footStepAudioSource.clip);
-            soundTimer = soundCooldown;
-        }
-    }
+
     public void StopPlayer()
     {
         OnMovementInput(0);
         rb.velocity = Vector2.up * rb.velocity.y;
     }
 
-    private void ChangeFootstepsStatus(bool state)
-    {
-        foreach (var item in footstepLights)
-        {
-            item.enabled = state; 
-        }
-    }
+
     //PARA EL CAMBIO DE ANIMACION PARA EL PERRO 
     public void OnMovementInput(float dir)
     {
