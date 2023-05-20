@@ -43,8 +43,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 1fe0f3aad5369964c89bf121b24cf24c, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_PlayOnAwake: 0
+  m_Volume: 0.273
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -413,6 +413,7 @@ GameObject:
   - component: {fileID: 6273823577838093038}
   - component: {fileID: 6273823577838093039}
   - component: {fileID: 1762368476}
+  - component: {fileID: 1762368474}
   m_Layer: 3
   m_Name: 'Blind '
   m_TagString: Blind
@@ -517,7 +518,6 @@ MonoBehaviour:
   moveSpeed: 5
   acceleration: 3
   footstepLights: []
-  footStepAudioSource: {fileID: 77760973}
 --- !u!95 &6273823577838093034
 Animator:
   serializedVersion: 5
@@ -593,6 +593,28 @@ MonoBehaviour:
   climbSpeed: 100
   acceleration: 1.5
   handLights: []
+--- !u!114 &1762368474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6273823577838093011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5bf338d372a3d14790541e6326b6f2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  footStepsAudioSource: {fileID: 77760973}
+  stepSounds:
+  - tag: Grass
+    soundClips:
+    - {fileID: 8300000, guid: fc964b56b362b834d9de37e490d48b1a, type: 3}
+    - {fileID: 8300000, guid: 6374f43f8801f284c8b8255632d45eba, type: 3}
+  - tag: Trunk
+    soundClips:
+    - {fileID: 8300000, guid: 471c6172c07034e4b9dfaaf223947c37, type: 3}
+    - {fileID: 8300000, guid: 19ce5a726d972ab4692cf99301e34a81, type: 3}
 --- !u!1 &6273823578000710046
 GameObject:
   m_ObjectHideFlags: 0
