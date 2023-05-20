@@ -844,32 +844,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 155338233135811590, guid: e10accaabb41a0d4c844a2f49cee66f9, type: 3}
   m_PrefabInstance: {fileID: 179945507}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &199901231 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 657450797, guid: 48db8791497ceb74e9e949ab364b5647, type: 3}
-  m_PrefabInstance: {fileID: 751006287}
-  m_PrefabAsset: {fileID: 0}
---- !u!50 &199901236
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 199901231}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1001 &204745053
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -887,11 +861,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5923521127441531035, guid: 158b8d6c44852244ba8ff5762e7eee73, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.9
+      value: 49.15
       objectReference: {fileID: 0}
     - target: {fileID: 5923521127441531035, guid: 158b8d6c44852244ba8ff5762e7eee73, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.6
+      value: -2.39
       objectReference: {fileID: 0}
     - target: {fileID: 5923521127441531035, guid: 158b8d6c44852244ba8ff5762e7eee73, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3526,17 +3500,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 863359045}
     m_Modifications:
-    - target: {fileID: 657450797, guid: 48db8791497ceb74e9e949ab364b5647, type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 3904801862838567252, guid: 48db8791497ceb74e9e949ab364b5647, type: 3}
       propertyPath: m_Name
       value: Wood
-      objectReference: {fileID: 0}
-    - target: {fileID: 3904801862838567252, guid: 48db8791497ceb74e9e949ab364b5647, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3904801862838567256, guid: 48db8791497ceb74e9e949ab364b5647, type: 3}
       propertyPath: m_RootOrder
@@ -41040,14 +41006,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 77760973, guid: f92512e991fcb2f4eb5205899be94ef9, type: 3}
-      propertyPath: m_Volume
-      value: 0.273
-      objectReference: {fileID: 0}
-    - target: {fileID: 77760973, guid: f92512e991fcb2f4eb5205899be94ef9, type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6273823577838093011, guid: f92512e991fcb2f4eb5205899be94ef9, type: 3}
       propertyPath: m_Name
       value: 'Blind '
@@ -41058,11 +41016,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6273823577838093014, guid: f92512e991fcb2f4eb5205899be94ef9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.1
+      value: 25.64
       objectReference: {fileID: 0}
     - target: {fileID: 6273823577838093014, guid: f92512e991fcb2f4eb5205899be94ef9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6
+      value: -37.2
       objectReference: {fileID: 0}
     - target: {fileID: 6273823577838093014, guid: f92512e991fcb2f4eb5205899be94ef9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -42114,11 +42072,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7afebb6a01c5e3841bb6fbb8df5d6ae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1762368474
+--- !u!114 &1762368474 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 1762368474, guid: f92512e991fcb2f4eb5205899be94ef9, type: 3}
+  m_PrefabInstance: {fileID: 1579068351}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1757962643}
   m_Enabled: 1
@@ -42126,16 +42083,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5bf338d372a3d14790541e6326b6f2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  footStepsAudioSource: {fileID: 1776264979}
-  stepSounds:
-  - tag: Grass
-    soundClips:
-    - {fileID: 8300000, guid: fc964b56b362b834d9de37e490d48b1a, type: 3}
-    - {fileID: 8300000, guid: 6374f43f8801f284c8b8255632d45eba, type: 3}
-  - tag: Trunk
-    soundClips:
-    - {fileID: 8300000, guid: 471c6172c07034e4b9dfaaf223947c37, type: 3}
-    - {fileID: 8300000, guid: 19ce5a726d972ab4692cf99301e34a81, type: 3}
 --- !u!1 &1771682615
 GameObject:
   m_ObjectHideFlags: 0
@@ -42182,11 +42129,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &1776264979 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 77760973, guid: f92512e991fcb2f4eb5205899be94ef9, type: 3}
-  m_PrefabInstance: {fileID: 1579068351}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1805010787
 PrefabInstance:
   m_ObjectHideFlags: 0
