@@ -50,7 +50,7 @@ public class SceneTransitionManager : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            Debug.LogError($"Tried sending an event for {nameof(PianoUI)} with the wrong type. Error: " + e);
+            Debug.LogError($"Tried sending an event for {nameof(SceneTransitionManager)} with the wrong type. Error: " + e);
             throw;
         }
         if (string.IsNullOrEmpty(sceneName))
