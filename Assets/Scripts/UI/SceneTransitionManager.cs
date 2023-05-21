@@ -74,4 +74,9 @@ public class SceneTransitionManager : MonoBehaviour
     {
         ActionsManager.InvokeAction(ON_SCENE_CHANGE_REQUESTED_KEY, DebugSceneName);
     }
+
+    public void LoadDebugScene()
+    {
+        ActionsManager.InvokeAction(ON_SCENE_CHANGE_REQUESTED_KEY, DebugSceneName);
+    }
 }
