@@ -17,7 +17,7 @@ public class BasePlayerMovement : MonoBehaviour
         }
     }
 
-    #region Serialized variables
+        #region Serialized variables
 
     [SerializeField]
     private float moveSpeed = 5;
