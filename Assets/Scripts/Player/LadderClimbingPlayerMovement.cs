@@ -106,16 +106,18 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
 
     private void OnVerticalMovementInput(float dir)
     {
-        if (dir < 0)
+        if (isClimbingLadder)
         {
- 
-            anim.SetBool(LADDER_CLIMB_ANIMATOR_PARAMETER, true);
-            dir = -1;
-        }
-        else if (dir > 0)
-        {
-            anim.SetBool(LADDER_CLIMB_ANIMATOR_PARAMETER, true);
-            dir = 1;
+            if (dir < 0)
+            {
+                anim.SetBool(LADDER_CLIMB_ANIMATOR_PARAMETER, true);
+                dir = -1;
+            }
+            else if (dir > 0)
+            {
+                anim.SetBool(LADDER_CLIMB_ANIMATOR_PARAMETER, true);
+                dir = 1;
+            }
         }
         else
         {
