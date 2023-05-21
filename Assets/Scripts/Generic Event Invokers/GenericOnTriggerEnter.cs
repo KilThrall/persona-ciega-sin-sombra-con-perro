@@ -8,7 +8,7 @@ public class GenericOnTriggerEnter : MonoBehaviour
     private string[] tags;
    
     [SerializeField]
-    private UnityEvent genericOntriggerEvent;
+    protected UnityEvent genericOntriggerEvent;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (CheckTags(collision.tag))
