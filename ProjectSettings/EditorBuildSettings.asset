@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level 1.unity
     guid: d30eb10b26f27b140af5b241dc298c8e
+  - enabled: 1
+    path: Assets/Scenes/WTSAlpha.unity
+    guid: 6eaa0b1be3adae740bc62a05266783bf
   m_configObjects: {}
