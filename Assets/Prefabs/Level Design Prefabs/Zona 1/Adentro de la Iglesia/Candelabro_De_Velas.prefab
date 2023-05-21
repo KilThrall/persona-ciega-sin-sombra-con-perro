@@ -367,6 +367,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 4173578170846212400}
     m_Modifications:
     - target: {fileID: 675112880043896432, guid: 3e2b51e93a3fc4b40ad46e05fdc1e697, type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 0.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 675112880043896432, guid: 3e2b51e93a3fc4b40ad46e05fdc1e697, type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.size
       value: 2
       objectReference: {fileID: 0}
