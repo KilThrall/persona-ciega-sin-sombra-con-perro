@@ -8,6 +8,7 @@ public class AmbienceSoundChanger : GenericOnTriggerEnter
     private AudioSource ambienceSoundSource;
     [SerializeField]
     private AudioClip newAudioClip;
+    [SerializeField]
 
     private void Awake()
     {
@@ -18,5 +19,6 @@ public class AmbienceSoundChanger : GenericOnTriggerEnter
     {
         ambienceSoundSource.clip = newAudioClip;
         ambienceSoundSource.Play();
+        
     }
 }

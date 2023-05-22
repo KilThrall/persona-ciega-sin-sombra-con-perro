@@ -216,26 +216,26 @@ PrefabInstance:
     - target: {fileID: 413875640691378353, guid: c4d86d916cdd1874088ddfa41901d973, type: 3}
       propertyPath: customSoundList.soundClips.Array.data[0]
       value: 
-      objectReference: {fileID: 8300000, guid: 19ce5a726d972ab4692cf99301e34a81, type: 3}
+      objectReference: {fileID: 8300000, guid: b383e5af58175aa4c8291795b2d1d909, type: 3}
     - target: {fileID: 413875640691378353, guid: c4d86d916cdd1874088ddfa41901d973, type: 3}
       propertyPath: customSoundList.soundClips.Array.data[1]
       value: 
-      objectReference: {fileID: 8300000, guid: 471c6172c07034e4b9dfaaf223947c37, type: 3}
+      objectReference: {fileID: 8300000, guid: d4ce1ba1cb2675c4e9f9385750e68aef, type: 3}
     - target: {fileID: 4891507166593595072, guid: c4d86d916cdd1874088ddfa41901d973, type: 3}
       propertyPath: m_Size.x
       value: 2.6922436
       objectReference: {fileID: 0}
     - target: {fileID: 4891507166593595072, guid: c4d86d916cdd1874088ddfa41901d973, type: 3}
       propertyPath: m_Size.y
-      value: 1.6215992
+      value: 1.7497406
       objectReference: {fileID: 0}
     - target: {fileID: 4891507166593595072, guid: c4d86d916cdd1874088ddfa41901d973, type: 3}
       propertyPath: m_Offset.x
-      value: -0.09838587
+      value: -0.09838581
       objectReference: {fileID: 0}
     - target: {fileID: 4891507166593595072, guid: c4d86d916cdd1874088ddfa41901d973, type: 3}
       propertyPath: m_Offset.y
-      value: 1.4039559
+      value: 1.3398852
       objectReference: {fileID: 0}
     - target: {fileID: 8274084468064197846, guid: c4d86d916cdd1874088ddfa41901d973, type: 3}
       propertyPath: m_RootOrder
@@ -296,29 +296,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8274084468064197846, guid: c4d86d916cdd1874088ddfa41901d973, type: 3}
   m_PrefabInstance: {fileID: 8274084468720204794}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &657450797 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8274084468064197847, guid: c4d86d916cdd1874088ddfa41901d973, type: 3}
-  m_PrefabInstance: {fileID: 8274084468720204794}
-  m_PrefabAsset: {fileID: 0}
---- !u!50 &199901236
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 657450797}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
