@@ -57,6 +57,9 @@ public class ClimbPlayerMovement : MonoBehaviour
     {
         input.OnJump -= OnClimb;
     }
+    /// <summary>
+    /// Para mostrar con gizmos como detecta el ciego adonde puede trepar, y cual sera su posicion inicial y final al trepar
+    /// </summary>
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
@@ -69,6 +72,9 @@ public class ClimbPlayerMovement : MonoBehaviour
     }
     #endregion
 
+    /// <summary>
+    /// Verifica con raycasts si hay un borde cercano
+    /// </summary>
     private void CheckSurroundings()
     {
        isTouchingWall = Physics2D.Raycast(wallCheck.position , new Vector2(transform.localScale.x,0), wallCheckDistance, whatIsFloor);
@@ -128,7 +134,10 @@ public class ClimbPlayerMovement : MonoBehaviour
         ledgeDetected = false;
         anim.SetBool("isClimbingLedge", isClimbing);
     }
-
+    /// <summary>
+    /// Sustituye una animacion en la cual se muestra al ciego trepando y al final se teletransporta al ciego a donde quedaria despues de trepar
+    /// </summary>
+    /// <returns></returns>
     IEnumerator WaitingForClimb()
     {
         playerMovement.IsWalkEnabled = false;

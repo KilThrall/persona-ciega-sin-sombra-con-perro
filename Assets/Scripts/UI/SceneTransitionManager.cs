@@ -62,7 +62,6 @@ public class SceneTransitionManager : MonoBehaviour
         GameUIManager.Instance.InstanceGameUI(fadeOutPrefab);
         
     }
-
     private void LoadScene()
     {
         SceneManager.LoadScene(nextSceneName);

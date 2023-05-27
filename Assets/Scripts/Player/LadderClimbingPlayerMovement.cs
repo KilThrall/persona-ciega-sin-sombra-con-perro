@@ -47,6 +47,7 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
     {
         if (isClimbingLadder)
         {
+            //Calculo de fisicas del ciego al subir la escalera
             var dirDif = desiredDir * climbSpeed - rb.velocity.x;
             var resultingSpeed = dirDif * acceleration * Time.deltaTime;
             resultingSpeed = Mathf.Clamp(resultingSpeed, -climbSpeed, climbSpeed);
@@ -68,6 +69,9 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
         input.OnVerticalMovementInput -= OnVerticalMovementInput;
     }
     #endregion
+    /// <summary>
+    /// Interaccion con la lader, si estaba subiendo la escalera deja de subir(si puede) o sino comienza a subirla
+    /// </summary>
     public void InteractWithLadder()
     {
         if (isClimbingLadder)
@@ -85,6 +89,9 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Se baja de la escalera el ciego
+    /// </summary>
     public void FinishLadderClimbing()
     {
         gameObject.layer = characterLayer;

@@ -119,6 +119,7 @@ public class Wire : MonoBehaviour
             rope.SetEndPoint(connectionPosition);
         }
     }
+
     public void GrabWire()
     {
         isGrabbedByPlayer = true;
@@ -128,7 +129,9 @@ public class Wire : MonoBehaviour
     {
         isGrabbedByPlayer = false;
     }
-
+    /// <summary>
+    /// Se acopla el cable a otro
+    /// </summary>
     private void Splice()
     {
         ConnectRope(wireToSplice.transform);

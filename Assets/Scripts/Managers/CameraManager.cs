@@ -92,6 +92,9 @@ public class CameraManager : MonoBehaviour
 
     #endregion
 
+    /// <summary>
+    /// Cambio de peronaje, luz y foco de la camara
+    /// </summary>
     private void OnSwitch()
     {
         isFollowingBlind = !isFollowingBlind;

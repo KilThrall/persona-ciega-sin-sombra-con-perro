@@ -11,13 +11,13 @@ public class BasePlayerMovement : MonoBehaviour
         set { 
             isWalkEnabled = value;
             if (!value)
-            { //SetFacingDirection sacado de acá porque si se tiene que frenar al player para que trepe no tiene por que mirar siempre en la misma direc
+            { 
                 anim.SetBool("Running", false); 
             } 
         }
     }
 
-        #region Serialized variables
+    #region Serialized variables
 
     [SerializeField]
     private float moveSpeed = 5;
@@ -71,12 +71,10 @@ public class BasePlayerMovement : MonoBehaviour
 
     public void StopPlayer()
     {
-        OnMovementInput(0);
-        rb.velocity = Vector2.up * rb.velocity.y;
+        OnMovementInput(0); // Para que este sea direccion registrada antes de dejar de detectar inputs
+        rb.velocity = Vector2.up * rb.velocity.y; // Que su velocidad ignore su velocidad en X
     }
 
-
-    //PARA EL CAMBIO DE ANIMACION PARA EL PERRO 
     public void OnMovementInput(float dir)
     {
         if (!isWalkEnabled)
@@ -109,7 +107,10 @@ public class BasePlayerMovement : MonoBehaviour
             SetFacingDirection(dir);
         }
     }
-
+    /// <summary>
+    /// Se establece la direccion hacia la que mira el personaje
+    /// </summary>
+    /// <param name="dir">Direccion, debe ser 1 o -1</param>
     public void SetFacingDirection(float dir)
     {
         if (transform.localScale.x != dir)

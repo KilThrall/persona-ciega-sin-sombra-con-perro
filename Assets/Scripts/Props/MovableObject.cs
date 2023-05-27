@@ -51,6 +51,9 @@ public class MovableObject : MonoBehaviour
         }
     }
     #endregion
+    /// <summary>
+    /// Al interactuar con el, se comprueba si esta agarrado o no. En caso de no estarlo se agarra y viceversa. Tambien comprueba si al soltarse esta colisionando con un lugar donde insertarse 
+    /// </summary>
     public void OnObjectInteraction()
     {
         if(isGrabbedByPlayer)
