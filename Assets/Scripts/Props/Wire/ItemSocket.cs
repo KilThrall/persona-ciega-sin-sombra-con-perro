@@ -4,10 +4,13 @@ using UnityEngine;
 using UnityEngine.Events;
 public class ItemSocket : MonoBehaviour
 {
-    [SerializeField]
-    private UnityEvent onConnectionEvent;
+    public bool ItemConnected => itemConnected;
+    public UnityEvent onConnectionEvent;
+
     [SerializeField][Tooltip("Donde se va a quedar el item/cable cuando quede enchufado, si es nulo va al centro del sprite")]
     private Transform connectionPosition;
+
+    private bool itemConnected;
 
     public Vector3 ConnectionPosition
     {
@@ -23,5 +26,6 @@ public class ItemSocket : MonoBehaviour
     public void Connect()
     {
         onConnectionEvent.Invoke();
+        itemConnected = true;
     }
 }
