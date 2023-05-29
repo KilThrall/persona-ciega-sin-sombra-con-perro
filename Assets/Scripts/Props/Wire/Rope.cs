@@ -85,6 +85,10 @@ public class Rope : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * maxRopeLength);
     }
     #endregion
+    /// <summary>
+    /// Comprueba si la distancia maxima desde el inicio a la punta supera el maximo admitido
+    /// </summary>
+    /// <returns></returns>
     private bool IsOverStretched()
     {
         float currentRopeLength=0;
@@ -94,6 +98,11 @@ public class Rope : MonoBehaviour
         }
         return maxRopeLength < currentRopeLength;
     }
+    /// <summary>
+    /// Verifica cual segmento tiene menor distancia con la posicion de impacto
+    /// </summary>
+    /// <param name="impactPosition">Posicion donde se dio la colision</param>
+    /// <returns></returns>
     private RopeSegment GetNearestSegment(Vector3 impactPosition)
     {
         RopeSegment nearestSegment=default;
@@ -107,6 +116,9 @@ public class Rope : MonoBehaviour
         return nearestSegment;
     }
 
+    /// <summary>
+    /// Se simulan las fuerzas del cable haciendo uso de la Verlet Integration. Se usan raycasts para evitar que atraviese el suelo
+    /// </summary>
     private void Simulate()
     {
         // SIMULATION
@@ -165,7 +177,9 @@ public class Rope : MonoBehaviour
             }
         
     }
-
+    /// <summary>
+    /// La distancia entre los segmentos no puede separar la distancia especificada. Se aplican constricciones para mantener uniformidad
+    /// </summary>
     private void ApplyConstraint()
     {
         //Constrant to First Point 
@@ -229,7 +243,9 @@ public class Rope : MonoBehaviour
 
         }
     }
-
+    /// <summary>
+    /// Dibujado de la linea en base a los segmentos
+    /// </summary>
     private void DrawRope()
     {
         float lineWidth = this.lineWidth;

@@ -92,6 +92,9 @@ public class CameraManager : MonoBehaviour
 
     #endregion
 
+    /// <summary>
+    /// Cambio de peronaje, luz y foco de la camara
+    /// </summary>
     private void OnSwitch()
     {
         isFollowingBlind = !isFollowingBlind;
@@ -109,6 +112,12 @@ public class CameraManager : MonoBehaviour
  
     }
 
+    /// <summary>
+    /// Fade-in de la intensidad de la luz
+    /// </summary>
+    /// <param name="intensity">Cantidad hasta la que se aumentará la intensidad de la luz</param>
+    /// <param name="time">Tiempo que demora el fade in en terminar</param>
+    /// <param name="newLight">Luz que sera afectada</param>
     private void FadeLight(float intensity, float time, Light2D newLight)
     {
         currentLight.intensity = 0;

@@ -48,5 +48,5 @@ public abstract class BaseInteractableObject : MonoBehaviour
         
     }
     protected abstract void OnPlayerInteraction(GameObject go);
-    
+
 }

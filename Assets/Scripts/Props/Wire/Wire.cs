@@ -22,7 +22,7 @@ public class Wire : MonoBehaviour
     private bool isSpliced=false;
     public bool isGrabbedByPlayer;
 
-    private GenericInteractionTrigger trigger;
+    private BaseInteractableObject trigger;
     private ItemSocket itemSocket;
     [SerializeField]
     private Wire wireToSplice;
@@ -30,7 +30,7 @@ public class Wire : MonoBehaviour
     #region MonoBehaviour Callbacks
     private void Awake()
     {
-        trigger = GetComponent<GenericInteractionTrigger>();
+        trigger = GetComponent<BaseInteractableObject>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -89,6 +89,10 @@ public class Wire : MonoBehaviour
                         itemSocket.Connect();
                     }
                 }
+                else
+                {
+                    itemSocket.Connect();
+                }
             }//GUARDA PORQUE SE PUEDE DESCONECTAR Y ESO NO HACE NADA PERO TAMPOCO ERA UN REQUISITO Q NO PASE NADA
             
             else if (wireToSplice != null) //Si hay un Wire al que se pueda conectar se conecta, al estar conectado ya no se podrá agarrar y se suelta automaticamente
@@ -119,6 +123,7 @@ public class Wire : MonoBehaviour
             rope.SetEndPoint(connectionPosition);
         }
     }
+
     public void GrabWire()
     {
         isGrabbedByPlayer = true;
@@ -128,7 +133,9 @@ public class Wire : MonoBehaviour
     {
         isGrabbedByPlayer = false;
     }
-
+    /// <summary>
+    /// Se acopla el cable a otro
+    /// </summary>
     private void Splice()
     {
         ConnectRope(wireToSplice.transform);
