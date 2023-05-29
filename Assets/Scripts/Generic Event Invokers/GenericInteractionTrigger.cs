@@ -7,7 +7,7 @@ public class GenericInteractionTrigger : BaseInteractableObject
 {
     #region Serialized Variables
     [SerializeField]
-    private UnityEvent triggerEvent;
+    protected UnityEvent triggerEvent;
     [SerializeField]
     private bool useOnce;
     #endregion
