@@ -9,6 +9,9 @@ public class GameUIManager : MonoBehaviour
     [SerializeField]
     private Transform uiParent;
 
+    [SerializeField]
+    private AudioSource audioSource;
+
     private List<string> instancedUIs;
 
     private void Awake()
@@ -30,6 +33,16 @@ public class GameUIManager : MonoBehaviour
         }
         Instantiate(prefab, uiParent);
         instancedUIs.Add(prefab.name);
+    }
+
+    public void PlaySoundOneShot(AudioClip clip)
+    {
+        if (audioSource == null)
+        {
+            Debug.LogError($"Tried to play sound but no Audio source is atached to {gameObject.name}");
+            return;
+        }
+        audioSource.PlayOneShot(clip);
     }
 
     private bool isUIInstanced(string name)
