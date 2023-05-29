@@ -7,8 +7,6 @@ public class PianoUI : MonoBehaviour
     public const string PIANO_INTERACT_KEY = "PianoInteracted";
     public const string PIANO_PASSWORD_INPUT_KEY = "PianoPasswordInput";
 
-    [SerializeField]
-    private AudioSource audioSource;
 
     private void Awake()
     {
@@ -23,12 +21,7 @@ public class PianoUI : MonoBehaviour
 
     public void PlaySound(AudioClip clip)
     {
-        if (audioSource == null)
-        {
-            Debug.LogError($"Tried to play a sound, but no audio source was found on {nameof(PianoUI)}");
-            return;
-        }
-        audioSource.PlayOneShot(clip);
+        GameUIManager.Instance.PlaySoundOneShot(clip);
     }
 
     private void OnInteract(object obj)
