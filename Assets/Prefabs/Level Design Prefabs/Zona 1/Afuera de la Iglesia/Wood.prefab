@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 3904801862838567263}
   - component: {fileID: 751006292}
   - component: {fileID: 751006297}
+  - component: {fileID: 1681041150}
   m_Layer: 6
   m_Name: Wood
   m_TagString: Pusheable
@@ -134,8 +135,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.13323645, y: -0.13961196}
-  m_Size: {x: 2.7106564, y: 1.3392445}
+  m_Offset: {x: -0.116969146, y: -0.13961196}
+  m_Size: {x: 2.6781225, y: 1.3392456}
   m_Direction: 1
 --- !u!61 &3904801862838567263
 BoxCollider2D:
@@ -150,7 +151,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.12067866, y: 0.11012387}
+  m_Offset: {x: -0.12341428, y: 0.56912065}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -161,7 +162,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.7036853, y: 0.8521457}
+  m_Size: {x: 2.7091565, y: 0.052995205}
   m_EdgeRadius: 0
 --- !u!50 &751006292
 Rigidbody2D:
@@ -198,6 +199,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forceMultiplier: 3
   maxPushableHeightTransform: {fileID: 444495720}
+--- !u!61 &1681041150
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3904801862838567252}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 2cbd0fd4f3c152d46ae92e50ed9d8e4b, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.1251306, y: 0.06673336}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.4, y: 5.4}
+    newSize: {x: 5.4, y: 5.4}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.326147, y: 0.28373814}
+  m_EdgeRadius: 0.28
 --- !u!1001 &8274084468720204794
 PrefabInstance:
   m_ObjectHideFlags: 0

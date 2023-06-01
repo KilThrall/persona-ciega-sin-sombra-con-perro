@@ -59,7 +59,6 @@ public class Rope : MonoBehaviour
             edgeColliderPoints.Add(Vector3.zero);  
             ropeStartPoint.y -= ropeSegLength;
         }
-
     }
  
     private void FixedUpdate()
@@ -83,6 +82,13 @@ public class Rope : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * maxRopeLength);
+
+        foreach (var s in ropeSegments)
+        {
+            // Gizmos.DrawLine(s.posNow, new Vector3 (s.posNow.x, s.posNow.y, 0) + Vector3.down * maxCollisionDistanceTollerance);
+            Gizmos.DrawSphere(s.posNow, maxCollisionDistanceTollerance/2);
+
+        }
     }
     #endregion
     /// <summary>
@@ -123,59 +129,113 @@ public class Rope : MonoBehaviour
     {
         // SIMULATION
         Vector2 forceGravity = new Vector2(0f, -1);
-        //edgeColliderPoints[0] = new Vector2(startPoint.position.x-transform.position.x, startPoint.position.y-transform.position.y);
+  
         for (int i = 1; i < this.lineRendererPositions; i++)
         {
-            if (ropeSegments[i].posNow != Vector2.zero)
+            RopeSegment firstSegment = this.ropeSegments[i];
+            Vector2 velocity = firstSegment.posNow - firstSegment.posOld;
+            firstSegment.posOld = firstSegment.posNow;
+            Vector2 newPos = firstSegment.posNow;
+
+            //se descompone el movimiento en 2 partes, primero se compureba si puede moverse en Y
+            #region Overlap test
+            /*
+            Vector2 virtualPos = newPos;
+
+            virtualPos.y += velocity.y;
+            virtualPos.y += forceGravity.y * Time.fixedDeltaTime;
+
+            if (Physics2D.OverlapCircleAll(virtualPos, maxCollisionDistanceTollerance / 2,whatIsFloor).Length > 0)
             {
-                RopeSegment firstSegment = this.ropeSegments[i];
-                Vector2 velocity = firstSegment.posNow - firstSegment.posOld;
-                firstSegment.posOld = firstSegment.posNow;
-                Vector2 newPos = firstSegment.posNow;
-
-                if (Physics2D.Raycast(newPos, velocity, maxCollisionDistanceTollerance, whatIsFloor))
-                {
-                    firstSegment.hookPos = newPos;
-                }
-                else
-                {
-                    firstSegment.hookPos = Vector2.zero;
-                    if (!Physics2D.Raycast(newPos, Vector2.down, maxCollisionDistanceTollerance, whatIsFloor) && !Physics2D.Raycast(newPos, Vector2.up, maxCollisionDistanceTollerance, whatIsFloor))
-                    {
-
-                        Vector2 virtualNewPos = newPos;
-                        virtualNewPos.y += velocity.y;
-                        virtualNewPos.y += forceGravity.y * Time.fixedDeltaTime;
-                        if (!Physics2D.OverlapPoint(virtualNewPos, whatIsFloor))
-                        {
-                            newPos = virtualNewPos;
-                        }
-                    }
-                    if (!Physics2D.Raycast(newPos, Vector2.right, maxCollisionDistanceTollerance, whatIsFloor) && (!Physics2D.Raycast(newPos, Vector2.left, maxCollisionDistanceTollerance, whatIsFloor)))
-                    {
-                        Vector2 virtualNewPos = newPos;
-                        virtualNewPos.x += velocity.x;
-                        virtualNewPos.x += forceGravity.x * Time.fixedDeltaTime;
-
-                        if (!Physics2D.OverlapPoint(virtualNewPos, whatIsFloor))
-                        {
-                            newPos = virtualNewPos;
-                        }
-                    }
-
-                    firstSegment.posNow = newPos;
-                    this.ropeSegments[i] = firstSegment;
-                    edgeColliderPoints[i] = firstSegment.posNow - new Vector2(transform.position.x, transform.position.y);
-                }
-
+                firstSegment.yConstrained = true;
             }
+            else
+            {
+                firstSegment.yConstrained = false;
+                newPos.y = virtualPos.y;
+            }
+
+            
+
+            //luego si puede moverse en X
+            virtualPos = newPos;
+
+            virtualPos.x += velocity.x;
+            virtualPos.x += forceGravity.x * Time.fixedDeltaTime;
+
+
+            if (Physics2D.OverlapCircleAll(virtualPos,maxCollisionDistanceTollerance/2,whatIsFloor).Length > 0)
+            {
+                firstSegment.xConstrained = true;
+            }
+            else
+            {
+                firstSegment.xConstrained = false;
+                newPos.x = virtualPos.x;
+            }
+            */
+            #endregion
+
+            #region RayCast test
+            
+            if (!Physics2D.Raycast(newPos, Vector2.down, maxCollisionDistanceTollerance, whatIsFloor))
+            {
+                newPos.y += velocity.y;
+                newPos.y += forceGravity.y * Time.fixedDeltaTime;
+                firstSegment.yConstrained = false;
+            }
+            else
+            {
+                firstSegment.yConstrained = true;
+            }
+            //luego si puede moverse en X
+            if (!Physics2D.Raycast(newPos, Vector2.right, maxCollisionDistanceTollerance, whatIsFloor) && (!Physics2D.Raycast(newPos, Vector2.left, maxCollisionDistanceTollerance, whatIsFloor)))
+            { 
+                newPos.x += velocity.x;
+                newPos.x += forceGravity.x * Time.fixedDeltaTime;
+                firstSegment.xConstrained = false;
+            }
+            else
+            {
+                firstSegment.xConstrained = true;
+            }
+             
+            #endregion
+
+            #region RayCast test2
+            /*
+            if (!Physics2D.Raycast(newPos, Vector2.down, maxCollisionDistanceTollerance, whatIsFloor))
+            {
+                newPos.y += velocity.y;
+                newPos.y += forceGravity.y * Time.fixedDeltaTime;
+                firstSegment.yConstrained = false;
+            }
+            else
+            {
+                firstSegment.yConstrained = true;
+            }
+            //luego si puede moverse en X
+            if (i < lineRendererPositions-1 && !Physics2D.Raycast(newPos, new Vector2(ropeSegments[1+i].posNow.x- firstSegment.posNow.x ,0).normalized ,maxCollisionDistanceTollerance, whatIsFloor))
+            {
+                newPos.x += velocity.x;
+                newPos.x += forceGravity.x * Time.fixedDeltaTime;
+                firstSegment.xConstrained = false;
+            }
+            else
+            {
+                firstSegment.xConstrained = true;
+            }
+            */
+            #endregion
+            firstSegment.posNow = newPos;
+            this.ropeSegments[i] = firstSegment;
+            edgeColliderPoints[i] = firstSegment.posNow - new Vector2(transform.position.x, transform.position.y);
         }
-            //CONSTRAINTS
-            for (int i = 0; i < 3; i++)
-            {
-                this.ApplyConstraint();
-            }
-        
+        //CONSTRAINTS
+        for (int i = 0; i < 30; i++)
+        {
+            this.ApplyConstraint();
+        }
     }
     /// <summary>
     /// La distancia entre los segmentos no puede separar la distancia especificada. Se aplican constricciones para mantener uniformidad
@@ -219,28 +279,39 @@ public class Rope : MonoBehaviour
             if (i != 0)
             {
                 //se multiplica por 0.5 porque el la distnacia que se deben acomodar los puntos se divide entre ellos
-                firstSeg.posNow -= changeAmount * 0.5f; // se mueve el punto la mitad de la distancia hacia una direccion
+                // se mueve el punto la mitad de la distancia hacia una direccion
+                Vector2 newPos = firstSeg.posNow;
+
+                if (!firstSeg.xConstrained)
+                {
+                    newPos.x -= changeAmount.x * 0.5f;
+                }
+                if (!firstSeg.yConstrained)
+                {
+                    newPos.y -= changeAmount.y * 0.5f;
+                }
+
+                firstSeg.posNow = newPos;
                 this.ropeSegments[i] = firstSeg;
-                secondSeg.posNow += changeAmount * 0.5f; // se mueve el otro punto a la direccion opuesta
-                this.ropeSegments[i + 1] = secondSeg;
+
+                Vector2 newSecondPos = secondSeg.posNow;
+
+                if (!secondSeg.xConstrained)
+                {
+                    newSecondPos.x += changeAmount.x * 0.5f;
+                }
+                if (!secondSeg.yConstrained)
+                {
+                    newSecondPos.y += changeAmount.y * 0.5f;
+                }
+                secondSeg.posNow = newSecondPos;
+                this.ropeSegments[i+1] = secondSeg;
             }
             else
             {
                 secondSeg.posNow += changeAmount;
                 this.ropeSegments[i + 1] = secondSeg;
             }
-
-            if (firstSeg.hookPos!=Vector2.zero)
-            {
-                firstSeg.posNow = firstSeg.hookPos;
-                this.ropeSegments[i] = firstSeg;
-            }
-            if (secondSeg.hookPos != Vector2.zero)
-            {
-                secondSeg.posNow = secondSeg.hookPos;
-                this.ropeSegments[i+1] = secondSeg;
-            }
-
         }
     }
     /// <summary>
@@ -286,10 +357,18 @@ public class Rope : MonoBehaviour
         public Vector2 posNow;
         public Vector2 posOld;
         public int index;
-        public Vector2 hookPos;
+        public bool xConstrained;
+        public bool yConstrained;
+        public bool leftConstrained;
+        public bool rightConstrained;
+
         public RopeSegment(Vector2 pos,int index)
         {
-            hookPos = Vector2.zero;
+            yConstrained = false;
+            xConstrained = false;
+            leftConstrained = false;
+            rightConstrained = false;
+
             this.index = index;
             this.posNow = pos;
             this.posOld = pos;
