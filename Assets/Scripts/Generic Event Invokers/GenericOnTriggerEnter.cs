@@ -17,7 +17,7 @@ public class GenericOnTriggerEnter : MonoBehaviour
         }
     }
 
-    private bool CheckTags(string tagToCheck)
+    protected bool CheckTags(string tagToCheck)
     {
         foreach (var t in tags)
         {
