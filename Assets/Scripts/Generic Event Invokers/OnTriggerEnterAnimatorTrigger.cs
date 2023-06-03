@@ -12,10 +12,8 @@ public class OnTriggerEnterAnimatorTrigger : GenericOnTriggerEnter
         {
             if (collision.TryGetComponent<Animator>(out var animator))
             {
-                print("sexo anal");
-
                 animator.SetTrigger(animatorTrigger);
-                genericOntriggerEvent.Invoke();
+                genericOntriggerEvent?.Invoke();
             }
         }
     }
