@@ -32,7 +32,6 @@ public class CameraManager : MonoBehaviour
 
     private float fadeTarget, timeForFade;
 
-
     #region Monobehaviour callbacks
     private void Awake()
     {
@@ -50,7 +49,6 @@ public class CameraManager : MonoBehaviour
     private void Start()
     {
         OnSwitch();
-
     }
 
     private void OnEnable()
@@ -108,10 +106,10 @@ public class CameraManager : MonoBehaviour
         {
             FadeLight(dogLightIntensity, dogLightFadeTime, dogLight);
         }
+
         ActionsManager.InvokeAction(ON_CHARACTER_SWITCH_KEY, isFollowingBlind);
         blindCharacter.enabled = isFollowingBlind;
         dogCharacter.enabled = !isFollowingBlind;
-        
     }
 
     /// <summary>
