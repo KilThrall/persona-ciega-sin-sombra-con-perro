@@ -108,7 +108,6 @@ public class CameraManager : MonoBehaviour
         {
             FadeLight(dogLightIntensity, dogLightFadeTime, dogLight);
         }
-        print(isFollowingBlind);
         ActionsManager.InvokeAction(ON_CHARACTER_SWITCH_KEY, isFollowingBlind);
         blindCharacter.enabled = isFollowingBlind;
         dogCharacter.enabled = !isFollowingBlind;
