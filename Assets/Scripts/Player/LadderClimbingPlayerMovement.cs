@@ -20,6 +20,7 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
     //TODO: Cuando trepe que hagan sonido sus manos tambien, permitiendo ver un poco para arriba
     #endregion
     private const string LADDER_CLIMB_ANIMATOR_PARAMETER= "LadderClimbing";
+    private const string ON_LADDER_ANIMATOR_PARAMETER="OnLadder";
     private int characterLayer = 3;
     private int characterClimbingLayer = 9;
     private IInput input;
@@ -87,6 +88,8 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
             isClimbingLadder = true;
             basePlayerMovement.SetFacingDirection(leftDirection);
         }
+
+        anim.SetBool(ON_LADDER_ANIMATOR_PARAMETER, isClimbingLadder);
     }
 
     /// <summary>
@@ -101,6 +104,7 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
         rb.gravityScale = 1;
         isClimbingLadder = false;
         OnVerticalMovementInput(0);
+        anim.SetBool(LADDER_CLIMB_ANIMATOR_PARAMETER, false);
     }
 
     private void ChangeHandStatus(bool state)
@@ -113,23 +117,28 @@ public class LadderClimbingPlayerMovement : MonoBehaviour
 
     private void OnVerticalMovementInput(float dir)
     {
+       
         if (isClimbingLadder)
         {
             if (dir < 0)
             {
-                anim.SetBool(LADDER_CLIMB_ANIMATOR_PARAMETER, true);
                 dir = -1;
             }
             else if (dir > 0)
             {
-                anim.SetBool(LADDER_CLIMB_ANIMATOR_PARAMETER, true);
                 dir = 1;
             }
+        
+            if (dir == 0)
+            {
+                anim.SetBool(LADDER_CLIMB_ANIMATOR_PARAMETER, false);
+            }else
+            {
+                anim.SetBool(LADDER_CLIMB_ANIMATOR_PARAMETER, true);
+            }
+          
         }
-        else
-        {
-            anim.SetBool(LADDER_CLIMB_ANIMATOR_PARAMETER, false);
-        }
+        anim.SetBool(ON_LADDER_ANIMATOR_PARAMETER, isClimbingLadder);
         desiredDir = dir;
     }
 }
