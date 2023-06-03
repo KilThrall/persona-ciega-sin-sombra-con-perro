@@ -13,7 +13,7 @@ public class OnTriggerEnterAnimatorTrigger : GenericOnTriggerEnter
             if (collision.TryGetComponent<Animator>(out var animator))
             {
                 animator.SetTrigger(animatorTrigger);
-                genericOntriggerEvent.Invoke();
+                genericOntriggerEvent?.Invoke();
             }
         }
     }
