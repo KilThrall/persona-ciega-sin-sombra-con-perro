@@ -32,7 +32,6 @@ public class CameraManager : MonoBehaviour
 
     private float fadeTarget, timeForFade;
 
-
     #region Monobehaviour callbacks
     private void Awake()
     {
@@ -42,15 +41,16 @@ public class CameraManager : MonoBehaviour
 
         input.Camera.SwitchCharacter.performed += ctx => OnSwitch();
 
-
         /*  input.Player.ItemGrab.performed += ctx => OnItemGrabbed();
 
           input.Player.Skill1.started += ctx => OnSkillUsed(0, true);*/
     }
+
     private void Start()
     {
         OnSwitch();
     }
+
     private void OnEnable()
     {
         input.Enable();
@@ -106,10 +106,10 @@ public class CameraManager : MonoBehaviour
         {
             FadeLight(dogLightIntensity, dogLightFadeTime, dogLight);
         }
+
         ActionsManager.InvokeAction(ON_CHARACTER_SWITCH_KEY, isFollowingBlind);
         blindCharacter.enabled = isFollowingBlind;
         dogCharacter.enabled = !isFollowingBlind;
- 
     }
 
     /// <summary>

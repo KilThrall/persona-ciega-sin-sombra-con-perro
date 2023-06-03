@@ -125,4 +125,13 @@ public class BasePlayerMovement : MonoBehaviour
     {
         return desiredDir;
     }
+    //estos metodos son para usarlos en el evento de animacion de transicion de la escalera de zona 1 a zona 2
+    public void DisableWalk()
+    {
+        isWalkEnabled = false;
+    }
+    public void EnableWalk()
+    {
+        isWalkEnabled = true;
+    }
 }

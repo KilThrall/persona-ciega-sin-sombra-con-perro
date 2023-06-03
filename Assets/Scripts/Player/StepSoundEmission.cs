@@ -38,6 +38,10 @@ public class StepSoundEmission : MonoBehaviour
     [SerializeField]
     private List<StepSounds> stepSounds = new();
 
+    [Header("Ladder")]
+    [SerializeField]
+    private List<AudioClip> ladderClimbingSounds = new();
+
     private Dictionary<string, StepSounds> soundsDictionary = new();
     private List<AudioClip> currentStepSounds;
     private void Awake()
@@ -50,21 +54,23 @@ public class StepSoundEmission : MonoBehaviour
         SetStepSounds(DEFAULT_FOOTSTEP_COLLECTION_TAG);
 
     }
+    private AudioClip RandomClip(List<AudioClip> audioClips)
+    {
+        return audioClips[Random.Range(0, audioClips.Count)];
+    }
 
     public void SetStepSounds(string key)
     {
         currentStepSounds = soundsDictionary[key].SoundClips;
     }
-
-  
-
     public void PlayStepSound()
     {
-        footStepsAudioSource.PlayOneShot(RandomClip());
-    }
-    private AudioClip RandomClip()
-    {
-        return currentStepSounds[Random.Range(0,currentStepSounds.Count)];
+        footStepsAudioSource.PlayOneShot(RandomClip(currentStepSounds));
     }
 
+    //Se iban a volver locos asignando con colliders cada vez que sube o baja de la escalera, entonces hice una lista aparte, de paso aprovecha la funcion de clip random
+    public void PlayLadderClimbingSound()
+    {
+        footStepsAudioSource.PlayOneShot(RandomClip(ladderClimbingSounds));
+    }
 }
