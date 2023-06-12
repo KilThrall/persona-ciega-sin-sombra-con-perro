@@ -73,8 +73,9 @@ public class Rope : MonoBehaviour
         }
         if (lineRenderer.positionCount > 0)
         {
-            InteractionTriggerEnd.position = lineRenderer.GetPosition(lineRenderer.positionCount - 1);
-            InteractionTriggerStart.position = lineRenderer.GetPosition(0);
+            startPoint.position = lineRenderer.GetPosition(0);
+            InteractionTriggerStart.position = startPoint.position;
+            InteractionTriggerEnd.position = lineRenderer.GetPosition(lineRenderer.positionCount-1);
         }
     }
 
@@ -177,7 +178,7 @@ public class Rope : MonoBehaviour
             #endregion
 
             #region RayCast test
-            
+            /*
             if (!Physics2D.Raycast(newPos, Vector2.down, maxCollisionDistanceTollerance, whatIsFloor))
             {
                 newPos.y += velocity.y;
@@ -199,33 +200,32 @@ public class Rope : MonoBehaviour
             {
                 firstSegment.xConstrained = true;
             }
-             
+            */
             #endregion
 
-            #region RayCast test2
-            /*
-            if (!Physics2D.Raycast(newPos, Vector2.down, maxCollisionDistanceTollerance, whatIsFloor))
+            #region RayCast No cae del piso pero no se enrosca
+
+            if (velocity.y < 0)
+            {
+                if (!Physics2D.Raycast(newPos, Vector2.down, maxCollisionDistanceTollerance, whatIsFloor))
+                {
+                    newPos.y += velocity.y;
+                    newPos.y += forceGravity.y * Time.fixedDeltaTime;
+                }
+            }
+            else
             {
                 newPos.y += velocity.y;
                 newPos.y += forceGravity.y * Time.fixedDeltaTime;
-                firstSegment.yConstrained = false;
-            }
-            else
-            {
-                firstSegment.yConstrained = true;
             }
             //luego si puede moverse en X
-            if (i < lineRendererPositions-1 && !Physics2D.Raycast(newPos, new Vector2(ropeSegments[1+i].posNow.x- firstSegment.posNow.x ,0).normalized ,maxCollisionDistanceTollerance, whatIsFloor))
+
+            if (!Physics2D.Raycast(newPos, Vector2.right, maxCollisionDistanceTollerance, whatIsFloor) && (!Physics2D.Raycast(newPos, Vector2.left, maxCollisionDistanceTollerance, whatIsFloor)))
             {
                 newPos.x += velocity.x;
                 newPos.x += forceGravity.x * Time.fixedDeltaTime;
-                firstSegment.xConstrained = false;
             }
-            else
-            {
-                firstSegment.xConstrained = true;
-            }
-            */
+
             #endregion
             firstSegment.posNow = newPos;
             this.ropeSegments[i] = firstSegment;
@@ -286,10 +286,19 @@ public class Rope : MonoBehaviour
                 {
                     newPos.x -= changeAmount.x * 0.5f;
                 }
-                if (!firstSeg.yConstrained)
+
+                if ((changeAmount.y < 0))
+                {
+                    if (!Physics2D.Raycast(newPos, Vector2.down, maxCollisionDistanceTollerance, whatIsFloor))
+                    {
+                        newPos.y -= changeAmount.y * 0.5f;
+                    }
+                }
+                else
                 {
                     newPos.y -= changeAmount.y * 0.5f;
                 }
+           
 
                 firstSeg.posNow = newPos;
                 this.ropeSegments[i] = firstSeg;
@@ -300,16 +309,48 @@ public class Rope : MonoBehaviour
                 {
                     newSecondPos.x += changeAmount.x * 0.5f;
                 }
-                if (!secondSeg.yConstrained)
+
+                if ((changeAmount.y < 0))
+                {
+                    if (!Physics2D.Raycast(newPos, Vector2.down, maxCollisionDistanceTollerance, whatIsFloor))
+                    {
+                        newSecondPos.y += changeAmount.y * 0.5f;
+                    }
+                }
+                else
                 {
                     newSecondPos.y += changeAmount.y * 0.5f;
                 }
+
                 secondSeg.posNow = newSecondPos;
                 this.ropeSegments[i+1] = secondSeg;
             }
             else
             {
-                secondSeg.posNow += changeAmount;
+                Vector2 newPos = secondSeg.posNow;
+                secondSeg.posNow = newPos;
+                this.ropeSegments[i] = firstSeg;
+
+                Vector2 newSecondPos = secondSeg.posNow;
+
+                if (!secondSeg.xConstrained)
+                {
+                    newSecondPos.x += changeAmount.x * 0.5f;
+                }
+
+                if ((changeAmount.y < 0))
+                {
+                    if (!Physics2D.Raycast(newPos, Vector2.down, maxCollisionDistanceTollerance, whatIsFloor))
+                    {
+                        newSecondPos.y += changeAmount.y * 0.5f;
+                    }
+                }
+                else
+                {
+                    newSecondPos.y += changeAmount.y * 0.5f;
+                }
+
+                secondSeg.posNow = newSecondPos;
                 this.ropeSegments[i + 1] = secondSeg;
             }
         }
@@ -361,7 +402,6 @@ public class Rope : MonoBehaviour
         public bool yConstrained;
         public bool leftConstrained;
         public bool rightConstrained;
-
         public RopeSegment(Vector2 pos,int index)
         {
             yConstrained = false;
