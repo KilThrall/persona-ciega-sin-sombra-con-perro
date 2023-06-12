@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PianoButton : MonoBehaviour
+public class PasswordButton : MonoBehaviour
 {
     [SerializeField]
     private int position;
@@ -11,7 +11,7 @@ public class PianoButton : MonoBehaviour
     [SerializeField]
     private AudioClip clip;
     [SerializeField]
-    private PianoUI ui;
+    private PasswordUI ui;
 
     private Button button;
 
@@ -23,7 +23,12 @@ public class PianoButton : MonoBehaviour
 
     private void PlaySound()
     {
+        ActionsManager.InvokeAction(PasswordUI.PASSWORD_INPUT_KEY, position);
+        if (clip == null)
+        {
+            Debug.LogWarning("No clip found for button");
+            return;
+        }
         ui.PlaySound(clip);
-        ActionsManager.InvokeAction(PianoUI.PIANO_PASSWORD_INPUT_KEY, position);
     }
 }
