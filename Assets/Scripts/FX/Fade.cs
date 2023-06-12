@@ -6,8 +6,8 @@ public class Fade : MonoBehaviour
 {
     [SerializeField]
     private SpriteRenderer spriteToFade;
-    [SerializeField][Tooltip("Tiempo que se quiere que tarde el fade, no pongan 0 culiados")]
-    private float fadeTime=1;
+    [SerializeField][Range(0.1f,10)]
+    private float fadeSpeed=1;
 
     private float fadeTarget;
     private bool mustFade=false;
@@ -22,7 +22,7 @@ public class Fade : MonoBehaviour
                 multiplier = -1;
             }
             Color spriteColor = spriteToFade.color;
-            spriteColor.a += Time.fixedDeltaTime * fadeTime * multiplier;
+            spriteColor.a += Time.fixedDeltaTime * fadeSpeed * multiplier;
 
             if ((fadeTarget <= spriteColor.a && multiplier == 1)
                 || fadeTarget >= spriteColor.a && multiplier == -1)
