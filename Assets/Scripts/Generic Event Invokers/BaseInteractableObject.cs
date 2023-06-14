@@ -4,6 +4,8 @@ using UnityEngine;
 using System;
 public abstract class BaseInteractableObject : MonoBehaviour
 {
+    [SerializeField][Tooltip("Interacciones del lore u otras")]
+    protected bool isOptional = false;
     [SerializeField]
     protected string colliderTag = "Blind";
     //(1/3)
@@ -11,17 +13,28 @@ public abstract class BaseInteractableObject : MonoBehaviour
     protected GameObject player;
 
     public GameObject Player => player;
-
+    private FadeLight interactionLight;
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag(colliderTag))
         {
-            if (player==null)
+            if (player == null)
             {
                 player = collision.gameObject;
+                interactionLight = player.GetComponent<FadeLight>();
             }
+
+            if (isOptional)
+            {
+                interactionLight.SetOptionalInteractionColor();
+            }
+            else
+            {
+                interactionLight.SetInteractionColor();
+            }
+            interactionLight.FadeIn();
             collision.GetComponent<IInput>().OnInteract +=OnPlayerInteraction;
         }
     }
@@ -32,6 +45,7 @@ public abstract class BaseInteractableObject : MonoBehaviour
         {
             //(2/3)
             //COMO NO SE USA UN DELEGATE AHORA SE BORRA BIEN TODO
+            interactionLight.FadeOut();
             collision.GetComponent<IInput>().OnInteract -= OnPlayerInteraction;
             OnPlayerExitTrigger();
         }
