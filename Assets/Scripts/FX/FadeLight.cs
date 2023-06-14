@@ -21,7 +21,7 @@ public class FadeLight : MonoBehaviour
     private bool mustFade = false;
 
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (mustFade && ligthToFade.intensity != fadeTarget)
         {
