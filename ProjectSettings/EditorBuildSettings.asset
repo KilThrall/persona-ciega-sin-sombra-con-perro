@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/WTSAlpha.unity
     guid: 6eaa0b1be3adae740bc62a05266783bf
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 2.unity
+    guid: 1ac75943ddf56c044a5710465535489e
+  - enabled: 1
+    path: Assets/Scenes/SimonLevel.unity
+    guid: 633316546c1062c478bfb331dd334322
   m_configObjects: {}

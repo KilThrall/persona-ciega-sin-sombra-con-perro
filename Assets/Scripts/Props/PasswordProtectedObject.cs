@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Piano : GenericInteractionToggle
+public class PasswordProtectedObject : GenericInteractionToggle
 {
     [Tooltip("The code needed to activate the event")]
     [SerializeField]
@@ -18,12 +18,12 @@ public class Piano : GenericInteractionToggle
     private void Start()
     {
         GameUIManager.Instance.InstanceGameUI(uiPrefab);
-        ActionsManager.SubscribeToAction(PianoUI.PIANO_PASSWORD_INPUT_KEY, OnPianoPasswordInput);
+        ActionsManager.SubscribeToAction(PasswordUI.PASSWORD_INPUT_KEY, OnPasswordInput);
     }
 
     private void OnDestroy()
     {
-        ActionsManager.UnsubscribeToAction(PianoUI.PIANO_PASSWORD_INPUT_KEY, OnPianoPasswordInput);
+        ActionsManager.UnsubscribeToAction(PasswordUI.PASSWORD_INPUT_KEY, OnPasswordInput);
     }
 
     public void OnPlayerInteract(bool state)
@@ -32,15 +32,15 @@ public class Piano : GenericInteractionToggle
         {
             return;
         }
-        ActionsManager.InvokeAction(PianoUI.PIANO_INTERACT_KEY, state);
+        ActionsManager.InvokeAction(PasswordUI.PASSWORD_INTERACT_KEY, state);
     }
 
     protected override void OnPlayerExitTrigger()
     {
-        ActionsManager.InvokeAction(PianoUI.PIANO_INTERACT_KEY, false);
+        ActionsManager.InvokeAction(PasswordUI.PASSWORD_INTERACT_KEY, false);
     }
 
-    private void OnPianoPasswordInput(object value)
+    private void OnPasswordInput(object value)
     {
 
         if (currentAttempt >= password.Count)
@@ -55,7 +55,7 @@ public class Piano : GenericInteractionToggle
         }
         catch (System.Exception e)
         {
-            Debug.LogError($"Tried sending an event for {nameof(PianoUI)} with the wrong type. Error: " + e);
+            Debug.LogError($"Tried sending an event for {nameof(PasswordUI)} with the wrong type. Error: " + e);
             throw;
         }
         if (input == -1)

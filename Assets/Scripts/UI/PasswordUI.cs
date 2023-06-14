@@ -2,21 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PianoUI : MonoBehaviour
+public class PasswordUI : MonoBehaviour
 {
-    public const string PIANO_INTERACT_KEY = "PianoInteracted";
-    public const string PIANO_PASSWORD_INPUT_KEY = "PianoPasswordInput";
+    public const string PASSWORD_INTERACT_KEY = "PasswordInteracted";
+    public const string PASSWORD_INPUT_KEY = "PasswordInput";
 
 
     private void Awake()
     {
-        ActionsManager.SubscribeToAction(PIANO_INTERACT_KEY, OnInteract);
+        ActionsManager.SubscribeToAction(PASSWORD_INTERACT_KEY, OnInteract);
         gameObject.SetActive(false);
     }
 
     private void OnDestroy()
     {
-        ActionsManager.UnsubscribeToAction(PIANO_INTERACT_KEY, OnInteract);
+        ActionsManager.UnsubscribeToAction(PASSWORD_INTERACT_KEY, OnInteract);
     }
 
     public void PlaySound(AudioClip clip)
@@ -34,7 +34,7 @@ public class PianoUI : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            Debug.LogError($"Tried sending an event for {nameof(PianoUI)} with the wrong type. Error: " + e);
+            Debug.LogError($"Tried sending an event for {nameof(PasswordUI)} with the wrong type. Error: " + e);
             throw;
         }
         gameObject.SetActive(hasInteracted);
