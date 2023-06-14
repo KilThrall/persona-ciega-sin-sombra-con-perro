@@ -84924,6 +84924,10 @@ PrefabInstance:
       propertyPath: finalPos
       value: 
       objectReference: {fileID: 152122342}
+    - target: {fileID: 1762368483, guid: f92512e991fcb2f4eb5205899be94ef9, type: 3}
+      propertyPath: lightMaxIntensity
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6273823577838093011, guid: f92512e991fcb2f4eb5205899be94ef9, type: 3}
       propertyPath: m_Name
       value: 'Blind '

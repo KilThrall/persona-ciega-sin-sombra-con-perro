@@ -4,18 +4,22 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 public class FadeLight : MonoBehaviour
 {
-    [SerializeField][Tooltip("Luz que se mostrará para señalar interacciones no opcionales, como de puzzles")]
+    #region Serialized Variables
+    [SerializeField][Tooltip("Luz que se mostrara para senalar interacciones no opcionales, como de puzzles")] //Github no me leia las enies no es que no se escribir
     private Color interactionColor;
-    [SerializeField][Tooltip("Luz que se mostrará para señalar interacciones opcionales, como de lore")]
+    [SerializeField][Tooltip("Luz que se mostrara para senalar interacciones opcionales, como de lore")]
     private Color optionalInteractionColor;
     [SerializeField]
     private Light2D ligthToFade;
     [SerializeField]
     [Range(0.1f, 10)]
     private float fadeSpeed = 1;
-
+    [SerializeField]
+    private float lightMaxIntensity = 1;
+    #endregion
     private float fadeTarget;
     private bool mustFade = false;
+
 
     void FixedUpdate()
     {
@@ -52,12 +56,12 @@ public class FadeLight : MonoBehaviour
     public void FadeIn()
     {
         mustFade = true;
-        fadeTarget = 1;
+        fadeTarget = lightMaxIntensity;
     }
 
     public void FadeOut()
     {
         mustFade = true;
-        fadeTarget = 0;
-    }
+        fadeTarget = 0; 
+    } 
 }
