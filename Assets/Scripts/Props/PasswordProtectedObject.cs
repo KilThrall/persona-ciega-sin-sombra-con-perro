@@ -65,7 +65,8 @@ public class PasswordProtectedObject : GenericInteractionToggle
 
         if (input != password[currentAttempt])
         {
-            currentAttempt=0;
+            ActionsManager.InvokeAction(PasswordUI.PASSWORD_FAIL_KEY, null);
+            currentAttempt =0;
             return;
         }
         currentAttempt++;
