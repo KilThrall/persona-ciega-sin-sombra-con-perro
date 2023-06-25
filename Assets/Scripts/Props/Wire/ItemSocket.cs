@@ -6,6 +6,7 @@ public class ItemSocket : MonoBehaviour
 {
     public bool ItemConnected => itemConnected;
     public UnityEvent onConnectionEvent;
+    public UnityEvent onDisconnectEvent;
 
     [SerializeField][Tooltip("Donde se va a quedar el item/cable cuando quede enchufado, si es nulo va al centro del sprite")]
     private Transform connectionPosition;
@@ -22,10 +23,17 @@ public class ItemSocket : MonoBehaviour
             }
             return transform.position;
         }
-    } 
+    }
+    
     public void Connect()
     {
         onConnectionEvent.Invoke();
         itemConnected = true;
+    }
+
+    public void Disconnect()
+    {
+        onDisconnectEvent.Invoke();
+        itemConnected = false;
     }
 }

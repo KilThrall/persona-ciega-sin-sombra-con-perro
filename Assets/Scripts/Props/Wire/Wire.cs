@@ -104,6 +104,11 @@ public class Wire : MonoBehaviour
         {
             if (!isSpliced) // osea si no esta agarrado ni empalmado
             {
+                if (itemSocket!=null)
+                {
+                    itemSocket.Disconnect();
+                    itemSocket = null;
+                }
                 GrabWire();
             }
             if (!isSpliced && wireToSplice != null) // si se toca la E en este Wire se va a conectar al otro que entró en colision
