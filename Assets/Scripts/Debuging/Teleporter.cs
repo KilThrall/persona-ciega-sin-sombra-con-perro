@@ -18,4 +18,9 @@ public class Teleporter : MonoBehaviour
     {
         objectToMove.transform.position = finalPos.position;
     }
+
+    public void ChangeFinalPos(Transform newFinalPos)
+    {
+        finalPos = newFinalPos;
+    }
 }
