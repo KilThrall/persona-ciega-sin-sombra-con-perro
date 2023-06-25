@@ -106,7 +106,7 @@ public class Wire : MonoBehaviour
             {
                 if (itemSocket!=null)
                 {
-                    itemSocket.Disconect();
+                    itemSocket.Disconnect();
                     itemSocket = null;
                 }
                 GrabWire();
