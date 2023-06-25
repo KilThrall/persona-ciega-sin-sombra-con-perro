@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface Fader
+public interface IFader
 {
     void FadeIn();
     void FadeOut();
 }
 
-public class FadeSprite : MonoBehaviour, Fader
+public class FadeSprite : MonoBehaviour, IFader
 {
     [SerializeField]
     private SpriteRenderer spriteToFade;

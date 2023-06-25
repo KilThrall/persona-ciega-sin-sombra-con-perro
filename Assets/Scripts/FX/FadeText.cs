@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-public class FadeText : MonoBehaviour, Fader
+public class FadeText : MonoBehaviour, IFader
 {
     [SerializeField]
     private TextMeshProUGUI textToFade;

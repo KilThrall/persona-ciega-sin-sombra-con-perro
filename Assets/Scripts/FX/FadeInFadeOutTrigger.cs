@@ -7,11 +7,11 @@ public class FadeInFadeOutTrigger : GenericOnTriggerEnter
     [SerializeField]
     private GameObject objectToFade;
   
-    private Fader componentToFade;
+    private IFader componentToFade;
 
     private void Awake()
     {
-        componentToFade=objectToFade.GetComponent<Fader>();
+        componentToFade=objectToFade.GetComponent<IFader>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
