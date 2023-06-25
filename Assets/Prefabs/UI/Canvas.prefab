@@ -265,6 +265,12 @@ MonoBehaviour:
   areCheatsEnabled: 1
   sceneButtonPrefab: {fileID: 8423951472417298914, guid: 13c469e5b7459d84c834fede7c5e2e02, type: 3}
   scenesListTransform: {fileID: 1478811273}
+  dog: {fileID: 0}
+  blind: {fileID: 0}
+  extraCheats:
+  - TpName: Zona2
+    SceneName: Level 1
+    Location: {x: 16.2, y: -86.8}
 --- !u!1 &1478811272
 GameObject:
   m_ObjectHideFlags: 0

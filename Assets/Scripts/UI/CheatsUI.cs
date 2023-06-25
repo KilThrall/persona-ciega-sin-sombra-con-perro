@@ -12,6 +12,11 @@ public class CheatsUI : MonoBehaviour
     private GameObject sceneButtonPrefab;
     [SerializeField]
     private Transform scenesListTransform;
+    [SerializeField]
+    private Transform dog, blind;
+
+    [SerializeField]
+    private CheatTpData[] extraCheats;
 
     private void Awake()
     {
@@ -39,5 +44,19 @@ public class CheatsUI : MonoBehaviour
             var sceneName = path.Substring(0, path.Length - 6).Substring(path.LastIndexOf('/') + 1);
             button.GetComponent<SceneChangeButton>().Setup(sceneName);
         }
+
+        foreach (var cheat in extraCheats)
+        {
+            var button = Instantiate(sceneButtonPrefab, scenesListTransform);
+            button.GetComponent<SceneChangeButton>().Setup(cheat,dog,blind);
+        }
     }
+}
+
+[System.Serializable]
+public struct CheatTpData
+{
+    public string TpName;
+    public string SceneName;
+    public Vector2 Location;
 }
