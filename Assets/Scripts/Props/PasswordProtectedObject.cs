@@ -20,12 +20,12 @@ public class PasswordProtectedObject : GenericInteractionToggle
     private void Start()
     {
         GameUIManager.Instance.InstanceGameUI(uiPrefab);
-        ActionsManager.SubscribeToAction(PasswordUI.PASSWORD_INPUT_KEY, OnPasswordInput);
+        ActionsManager.SubscribeToAction(GetModifiedKey(PasswordUI.PASSWORD_INPUT_KEY), OnPasswordInput);
     }
 
     private void OnDestroy()
     {
-        ActionsManager.UnsubscribeToAction(PasswordUI.PASSWORD_INPUT_KEY, OnPasswordInput);
+        ActionsManager.UnsubscribeToAction(GetModifiedKey(PasswordUI.PASSWORD_INPUT_KEY), OnPasswordInput);
     }
 
     public void OnPlayerInteract(bool state)
