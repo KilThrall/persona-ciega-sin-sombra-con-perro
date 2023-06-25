@@ -121,6 +121,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   uiPrefab: {fileID: 5891417111905450458, guid: d91b3643848ed2f488fca6db1b9256d5, type: 3}
+  actionKeyModifier: Simon
 --- !u!1 &7485741310967230160
 GameObject:
   m_ObjectHideFlags: 0

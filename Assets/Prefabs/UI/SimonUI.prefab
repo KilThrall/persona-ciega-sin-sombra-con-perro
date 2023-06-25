@@ -137,6 +137,7 @@ MonoBehaviour:
   position: 2
   clip: {fileID: 0}
   ui: {fileID: 9034872068567970008}
+  actionKeyModifier: Simon
 --- !u!1 &1422036115931929222
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,6 +275,7 @@ MonoBehaviour:
   position: 0
   clip: {fileID: 0}
   ui: {fileID: 9034872068567970008}
+  actionKeyModifier: Simon
 --- !u!1 &2260341129889948746
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,6 +413,7 @@ MonoBehaviour:
   position: 3
   clip: {fileID: 0}
   ui: {fileID: 9034872068567970008}
+  actionKeyModifier: Simon
 --- !u!1 &5891417111905450458
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,6 +468,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4a87f0287c6a648a2d75fa7ea99856, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionKeyModifier: Simon
+  onPasswordFail:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7264080307636501208}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Fail
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!95 &7264080307636501208
 Animator:
   serializedVersion: 5
@@ -622,3 +641,4 @@ MonoBehaviour:
   position: 1
   clip: {fileID: 0}
   ui: {fileID: 9034872068567970008}
+  actionKeyModifier: Simon
