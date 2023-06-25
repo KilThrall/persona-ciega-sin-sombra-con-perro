@@ -62,7 +62,7 @@ public class MovableObject : MonoBehaviour
             {
                 isGrabbedByPlayer = false;
 
-                transform.position = itemSocket.ConnectionPosition;
+                parentToMove.position = itemSocket.ConnectionPosition;
                 itemSocket.Connect();
             }
             else if (canBeDroppedAnywhere)
