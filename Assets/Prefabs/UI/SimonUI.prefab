@@ -421,6 +421,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6879329638846305373}
   - component: {fileID: 9034872068567970008}
+  - component: {fileID: 7264080307636501208}
   m_Layer: 5
   m_Name: SimonUI
   m_TagString: Untagged
@@ -464,6 +465,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4a87f0287c6a648a2d75fa7ea99856, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &7264080307636501208
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5891417111905450458}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f8aebfdd4ad7dcc4284423f004fcc7d2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &6030779801315399261
 GameObject:
   m_ObjectHideFlags: 0
