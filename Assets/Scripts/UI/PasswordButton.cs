@@ -12,6 +12,8 @@ public class PasswordButton : MonoBehaviour
     private AudioClip clip;
     [SerializeField]
     private PasswordUI ui;
+    [SerializeField]
+    private string actionKeyModifier;
 
     private Button button;
 
@@ -23,12 +25,16 @@ public class PasswordButton : MonoBehaviour
 
     private void PlaySound()
     {
-        ActionsManager.InvokeAction(PasswordUI.PASSWORD_INPUT_KEY, position);
+        ActionsManager.InvokeAction(GetModifiedKey(PasswordUI.PASSWORD_INPUT_KEY), position);
         if (clip == null)
         {
             Debug.LogWarning("No clip found for button");
             return;
         }
         ui.PlaySound(clip);
+    }
+    private string GetModifiedKey(string ogText)
+    {
+        return string.Concat(actionKeyModifier, ogText);
     }
 }

@@ -10,20 +10,22 @@ public class PasswordUI : MonoBehaviour
     public const string PASSWORD_FAIL_KEY = "PasswordFail";
 
     [SerializeField]
+    private string actionKeyModifier;
+    [SerializeField]
     private UnityEvent onPasswordFail;
 
 
     private void Awake()
     {
-        ActionsManager.SubscribeToAction(PASSWORD_INTERACT_KEY, OnInteract);
-        ActionsManager.SubscribeToAction(PASSWORD_FAIL_KEY, OnPasswordFail);
+        ActionsManager.SubscribeToAction(GetModifiedKey(PASSWORD_INTERACT_KEY), OnInteract);
+        ActionsManager.SubscribeToAction(GetModifiedKey(PASSWORD_FAIL_KEY), OnPasswordFail);
         gameObject.SetActive(false);
     }
 
     private void OnDestroy()
     {
-        ActionsManager.UnsubscribeToAction(PASSWORD_INTERACT_KEY, OnInteract);
-        ActionsManager.UnsubscribeToAction(PASSWORD_FAIL_KEY, OnPasswordFail);
+        ActionsManager.UnsubscribeToAction(GetModifiedKey(PASSWORD_INTERACT_KEY), OnInteract);
+        ActionsManager.UnsubscribeToAction(GetModifiedKey(PASSWORD_FAIL_KEY), OnPasswordFail);
     }
 
     public void PlaySound(AudioClip clip)
@@ -50,5 +52,10 @@ public class PasswordUI : MonoBehaviour
             throw;
         }
         gameObject.SetActive(hasInteracted);
+    }
+
+    private string GetModifiedKey(string ogText)
+    {
+        return string.Concat(actionKeyModifier, ogText);
     }
 }

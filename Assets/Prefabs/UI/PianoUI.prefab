@@ -364,6 +364,7 @@ MonoBehaviour:
   position: 6
   clip: {fileID: 8300000, guid: 07391ea198d1d0b40b0fea5d182faed0, type: 3}
   ui: {fileID: 1032993892107069208}
+  actionKeyModifier: Piano
 --- !u!114 &4622285249590104306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -536,6 +537,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4a87f0287c6a648a2d75fa7ea99856, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionKeyModifier: Piano
+  onPasswordFail:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2860823208489823077
 GameObject:
   m_ObjectHideFlags: 0
@@ -841,6 +846,7 @@ MonoBehaviour:
   position: 0
   clip: {fileID: 8300000, guid: 29b8fd55b4bb945468ed58b8f713690e, type: 3}
   ui: {fileID: 1032993892107069208}
+  actionKeyModifier: Piano
 --- !u!114 &1075828517735063863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1190,6 +1196,7 @@ MonoBehaviour:
   position: 2
   clip: {fileID: 8300000, guid: c2966a1e08208764eba0e13206a54a07, type: 3}
   ui: {fileID: 1032993892107069208}
+  actionKeyModifier: Piano
 --- !u!114 &4475295714488552593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1328,6 +1335,7 @@ MonoBehaviour:
   position: 1
   clip: {fileID: 8300000, guid: 1e1217a3e2291a741be7e4e8b21c5e49, type: 3}
   ui: {fileID: 1032993892107069208}
+  actionKeyModifier: Piano
 --- !u!114 &4707256421999789276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1466,6 +1474,7 @@ MonoBehaviour:
   position: 5
   clip: {fileID: 8300000, guid: 7cff1b4a5fc4d794d9105bbe09eafe0e, type: 3}
   ui: {fileID: 1032993892107069208}
+  actionKeyModifier: Piano
 --- !u!114 &7977370538987419218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1950,6 +1959,7 @@ MonoBehaviour:
   position: 4
   clip: {fileID: 8300000, guid: 7614f8e8c4989ed4e8f75bbef04fc0a0, type: 3}
   ui: {fileID: 1032993892107069208}
+  actionKeyModifier: Piano
 --- !u!114 &4993856732090534355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2240,6 +2250,7 @@ MonoBehaviour:
   position: 3
   clip: {fileID: 8300000, guid: c49745c0f33e8bc4487a92fbac88c287, type: 3}
   ui: {fileID: 1032993892107069208}
+  actionKeyModifier: Piano
 --- !u!114 &5378506125653568577
 MonoBehaviour:
   m_ObjectHideFlags: 0

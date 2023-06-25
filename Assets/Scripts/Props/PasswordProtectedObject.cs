@@ -12,6 +12,8 @@ public class PasswordProtectedObject : GenericInteractionToggle
     private UnityEvent onPasswordCorrect;
     [SerializeField]
     private GameObject uiPrefab;
+    [SerializeField]
+    private string actionKeyModifier;
 
     private int currentAttempt = 0;
 
@@ -32,12 +34,12 @@ public class PasswordProtectedObject : GenericInteractionToggle
         {
             return;
         }
-        ActionsManager.InvokeAction(PasswordUI.PASSWORD_INTERACT_KEY, state);
+        ActionsManager.InvokeAction(GetModifiedKey(PasswordUI.PASSWORD_INTERACT_KEY), state);
     }
 
     protected override void OnPlayerExitTrigger()
     {
-        ActionsManager.InvokeAction(PasswordUI.PASSWORD_INTERACT_KEY, false);
+        ActionsManager.InvokeAction(GetModifiedKey(PasswordUI.PASSWORD_INTERACT_KEY), false);
     }
 
     private void OnPasswordInput(object value)
@@ -65,7 +67,7 @@ public class PasswordProtectedObject : GenericInteractionToggle
 
         if (input != password[currentAttempt])
         {
-            ActionsManager.InvokeAction(PasswordUI.PASSWORD_FAIL_KEY, null);
+            ActionsManager.InvokeAction(GetModifiedKey(PasswordUI.PASSWORD_FAIL_KEY), null);
             currentAttempt =0;
             return;
         }
@@ -76,5 +78,9 @@ public class PasswordProtectedObject : GenericInteractionToggle
             onPasswordCorrect.Invoke();
             OnPlayerExitTrigger();
         }
+    }
+    private string GetModifiedKey(string ogText)
+    {
+        return string.Concat(actionKeyModifier, ogText);
     }
 }

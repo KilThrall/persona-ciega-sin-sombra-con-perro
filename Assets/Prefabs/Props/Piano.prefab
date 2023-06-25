@@ -72,6 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb9a373d81f345e449f6a7a5948c7873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isOptional: 0
   colliderTag: Blind
   OnEvent:
     m_PersistentCalls:
@@ -120,6 +121,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   uiPrefab: {fileID: 1832582917580435592, guid: 0f9595878a5771240988a5fd78e73f74, type: 3}
+  actionKeyModifier: Piano
 --- !u!1 &3790681383521723969
 GameObject:
   m_ObjectHideFlags: 0
