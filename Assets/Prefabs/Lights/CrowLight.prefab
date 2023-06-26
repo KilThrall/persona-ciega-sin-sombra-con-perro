@@ -741,7 +741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f879d82bab14ac44a90fcbc2ff68b979, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LightDuration: 2
+  LightDuration: 4
   lightFallOffDuration: 1.8
   targetScale: {x: 3, y: 3}
 --- !u!114 &358009111583905247
@@ -757,4 +757,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldBeSeenByBlind: 1
-  targetComponent: {fileID: 0}
+  targetComponent: {fileID: 5308994827055916601}
