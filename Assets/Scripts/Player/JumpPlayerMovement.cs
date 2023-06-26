@@ -109,10 +109,10 @@ public class JumpPlayerMovement : MonoBehaviour
 
     private void UpdateFloorDetection()
     {
+
         var startingPoint1 = transform.position + Vector3.right*xDetectionOffset;
 
         bool leftSideFloor = Physics2D.Raycast(startingPoint1,Vector2.down, floorDetectionDistance, whatIsFloor);
-
         if (leftSideFloor)
         {
             onFloor = true;
@@ -124,6 +124,7 @@ public class JumpPlayerMovement : MonoBehaviour
         bool rightSideFloor = Physics2D.Raycast(startingPoint2, Vector2.down, floorDetectionDistance, whatIsFloor);
 
         onFloor = rightSideFloor;
+
     }
 
     public void ExternalJumpBlock(bool state)
