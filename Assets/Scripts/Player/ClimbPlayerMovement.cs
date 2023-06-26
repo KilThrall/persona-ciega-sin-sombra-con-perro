@@ -132,7 +132,7 @@ public class ClimbPlayerMovement : MonoBehaviour
         isClimbing = false;
         transform.position = ledgePos2;
         ledgeDetected = false;
-        anim.SetBool("isClimbingLedge", isClimbing);
+        //anim.SetBool("isClimbingLedge", isClimbing);
     }
     /// <summary>
     /// Sustituye una animacion en la cual se muestra al ciego trepando y al final se teletransporta al ciego a donde quedaria despues de trepar
