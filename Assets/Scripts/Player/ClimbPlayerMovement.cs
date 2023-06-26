@@ -115,10 +115,10 @@ public class ClimbPlayerMovement : MonoBehaviour
                     ledgePos1 = new Vector2(Mathf.Ceil(ledgePosBot.x - wallCheckDistance) + ledgeClimbXOffset1, Mathf.Floor(ledgePosBot.y) + ledgeClimbYOffset1);
                     ledgePos2 = new Vector2(Mathf.Ceil(ledgePosBot.x - wallCheckDistance) - ledgeClimbXOffset2, Mathf.Floor(ledgePosBot.y) + ledgeClimbYOffset2);
                 }
-                anim.SetBool("isClimbingLedge", isClimbing);
+                anim.SetTrigger("isClimbing");
 
                 //TODO: CAMBIAR POR UNA ANIMACIÓN CUANDO TENGAMOS LOS FRAMES DEL CIEGO TREPANDO!!!!1!
-                StartCoroutine(WaitingForClimb());
+               // StartCoroutine(WaitingForClimb());
                 rb.velocity = Vector2.zero;
             }
         }
@@ -132,6 +132,7 @@ public class ClimbPlayerMovement : MonoBehaviour
         isClimbing = false;
         transform.position = ledgePos2;
         ledgeDetected = false;
+        print("trpo");
         //anim.SetBool("isClimbingLedge", isClimbing);
     }
     /// <summary>
