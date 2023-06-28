@@ -34,7 +34,6 @@ public class GearsPuzzle : MonoBehaviour
                 if (gear.IsActivated)
                 {
                     gear.Sync();
-
                 }
             }
         }
