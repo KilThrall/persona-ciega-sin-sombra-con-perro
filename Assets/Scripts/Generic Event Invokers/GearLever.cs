@@ -13,10 +13,9 @@ public class GearLever : GenericInteractionToggle
     {
         foreach (var go in gears)
         {
-            itemsToWaitFor.Add(go.GetComponent<IMustBeWaited>());
-
-            //me daba paja agregar uno por uno en el inspector para las palancas, verdaderamente es la unica razon por la que vive esta clase
             var gear = go.GetComponent<Gear>();
+            itemsToWaitFor.Add(gear);
+
             OnEvent.AddListener(gear.ChangeState);
             OffEvent.AddListener(gear.ChangeState);
         }

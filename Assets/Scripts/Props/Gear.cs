@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 public interface IMustBeWaited
 {
     bool HasFinished();
 }  
-
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(GenericSoundEmmiter))]
 public class Gear : MonoBehaviour, IMustBeWaited
 {
     public bool IsActivated => isActivated;
@@ -50,6 +49,7 @@ public class Gear : MonoBehaviour, IMustBeWaited
     {
         return isTransitioning;
     }
+
     /// <summary>
     /// Se debe llamar al finalizar la animacion de transicion
     /// </summary>
@@ -68,6 +68,7 @@ public class Gear : MonoBehaviour, IMustBeWaited
             soundEmmiter.enabled = false;
         }
     }
+
     /// <summary>
     /// Resetea las animaciones y sonidos de los gears para que se sincornicen cuando se activan nuevos
     /// </summary>
