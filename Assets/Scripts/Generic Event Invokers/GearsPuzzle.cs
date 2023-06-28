@@ -16,7 +16,7 @@ public class GearsPuzzle : MonoBehaviour
     {
         foreach (var gear in gears)
         {
-            gear.onGearActivation += FinishPuzzle;
+            gear.OnGearActivation += FinishPuzzle;
         }
     }
 

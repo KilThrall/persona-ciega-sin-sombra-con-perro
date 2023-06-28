@@ -10,7 +10,7 @@ public interface IMustBeWaited
 public class Gear : MonoBehaviour, IMustBeWaited
 {
     public bool IsActivated => isActivated;
-    public event Action onGearActivation;
+    public event Action OnGearActivation;
 
     private const string ACTIVATE_ANIMATION_PARAMETER ="Activate";
     private const string DEACTIVATE_ANIMATION_PARAMETER ="Deactivate";
@@ -21,7 +21,6 @@ public class Gear : MonoBehaviour, IMustBeWaited
 
     private bool isActivated=false;
     private bool isTransitioning=false;
-
 
     private void Awake()
     {
@@ -46,22 +45,22 @@ public class Gear : MonoBehaviour, IMustBeWaited
         isTransitioning = true;
     }
 
-    /// <summary>
-    /// Se debe llamar al finalizar la animacion de transicion
-    /// </summary>
-    /// <returns>Devuelve si termino la animación de transicion</returns>
+
     public bool HasFinished()
     {
         return isTransitioning;
     }
-
+    /// <summary>
+    /// Se debe llamar al finalizar la animacion de transicion
+    /// </summary>
+    /// <returns>Devuelve si termino la animación de transicion</returns>
     public void FinishedTransition()
     {
         isTransitioning = false;
 
         if (isActivated)
         {
-            onGearActivation?.Invoke();
+            OnGearActivation?.Invoke();
             soundEmmiter.enabled = true;
         }
         else
@@ -69,7 +68,9 @@ public class Gear : MonoBehaviour, IMustBeWaited
             soundEmmiter.enabled = false;
         }
     }
-
+    /// <summary>
+    /// Resetea las animaciones y sonidos de los gears para que se sincornicen cuando se activan nuevos
+    /// </summary>
     public void Sync()
     {
         animator.SetTrigger(RESETACTIVATION_ANIMATION_PARAMETER);
