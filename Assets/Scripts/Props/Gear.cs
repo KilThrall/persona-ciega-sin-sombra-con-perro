@@ -53,7 +53,6 @@ public class Gear : MonoBehaviour, IMustBeWaited
     /// <summary>
     /// Se debe llamar al finalizar la animacion de transicion
     /// </summary>
-    /// <returns>Devuelve si termino la animación de transicion</returns>
     public void FinishedTransition()
     {
         isTransitioning = false;
