@@ -42,4 +42,9 @@ public class GenericSoundEmmiter : MonoBehaviour
     {
         Instantiate(soundPrefab, spawnPosition.position, Quaternion.identity);
     }
+
+    public void ResetTimer()
+    {
+        soundRepetitionTimer = 0;
+    }
 }

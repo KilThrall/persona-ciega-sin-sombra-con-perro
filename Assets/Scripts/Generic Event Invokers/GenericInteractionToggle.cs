@@ -5,16 +5,14 @@ using UnityEngine.Events;
 
 public class GenericInteractionToggle : BaseInteractableObject
 {
-
     #region Serialized Variables
     [SerializeField]
     protected UnityEvent OnEvent;
     [SerializeField]
     protected UnityEvent OffEvent;
     #endregion
-    private bool isToggled;
 
-
+    protected bool isToggled;
 
     protected override void OnPlayerInteraction(GameObject go)
     {
@@ -28,5 +26,4 @@ public class GenericInteractionToggle : BaseInteractableObject
         }
         isToggled = !isToggled;
     }
-
 }
