@@ -274,6 +274,9 @@ MonoBehaviour:
   - TpName: SimonPuzzle
     SceneName: Level 1
     Location: {x: 142, y: -92}
+  - TpName: Zona3
+    SceneName: Level 1
+    Location: {x: 255, y: -111.5}
 --- !u!1 &1478811272
 GameObject:
   m_ObjectHideFlags: 0
