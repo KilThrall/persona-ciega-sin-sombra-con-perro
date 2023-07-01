@@ -83,4 +83,9 @@ public class PasswordProtectedObject : GenericInteractionToggle
     {
         return string.Concat(actionKeyModifier, ogText);
     }
+
+    public void OnPlayerExit()
+    {
+        OffEvent?.Invoke();
+    }
 }
