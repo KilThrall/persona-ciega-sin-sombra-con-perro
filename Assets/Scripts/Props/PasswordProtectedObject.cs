@@ -40,6 +40,7 @@ public class PasswordProtectedObject : GenericInteractionToggle
     protected override void OnPlayerExitTrigger()
     {
         ActionsManager.InvokeAction(GetModifiedKey(PasswordUI.PASSWORD_INTERACT_KEY), false);
+        OnPlayerExit();
     }
 
     private void OnPasswordInput(object value)
