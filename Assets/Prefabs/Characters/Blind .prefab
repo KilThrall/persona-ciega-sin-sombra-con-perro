@@ -872,6 +872,7 @@ MonoBehaviour:
   optionalInteractionColor: {r: 0, g: 1, b: 0.8781085, a: 1}
   ligthToFade: {fileID: 1880150580}
   fadeSpeed: 1
+  lightMaxIntensity: 1
 --- !u!1 &6273823578000710046
 GameObject:
   m_ObjectHideFlags: 0
