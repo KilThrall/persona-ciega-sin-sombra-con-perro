@@ -21,11 +21,19 @@ public class GenericSoundEmmiter : MonoBehaviour
     private bool mustRepeatSound;
     [SerializeField]
     private float soundRepetitionCooldown=3;
+    [SerializeField]
+    private float setupTime=0;
 
     #endregion
-    
+
     private float soundRepetitionTimer;
     #region Monobehaviour Callbacks
+
+    private void Awake()
+    {
+        soundRepetitionTimer += setupTime;   
+    }
+
     private void FixedUpdate()
     {
         if (mustRepeatSound)
