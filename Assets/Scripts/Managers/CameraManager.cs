@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering.Universal;
 
 public class CameraManager : MonoBehaviour
@@ -8,7 +9,10 @@ public class CameraManager : MonoBehaviour
     public const string ON_CHARACTER_SWITCH_KEY = "OnCharacterSwitch";
 
     public static bool IsFollowingBlind = true;
-
+    [SerializeField]
+    private UnityEvent onChangeToBlind;
+    [SerializeField]
+    private UnityEvent onChangeToDog;
     [SerializeField]
     private Light2D currentLight;
     [SerializeField]
@@ -102,10 +106,12 @@ public class CameraManager : MonoBehaviour
         isFollowingBlind = !isFollowingBlind;
         if (isFollowingBlind)
         {
+            onChangeToBlind?.Invoke();
             FadeLight(blindLightIntensity, blindLightFadeTime, blindLight);
         }
         else
         {
+            onChangeToDog?.Invoke();
             FadeLight(dogLightIntensity, dogLightFadeTime, dogLight);
         }
         IsFollowingBlind = isFollowingBlind;
