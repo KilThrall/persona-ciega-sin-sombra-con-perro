@@ -9,6 +9,8 @@ public class GenericSoundEmmiter : MonoBehaviour
 {
     #region SerializedVariables
     [SerializeField]
+    private Transform parentToFollow;
+    [SerializeField]
     private Transform spawnPosition;
     [SerializeField]
     private GameObject soundPrefab;
@@ -40,7 +42,14 @@ public class GenericSoundEmmiter : MonoBehaviour
     #endregion
     public void EmitSound()
     {
-        Instantiate(soundPrefab, spawnPosition.position, Quaternion.identity);
+        if (parentToFollow == null)
+        {
+            Instantiate(soundPrefab, spawnPosition.position, Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(soundPrefab, spawnPosition.position, Quaternion.identity, parentToFollow);
+        }
     }
 
     public void ResetTimer()
