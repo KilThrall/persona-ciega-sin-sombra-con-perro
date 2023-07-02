@@ -730,7 +730,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldBeSeenByBlind: 1
-  targetComponent: {fileID: 5308994827055916601}
+  targetComponents:
+  - {fileID: 5308994827055916601}
 --- !u!114 &-93244624002477063
 MonoBehaviour:
   m_ObjectHideFlags: 0
