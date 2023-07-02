@@ -755,4 +755,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82f7e356e1bed6f46881e94eb5d14df4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShouldBeSeenByBlind: 1
+  shouldBeSeenByBlind: 1
+  targetComponents:
+  - {fileID: 5308994827055916601}

@@ -8,11 +8,12 @@ public class CharacterBasedObject : MonoBehaviour
     private bool shouldBeSeenByBlind = true;
     [Tooltip("What component needs to be deactivated. Leave null for whole game object")]
     [SerializeField]
-    private MonoBehaviour targetComponent;
+    private MonoBehaviour[] targetComponents;
 
     private void Start()
     {
         ActionsManager.SubscribeToAction(CameraManager.ON_CHARACTER_SWITCH_KEY, OnCharacterSwitch);
+        OnCharacterSwitch(CameraManager.IsFollowingBlind);
     }
 
     private void OnDestroy()
@@ -34,11 +35,15 @@ public class CharacterBasedObject : MonoBehaviour
             throw;
         }
 
-        if (targetComponent != null)
+        foreach (var targetComponent in targetComponents)
         {
-            targetComponent.enabled = isBlind == shouldBeSeenByBlind;
+            if (targetComponent != null)
+            {
+                targetComponent.enabled = isBlind == shouldBeSeenByBlind;
+            }
         }
-        else
+       
+        if(targetComponents.Length==0)
         {
             gameObject.SetActive(isBlind == shouldBeSeenByBlind);
         }

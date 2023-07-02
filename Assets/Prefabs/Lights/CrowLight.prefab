@@ -757,4 +757,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldBeSeenByBlind: 1
-  targetComponent: {fileID: 5308994827055916601}
+  targetComponents:
+  - {fileID: 5308994827055916601}
