@@ -621,7 +621,6 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: 55f0b3a29d84a4e449ae0b8ba52cfb00, type: 3}
   PlayOnAwake: 1
-  source: {fileID: 0}
 --- !u!82 &4115599723001693069
 AudioSource:
   m_ObjectHideFlags: 0
@@ -759,7 +758,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldBeSeenByBlind: 1
-  targetComponent: {fileID: 0}
+  targetComponents:
+  - {fileID: 5308994827055916601, guid: 1b629f17f5cfa4842b1f5c34b3c1ffdd, type: 3}
 --- !u!1 &6728603515153670075
 GameObject:
   m_ObjectHideFlags: 0
