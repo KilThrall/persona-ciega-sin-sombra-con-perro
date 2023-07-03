@@ -51,14 +51,9 @@ public class CharacterBasedObject : MonoBehaviour
             if (targetComponent != null)
             {
                 targetComponent.enabled = isBlind == shouldBeSeenByBlind;
-                source.Mute(!(isBlind == shouldBeSeenByBlind));
             }
         }
-       
-        if(targetComponents.Length==0)
-        {
-            gameObject.SetActive(isBlind == shouldBeSeenByBlind);
-            source.Mute(!(isBlind == shouldBeSeenByBlind));
-        }
+
+        source.Mute(!(isBlind == shouldBeSeenByBlind));
     }
 }
