@@ -638,6 +638,7 @@ GameObject:
   - component: {fileID: 1762368474}
   - component: {fileID: 1762368475}
   - component: {fileID: 1762368483}
+  - component: {fileID: 6145596965267497030}
   m_Layer: 3
   m_Name: 'Blind '
   m_TagString: Blind
@@ -873,6 +874,22 @@ MonoBehaviour:
   ligthToFade: {fileID: 1880150580}
   fadeSpeed: 1
   lightMaxIntensity: 1
+--- !u!114 &6145596965267497030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6273823577838093011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08597357a04301e48b45fa1dbabc8c7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeDuration: 1
+  fadeInPrefab: {fileID: 6682547873381981971, guid: f5811acea2ef1b544aa6213ae960ce93, type: 3}
+  fadeOutPrefab: {fileID: 8613805342009996131, guid: 530b180f2faa71d4d87c38c021e6c706, type: 3}
+  DebugSceneName: Main Menu
 --- !u!1 &6273823578000710046
 GameObject:
   m_ObjectHideFlags: 0
