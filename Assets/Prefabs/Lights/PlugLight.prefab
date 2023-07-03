@@ -759,3 +759,4 @@ MonoBehaviour:
   shouldBeSeenByBlind: 1
   targetComponents:
   - {fileID: 5308994827055916601}
+  - {fileID: 5308994827055916601}
