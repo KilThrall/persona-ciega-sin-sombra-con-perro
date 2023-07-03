@@ -632,7 +632,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.02
+  m_Volume: 0.01
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -728,7 +728,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e432dbeb1e9b69446a0def7bb380d16e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxDistance: 10
+  MaxDistance: 7
 --- !u!114 &-1779524246743283972
 MonoBehaviour:
   m_ObjectHideFlags: 0

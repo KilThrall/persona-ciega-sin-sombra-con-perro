@@ -48,5 +48,5 @@ MonoBehaviour:
   spawnPosition: {fileID: 9193405880569686003}
   soundPrefab: {fileID: 6706706918502213083, guid: 8ddff9db11caefa4b954ff35fb516038, type: 3}
   mustRepeatSound: 1
-  soundRepetitionCooldown: 0
+  soundRepetitionCooldown: 3
   setupTime: 0
