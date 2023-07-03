@@ -744,7 +744,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LightDuration: 4
   lightFallOffDuration: 4
-  targetScale: {x: 1.5, y: 1.5}
+  targetScale: {x: 50, y: 50}
 --- !u!114 &5265132807603479838
 MonoBehaviour:
   m_ObjectHideFlags: 0

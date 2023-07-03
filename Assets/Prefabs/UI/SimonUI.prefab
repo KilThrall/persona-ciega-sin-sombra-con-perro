@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position: 2
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: 8cc33d94231fe464cb6fcd888eac3b15, type: 3}
   ui: {fileID: 9034872068567970008}
   actionKeyModifier: Simon
 --- !u!1 &1422036115931929222
@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position: 0
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: 8cc33d94231fe464cb6fcd888eac3b15, type: 3}
   ui: {fileID: 9034872068567970008}
   actionKeyModifier: Simon
 --- !u!1 &2260341129889948746
@@ -411,7 +411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position: 3
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: 8cc33d94231fe464cb6fcd888eac3b15, type: 3}
   ui: {fileID: 9034872068567970008}
   actionKeyModifier: Simon
 --- !u!1 &5891417111905450458
@@ -639,6 +639,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position: 1
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: 8cc33d94231fe464cb6fcd888eac3b15, type: 3}
   ui: {fileID: 9034872068567970008}
   actionKeyModifier: Simon
