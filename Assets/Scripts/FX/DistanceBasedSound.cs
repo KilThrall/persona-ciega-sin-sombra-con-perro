@@ -11,9 +11,12 @@ public class DistanceBasedSound : MonoBehaviour
 
     private bool isMuted;
 
+    private float baseMaxVolume;
+
     private void Awake()
     {
         source = GetComponent<AudioSource>();
+        baseMaxVolume = source.volume;
     }
 
     private void Update()
@@ -31,7 +34,7 @@ public class DistanceBasedSound : MonoBehaviour
         }
         var vol = 1-(dist / MaxDistance);
 
-        source.volume = vol;
+        source.volume = vol * baseMaxVolume;
     }
 
     public void Mute(bool muted)
