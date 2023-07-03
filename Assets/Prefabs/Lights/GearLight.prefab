@@ -618,7 +618,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: 13adb5a058d0c3b4cbbb3b4eca3c1d36, type: 3}
+  - {fileID: 8300000, guid: 379aa142a7948284babd0ae35b0ce0f4, type: 3}
   PlayOnAwake: 1
 --- !u!82 &4115599723001693069
 AudioSource:
