@@ -9,6 +9,8 @@ public class DistanceBasedSound : MonoBehaviour
 
     private AudioSource source;
 
+    private bool isMuted;
+
     private void Awake()
     {
         source = GetComponent<AudioSource>();
@@ -16,6 +18,11 @@ public class DistanceBasedSound : MonoBehaviour
 
     private void Update()
     {
+        if (isMuted)
+        {
+            source.volume = 0;
+            return;
+        }
         var dist = Vector2.Distance(transform.position, Camera.main.transform.position);
         if (dist > MaxDistance)
         {
@@ -25,5 +32,10 @@ public class DistanceBasedSound : MonoBehaviour
         var vol = 1-(dist / MaxDistance);
 
         source.volume = vol;
+    }
+
+    public void Mute(bool muted)
+    {
+        isMuted = muted;
     }
 }

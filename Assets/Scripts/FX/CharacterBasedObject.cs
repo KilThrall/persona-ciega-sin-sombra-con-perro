@@ -10,6 +10,17 @@ public class CharacterBasedObject : MonoBehaviour
     [SerializeField]
     private MonoBehaviour[] targetComponents;
 
+    [SerializeField]
+    private DistanceBasedSound source;
+
+    private void Awake()
+    {
+        if (source == null)
+        {
+            source = GetComponent<DistanceBasedSound>();
+        }
+    }
+
     private void Start()
     {
         ActionsManager.SubscribeToAction(CameraManager.ON_CHARACTER_SWITCH_KEY, OnCharacterSwitch);
@@ -40,12 +51,14 @@ public class CharacterBasedObject : MonoBehaviour
             if (targetComponent != null)
             {
                 targetComponent.enabled = isBlind == shouldBeSeenByBlind;
+                source.Mute(!(isBlind == shouldBeSeenByBlind));
             }
         }
        
         if(targetComponents.Length==0)
         {
             gameObject.SetActive(isBlind == shouldBeSeenByBlind);
+            source.Mute(!(isBlind == shouldBeSeenByBlind));
         }
     }
 }
